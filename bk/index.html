@@ -1,149 +1,376 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TABRANIJ — Buku Pegangan Metode GT</title>
-  <meta name="description" content="Buku pegangan grup investasi & trading menggunakan Metode GT (Grafik Tabranij)." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>TABRANIJ — Buku Pegangan Metode GT | Dokumentasi Modern</title>
+  <meta name="description" content="Dokumentasi teknis standar dunia untuk Buku Pegangan Metode GT (Grafik Tabranij). Analisis lilin harga, model TARI, rumus rentang matematis, dan manajemen risiko presisi." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/><text x='50' y='68' font-size='50' font-weight='bold' fill='white' text-anchor='middle'>GT</text></svg>" />
+  
+  <!-- CSS Design System -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-brand">
-        <a href="index.html">TABRANIJ</a>
-        <span>Buku Pegangan Metode GT</span>
+  <!-- Reading Progress Bar -->
+  <div id="progressBar"></div>
+
+  <!-- Mobile Drawer Backdrop -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <!-- Main Three-Column Layout Container -->
+  <div class="doc-container">
+
+    <!-- ==========================================
+         KOLOM 1 (KIRI): SIDEBAR NAVIGASI
+         ========================================== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#index" class="brand-wrapper">
+          <div class="brand-logo">丰</div>
+          <div class="brand-text">
+            <h1>TABRANIJ</h1>
+            <span>Metode GT · Docs</span>
+          </div>
+        </a>
+        <div class="version-badge">v3.2 PRO</div>
       </div>
 
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Beranda</div>
-        <div class="sidebar-section-links" style="display:block">
-          <a href="index.html" class="active">Ringkasan</a>
+      <!-- Quick Search Trigger Button (Ctrl + K) -->
+      <button type="button" class="search-trigger" id="searchTrigger" aria-label="Cari dokumentasi">
+        <div class="search-trigger-text">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Cari dokumentasi...</span>
         </div>
-      </div>
+        <kbd class="search-kbd">Ctrl K</kbd>
+      </button>
 
-      <div class="sidebar-section" data-section="fondasi">
-        <button type="button" class="sidebar-section-title">
-          I · Fondasi <span class="chevron">▶</span>
-        </button>
-        <div class="sidebar-section-links">
-          <a href="01-pengenalan.html">1. Pengenalan</a>
-          <a href="02-konsep-gt.html">2. Konsep Metode GT</a>
-          <a href="03-parameter-tabranij.html">3. Parameter TABRANIJ</a>
+      <!-- Navigation Tree -->
+      <nav class="sidebar-nav">
+        <!-- Beranda -->
+        <div class="nav-group open">
+          <button type="button" class="nav-group-title">
+            <span>Beranda</span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="nav-group-items">
+            <a href="#index" class="nav-link active" data-chapter="index">
+              <span>Ringkasan & Filosofi</span>
+              <span class="nav-link-num">00</span>
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div class="sidebar-section" data-section="grafik">
-        <button type="button" class="sidebar-section-title">
-          II · Membaca Grafik <span class="chevron">▶</span>
-        </button>
-        <div class="sidebar-section-links">
-          <a href="04-membaca-candle.html">4. Membaca Candle</a>
-          <a href="05-bias-arah-struktur.html">5. Bias, Arah, Struktur</a>
-          <a href="06-multi-candle-timeframe.html">6. Multi-Candle & TF</a>
+        <!-- Bagian I · Fondasi -->
+        <div class="nav-group open">
+          <button type="button" class="nav-group-title">
+            <span>I · Fondasi</span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="nav-group-items">
+            <a href="#01-pengenalan" class="nav-link" data-chapter="01-pengenalan">
+              <span>1. Pengenalan</span>
+              <span class="nav-link-num">01</span>
+            </a>
+            <a href="#02-konsep-gt" class="nav-link" data-chapter="02-konsep-gt">
+              <span>2. Konsep Metode GT</span>
+              <span class="nav-link-num">02</span>
+            </a>
+            <a href="#03-parameter-tabranij" class="nav-link" data-chapter="03-parameter-tabranij">
+              <span>3. Parameter TABRANIJ</span>
+              <span class="nav-link-num">03</span>
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div class="sidebar-section" data-section="eksekusi">
-        <button type="button" class="sidebar-section-title">
-          III · Eksekusi <span class="chevron">▶</span>
-        </button>
-        <div class="sidebar-section-links">
-          <a href="07-entry-exit.html">7. Entry & Exit</a>
-          <a href="08-manajemen-risiko.html">8. Manajemen Risiko</a>
-          <a href="09-contoh-kasus.html">9. Contoh Kasus</a>
+        <!-- Bagian II · Membaca Grafik -->
+        <div class="nav-group open">
+          <button type="button" class="nav-group-title">
+            <span>II · Membaca Grafik</span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="nav-group-items">
+            <a href="#04-membaca-candle" class="nav-link" data-chapter="04-membaca-candle">
+              <span>4. Membaca Candle</span>
+              <span class="nav-link-num">04</span>
+            </a>
+            <a href="#05-bias-arah-struktur" class="nav-link" data-chapter="05-bias-arah-struktur">
+              <span>5. Bias, Arah, Struktur</span>
+              <span class="nav-link-num">05</span>
+            </a>
+            <a href="#06-multi-candle-timeframe" class="nav-link" data-chapter="06-multi-candle-timeframe">
+              <span>6. Multi-Candle & TF</span>
+              <span class="nav-link-num">06</span>
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div class="sidebar-section" data-section="alat">
-        <button type="button" class="sidebar-section-title">
-          IV · Alat & Disiplin <span class="chevron">▶</span>
-        </button>
-        <div class="sidebar-section-links">
-          <a href="10-tool-visualizer.html">10. Tool Visualizer</a>
-          <a href="11-checklist-harian.html">11. Checklist Harian</a>
-          <a href="12-glosarium.html">12. Glosarium</a>
+        <!-- Bagian III · Eksekusi -->
+        <div class="nav-group open">
+          <button type="button" class="nav-group-title">
+            <span>III · Eksekusi</span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="nav-group-items">
+            <a href="#07-entry-exit" class="nav-link" data-chapter="07-entry-exit">
+              <span>7. Entry & Exit</span>
+              <span class="nav-link-num">07</span>
+            </a>
+            <a href="#08-manajemen-risiko" class="nav-link" data-chapter="08-manajemen-risiko">
+              <span>8. Manajemen Risiko</span>
+              <span class="nav-link-num">08</span>
+            </a>
+            <a href="#09-contoh-kasus" class="nav-link" data-chapter="09-contoh-kasus">
+              <span>9. Contoh Kasus</span>
+              <span class="nav-link-num">09</span>
+            </a>
+          </div>
         </div>
+
+        <!-- Bagian IV · Alat & Disiplin -->
+        <div class="nav-group open">
+          <button type="button" class="nav-group-title">
+            <span>IV · Alat & Disiplin</span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="nav-group-items">
+            <a href="#10-tool-visualizer" class="nav-link" data-chapter="10-tool-visualizer">
+              <span>10. Tool Visualizer</span>
+              <span class="nav-link-num">10</span>
+            </a>
+            <a href="#11-checklist-harian" class="nav-link" data-chapter="11-checklist-harian">
+              <span>11. Checklist Harian</span>
+              <span class="nav-link-num">11</span>
+            </a>
+            <a href="#12-glosarium" class="nav-link" data-chapter="12-glosarium">
+              <span>12. Glosarium</span>
+              <span class="nav-link-num">12</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bagian V · Finansial -->
+        <div class="nav-group open">
+          <button type="button" class="nav-group-title">
+            <span>V · Finansial</span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="nav-group-items">
+            <a href="#13-nasihat-investasi" class="nav-link" data-chapter="13-nasihat-investasi">
+              <span>13. Nasihat Investasi</span>
+              <span class="nav-link-num">13</span>
+            </a>
+            <a href="#14-jurnal-trading" class="nav-link" data-chapter="14-jurnal-trading">
+              <span>14. Jurnal Trading</span>
+              <span class="nav-link-num">14</span>
+            </a>
+            <a href="#15-mengelola-keuntungan" class="nav-link" data-chapter="15-mengelola-keuntungan">
+              <span>15. Mengelola Keuntungan</span>
+              <span class="nav-link-num">15</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Sidebar Footer Links -->
+      <div class="sidebar-footer">
+        <a href="https://surgabot.github.io/tabranij/" target="_blank" rel="noopener" class="sidebar-action-btn">
+          <span>✨ Lab 3D</span>
+        </a>
+        <a href="https://github.com/surgabot/surgabot.github.io" target="_blank" rel="noopener" class="sidebar-action-btn">
+          <span>GitHub</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         KOLOM 2 (TENGAH): MAIN DOCUMENTATION AREA
+         ========================================== -->
+    <main class="main-wrapper">
+      <!-- Sticky Top Bar for Navigation & Mobile Controls -->
+      <header class="top-nav">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Buka Menu">
+            ☰
+          </button>
+          <div class="breadcrumbs">
+            <a href="#index">Dokumentasi</a>
+            <span class="separator">/</span>
+            <span id="breadcrumbCategory">Beranda</span>
+            <span class="separator">/</span>
+            <span class="current" id="breadcrumbCurrent">Ringkasan</span>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <button type="button" class="sidebar-action-btn" id="themeToggleBtn" title="Beralih Tema">
+            ☀️ Terang
+          </button>
+          <button type="button" class="mobile-code-btn" id="mobileCodeBtn" aria-label="Buka Panel Kode">
+            💻 Simulator & Kode
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Dynamic Content Article -->
+      <article class="content-article">
+        <div id="contentArea">
+          <!-- Dynamically populated by app.js from chapters.js -->
+        </div>
+
+        <!-- Bottom Prev / Next Pagination Cards -->
+        <div class="pagination-container" id="paginationContainer"></div>
+
+        <!-- Document Footer -->
+        <footer class="article-footer">
+          <div>Metode GT · <strong>TABRANIJ Pro</strong></div>
+          <div>Buku Pegangan Edisi Grup Investasi & Trading</div>
+        </footer>
+      </article>
+    </main>
+
+    <!-- ==========================================
+         KOLOM 3 (KANAN): CODE & SPEC PREVIEW PANEL
+         ========================================== -->
+    <aside class="code-panel" id="codePanel">
+      <div class="panel-header">
+        <div class="panel-tabs">
+          <button type="button" class="panel-tab-btn active" id="tabBtnSpec">
+            <span>📐 Rumus</span>
+          </button>
+          <button type="button" class="panel-tab-btn" id="tabBtnCode">
+            <span>💻 Kode</span>
+          </button>
+          <button type="button" class="panel-tab-btn" id="tabBtnSim">
+            <span>⚡ Simulator</span>
+          </button>
+        </div>
+
+        <button type="button" class="copy-btn" id="copyCodeBtn" title="Salin Kode">
+          <span>📋 Salin</span>
+        </button>
       </div>
 
-      <div class="sidebar-section" data-section="finansial">
-        <button type="button" class="sidebar-section-title">
-          V · Finansial <span class="chevron">▶</span>
-        </button>
-        <div class="sidebar-section-links">
-          <a href="13-nasihat-investasi.html">13. Nasihat Investasi</a>
-          <a href="14-jurnal-trading.html">14. Jurnal Trading</a>
-          <a href="15-mengelola-keuntungan.html">15. Mengelola Keuntungan</a>
+      <div class="panel-body">
+        <!-- TAB 1: RUMUS & SPEK PARAMETER -->
+        <div class="tab-pane active" id="paneSpec">
+          <div id="specContent">
+            <!-- Dynamically populated per chapter -->
+          </div>
+        </div>
+
+        <!-- TAB 2: CODE SNIPPET (JS, PYTHON, PINESCRIPT) -->
+        <div class="tab-pane" id="paneCode">
+          <div class="lang-pills">
+            <button type="button" class="lang-pill active" data-lang="javascript">JavaScript</button>
+            <button type="button" class="lang-pill" data-lang="python">Python</button>
+            <button type="button" class="lang-pill" data-lang="pinescript">Pine Script</button>
+          </div>
+          <pre class="code-container"><code id="codeContent"></code></pre>
+        </div>
+
+        <!-- TAB 3: LIVE INTERACTIVE TABRANIJ CALCULATOR -->
+        <div class="tab-pane" id="paneSim">
+          <div class="simulator-box">
+            <div style="font-size:0.75rem; font-weight:700; color:#38bdf8; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.6rem;">
+              ⚡ Live Tester TARI
+            </div>
+
+            <!-- Presets -->
+            <div class="sim-presets">
+              <button type="button" class="preset-btn" data-preset="bullish">🟢 Bullish</button>
+              <button type="button" class="preset-btn" data-preset="bearish">🔴 Bearish</button>
+              <button type="button" class="preset-btn" data-preset="hammer">🔨 Hammer</button>
+              <button type="button" class="preset-btn" data-preset="doji">⚖️ Doji</button>
+              <button type="button" class="preset-btn" data-preset="star">⭐ Shooting Star</button>
+            </div>
+
+            <!-- Inputs (T A R I) -->
+            <div class="inputs-grid">
+              <div class="input-field">
+                <label class="input-label" for="simT">Tinggi <span>T (High)</span></label>
+                <input type="number" id="simT" class="sim-input" value="68000" step="10" />
+              </div>
+              <div class="input-field">
+                <label class="input-label" for="simA">Awal <span>A (Open)</span></label>
+                <input type="number" id="simA" class="sim-input" value="65000" step="10" />
+              </div>
+              <div class="input-field">
+                <label class="input-label" for="simR">Rendah <span>R (Low)</span></label>
+                <input type="number" id="simR" class="sim-input" value="64800" step="10" />
+              </div>
+              <div class="input-field">
+                <label class="input-label" for="simI">Inti <span>I (Close)</span></label>
+                <input type="number" id="simI" class="sim-input" value="67800" step="10" />
+              </div>
+            </div>
+
+            <!-- Metrics Output (Atas, Neto, Bawah, Julat) -->
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <span class="metric-label">Atas</span>
+                <span class="metric-val" id="valAtas">200</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Neto</span>
+                <span class="metric-val" id="valNeto">2800</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Bawah</span>
+                <span class="metric-val" id="valBawah">200</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Julat</span>
+                <span class="metric-val" id="valJulat">3200</span>
+              </div>
+            </div>
+
+            <!-- Bias Banner -->
+            <div class="bias-card bullish" id="biasCard">
+              <span id="biasText">🟢 BIAS NAIK / BULLISH (Inti ≥ Awal)</span>
+            </div>
+
+            <!-- Identity Check -->
+            <div class="identity-badge valid" id="identityBadge">
+              ✓ Identitas Valid (Julat = Atas + Neto + Bawah)
+            </div>
+
+            <!-- Visual SVG Candle -->
+            <div class="candle-preview">
+              <svg class="candle-svg" id="candleSvg" viewBox="0 0 280 140"></svg>
+            </div>
+          </div>
         </div>
       </div>
     </aside>
 
-    <main class="main">
-      <div class="hero">
-        <div class="badge">METODE GT · GRAFIK TABRANIJ</div>
-        <h1>TABRANIJ</h1>
-        <p style="color: var(--muted); margin-bottom: 0.5rem;">Buku Pegangan Grup Investasi & Trading · Bab 1–15</p>
-
-        <div class="letters">
-          <div class="letter">T</div><div class="letter">A</div><div class="letter">B</div><div class="letter">R</div>
-          <div class="letter">A</div><div class="letter">N</div><div class="letter">I</div><div class="letter">J</div>
-        </div>
-
-        <p style="color: var(--muted); max-width: 480px; margin: 0 auto 1.5rem;">
-          Sistem kode visual untuk membaca anatomi satu lilin harga secara cepat, konsisten, dan bilingual.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2 style="margin-top:0; color: var(--accent2); font-size: 1.1rem;">Parameter TABRANIJ</h2>
-        <table>
-          <thead><tr><th>Huruf</th><th>Nama</th><th>Arti</th></tr></thead>
-          <tbody>
-            <tr><td><strong>T</strong></td><td>Tinggi</td><td>Harga tertinggi periode</td></tr>
-            <tr><td><strong>A</strong></td><td>Atas</td><td>max(Awal, Inti) — tepi atas tubuh</td></tr>
-            <tr><td><strong>B</strong></td><td>Bawah</td><td>min(Awal, Inti) — tepi bawah tubuh</td></tr>
-            <tr><td><strong>R</strong></td><td>Rendah</td><td>Harga terendah periode</td></tr>
-            <tr><td><strong>A</strong></td><td>Awal</td><td>Harga pembuka</td></tr>
-            <tr><td><strong>N</strong></td><td>Neto</td><td>|Inti − Awal| — tubuh kristal</td></tr>
-            <tr><td><strong>I</strong></td><td>Inti</td><td>Harga kini / penutupan</td></tr>
-            <tr><td><strong>J</strong></td><td>Julat</td><td>Tinggi − Rendah — seluruh tinggi</td></tr>
-          </tbody>
-        </table>
-        <p style="margin: 0.75rem 0 0; color: var(--muted); font-size: 0.9rem;">
-          <strong>Identitas:</strong> Julat = Atas + Neto + Bawah &nbsp;·&nbsp; <strong>Bias:</strong> Inti ≷ Awal
-        </p>
-      </div>
-
-      <p style="color: var(--muted); font-size: 0.95rem;">
-        Klik bagian di sidebar kiri untuk membuka daftar bab, lalu pilih bab yang ingin dibaca.
-        Atau mulai dari <a href="01-pengenalan.html" style="color: var(--accent2);">Bab 1 — Pengenalan</a>.
-      </p>
-
-      <p style="margin-top: 1.5rem;">
-        <a href="https://surgabot.github.io/tabranij/" style="color: var(--accent2); margin-right: 1.25rem;">Lab Kristal 3D</a>
-        <a href="https://github.com/surgabot/bk" style="color: var(--accent2);">Repository</a>
-      </p>
-
-      <footer class="page-footer">
-        <p><a href="https://github.com/surgabot">Surga Bot</a> · Metode GT · TABRANIJ</p>
-      </footer>
-    </main>
   </div>
 
-  <script>
-    document.querySelectorAll('.sidebar-section-title').forEach(btn => {
-      if (btn.tagName !== 'BUTTON') return;
-      btn.addEventListener('click', () => {
-        const section = btn.closest('.sidebar-section');
-        section.classList.toggle('open');
-      });
-    });
-    // Auto-open section that contains the active link
-    const active = document.querySelector('.sidebar a.active');
-    if (active) {
-      const sec = active.closest('.sidebar-section');
-      if (sec) sec.classList.add('open');
-    }
-  </script>
+  <!-- ==========================================
+       GLOBAL SEARCH MODAL (CTRL + K)
+       ========================================== -->
+  <div class="modal-overlay" id="searchModal">
+    <div class="search-modal">
+      <div class="search-input-wrapper">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="search-input-field" id="searchInput" placeholder="Cari bab, konsep, formula, TARI..." autocomplete="off" />
+        <button type="button" class="copy-btn" id="closeSearchModal" style="padding:0.25rem 0.5rem">ESC</button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+      <div class="modal-footer">
+        <span>Tekan <kbd class="search-kbd">↑</kbd> <kbd class="search-kbd">↓</kbd> untuk memilih</span>
+        <span><kbd class="search-kbd">ESC</kbd> untuk menutup</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="chapters.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
