@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabel Penggulungan Profit 10% | Modal $5 | 91 Hari</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #0f172a;
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --accent-soft: #ecfdf5;
+      --accent-border: #a7f3d0;
+      --border: #e2e8f0;
+      --highlight: #f0fdf4;
+      --row-checked: #f0fdf4;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --weekend-bg: #fef2f2;
+      --weekend-text: #ef4444;
+      --badge-today: #3b82f6;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0b0f19;
+      --card-bg: #131b2e;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #f8fafc;
+      --accent: #10b981;
+      --accent-hover: #34d399;
+      --accent-soft: #064e3b33;
+      --accent-border: #065f46;
+      --border: #1e293b;
+      --highlight: #064e3b40;
+      --row-checked: #064e3b25;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+      --weekend-bg: #450a0a33;
+      --weekend-text: #f87171;
+      --badge-today: #60a5fa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background 0.3s, color 0.3s;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-title-group h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge-compound {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .theme-toggle, .btn-action {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 9px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      color: var(--text);
+      font-weight: 600;
+      font-family: inherit;
+    }
+
+    .theme-toggle:hover, .btn-action:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: var(--accent);
+    }
+
+    /* Summary Grid */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .card-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 700;
+    }
+
+    .card-value {
+      font-size: 1.45rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.03em;
+    }
+
+    .card-value.profit {
+      color: var(--accent);
+    }
+
+    .card-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Progress Tracker Card */
+    .progress-card {
+      grid-column: span 2;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .progress-card {
+        grid-column: span 1;
+      }
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .progress-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.6px;
+    }
+
+    .progress-percent {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 10px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #10b981, #059669);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .controls-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .date-picker-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .date-picker-group label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .date-picker-group input[type="date"] {
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 180px;
+      max-width: 260px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px 14px 8px 36px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.82rem;
+      opacity: 0.7;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 600;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .filter-btn:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .controls-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 600;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary:hover {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      color: #dc2626;
+    }
+
+    [data-theme="dark"] .btn-secondary:hover {
+      background: #450a0a;
+      border-color: #991b1b;
+      color: #fca5a5;
+    }
+
+    /* Table Container */
+    .table-wrapper {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .table-scroll {
+      max-height: 68vh;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--primary);
+      color: white;
+    }
+
+    [data-theme="dark"] thead {
+      background: #1e293b;
+    }
+
+    th {
+      padding: 13px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    tbody tr {
+      transition: background 0.15s, opacity 0.2s;
+    }
+
+    tbody tr:hover {
+      background: var(--accent-soft);
+    }
+
+    /* Checked Row Styling */
+    tbody tr.row-completed {
+      background: var(--row-checked);
+    }
+
+    tbody tr.row-completed td {
+      color: var(--text-muted);
+    }
+
+    tbody tr.row-completed .day-title {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    tbody tr.row-completed .profit-cell {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    tbody tr.highlight-final {
+      background: var(--highlight) !important;
+      font-weight: 700;
+      border-left: 4px solid var(--accent);
+    }
+
+    tbody tr.highlight-final td {
+      color: var(--accent);
+      font-size: 0.98rem;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    .profit-cell {
+      color: var(--accent);
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Custom Checkbox */
+    .checklist-cell {
+      width: 44px;
+      text-align: center;
+    }
+
+    .custom-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--text-muted);
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+      display: inline-grid;
+      place-content: center;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: var(--card-bg);
+      vertical-align: middle;
+    }
+
+    .custom-checkbox:hover {
+      border-color: var(--accent);
+      transform: scale(1.08);
+    }
+
+    .custom-checkbox:checked {
+      background-color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .custom-checkbox:checked::before {
+      content: "";
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid white;
+      border-bottom: 2px solid white;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+
+    .checkbox-initial {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Date and Day badges */
+    .date-cell-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .day-name-badge {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .day-name-badge.weekend {
+      background: var(--weekend-bg);
+      color: var(--weekend-text);
+      border-color: transparent;
+    }
+
+    .badge-today {
+      background: #eff6ff;
+      color: var(--badge-today);
+      border: 1px solid #bfdbfe;
+      font-size: 0.72rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    [data-theme="dark"] .badge-today {
+      background: #1e3a8a33;
+      border-color: #1e40af;
+    }
+
+    /* Status Pills */
+    .status-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .status-pill.done {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+    }
+
+    .status-pill.pending {
+      background: var(--bg);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .status-pill.initial {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    [data-theme="dark"] .status-pill.initial {
+      background: #082f4940;
+      color: #38bdf8;
+      border-color: #0369a1;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--primary);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 100;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 992px) {
+      .table-scroll { max-height: 60vh; }
+      .header-title-group h1 { font-size: 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 14px 10px; }
+      .controls-panel { flex-direction: column; align-items: stretch; }
+      .controls-left, .controls-right { width: 100%; }
+      .search-box { max-width: 100%; }
+      th, td { padding: 10px 10px; font-size: 0.82rem; }
+      .card-value { font-size: 1.25rem; }
+    }
+
+    /* Print Styles */
+    @media print {
+      body { background: white; color: black; padding: 0; }
+      .theme-toggle, .controls-panel, .header-actions, .progress-bar-bg { display: none !important; }
+      .table-scroll { max-height: none; overflow: visible; }
+      table { font-size: 9pt; }
+      th, td { padding: 4px 6px; }
+      .table-wrapper { box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-title-group">
+        <h1>
+          Tabel Penggulungan Profit 10%
+          <span class="badge-compound">Compound Daily</span>
+        </h1>
+        <p class="subtitle">
+          <span>Modal Awal: <strong>$5.00</strong></span> • 
+          <span>Target Harian: <strong>10%</strong></span> • 
+          <span>Durasi: <strong>91 Hari</strong></span> • 
+          <span>Mulai: <strong id="startDateText">Selasa, 22 September 2026</strong></span>
+        </p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-action" id="btnExportCsv" title="Unduh Data CSV (Excel)">
+          <span>📥</span>
+          <span>Unduh CSV</span>
+        </button>
+        <button class="btn-action" id="btnPrint" title="Cetak Tabel">
+          <span>🖨️</span>
+          <span>Cetak / PDF</span>
+        </button>
+        <button class="theme-toggle" id="themeToggle">
+          <span id="themeIcon">🌙</span>
+          <span id="themeText">Dark Mode</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Summary Grid -->
+    <div class="summary-grid">
+      <div class="card">
+        <div class="card-label">Modal Awal</div>
+        <div class="card-value" id="modalAwal">$5.00</div>
+        <div class="card-sub">Hari ke-0 (Deposit)</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Target Akhir (H-91)</div>
+        <div class="card-value profit" id="saldoAkhirTarget">$0.00</div>
+        <div class="card-sub" id="targetDateText">21 Des 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Target Total Profit</div>
+        <div class="card-value profit" id="totalProfitTarget">$0.00</div>
+        <div class="card-sub" id="persentaseTarget">+0%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Saldo Realisasi Saat Ini</div>
+        <div class="card-value" id="currentRealizedBalance" style="color: #3b82f6;">$5.00</div>
+        <div class="card-sub" id="currentRealizedDay">Belum ada hari diceklis</div>
+      </div>
+      <div class="progress-card">
+        <div class="progress-header">
+          <span class="progress-title">Progress Target Harian</span>
+          <span class="progress-percent" id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+        <div class="progress-info">
+          <span id="progressCount">0 dari 91 hari tercapai</span>
+          <span id="realizedProfitText">Profit Realisasi: $0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="controls-panel">
+      <div class="controls-left">
+        <!-- Date Selector -->
+        <div class="date-picker-group">
+          <label for="startDateInput">📅 Tanggal Mulai:</label>
+          <input type="date" id="startDateInput" value="2026-09-22" />
+        </div>
+
+        <!-- Search Input -->
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Cari hari, tanggal, bulan..." />
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="btn-group">
+          <button class="filter-btn active" data-filter="all">Semua</button>
+          <button class="filter-btn" data-filter="uncompleted">⏳ Belum</button>
+          <button class="filter-btn" data-filter="completed">✅ Selesai</button>
+          <button class="filter-btn" data-filter="5">Tiap 5 Hari</button>
+          <button class="filter-btn" data-filter="10">Tiap 10 Hari</button>
+        </div>
+      </div>
+
+      <div class="controls-right">
+        <button class="btn-secondary" id="btnCheckAllUntilToday" title="Ceklis otomatis sampai hari ini">
+          <span>⚡</span> Ceklis Sampai Hari Ini
+        </button>
+        <button class="btn-secondary" id="btnResetChecklist" title="Kosongkan semua tanda ceklis">
+          <span>🔄</span> Reset Ceklis
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-wrapper">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 50px;">Cek</th>
+              <th style="width: 80px;">Hari</th>
+              <th>Hari & Tanggal</th>
+              <th class="text-right">Saldo Awal</th>
+              <th class="text-right">Target Profit (10%)</th>
+              <th class="text-right">Target Saldo Akhir</th>
+              <th class="text-right">Profit Kumulatif</th>
+              <th class="text-center" style="width: 120px;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toastMessage">Progress berhasil disimpan!</div>
+
+  <script>
+    // ======================
+    // KONFIGURASI AWAL
+    // ======================
+    const MODAL = 5;
+    const RATE = 0.10;
+    const TOTAL_DAYS = 91;
+
+    // Nama hari dan bulan dalam Bahasa Indonesia
+    const NAMA_HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const NAMA_BULAN = [
+      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ];
+    const NAMA_BULAN_PENDEK = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+      'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'
+    ];
+
+    // Format Mata Uang USD
+    const currencyFormat = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    // Format Persentase
+    const percentFormat = new Intl.NumberFormat('id-ID', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    // Ambil start date dari localStorage atau gunakan default 2026-09-22
+    let startDateStr = localStorage.getItem('compound_start_date') || '2026-09-22';
+    document.getElementById('startDateInput').value = startDateStr;
+
+    // Ambil checklist dari localStorage
+    let checkedDays = JSON.parse(localStorage.getItem('compound_checklist_v1') || '{}');
+
+    // ======================
+    // FUNGSI TANGGAL
+    // ======================
+    function parseDate(dateString) {
+      const [y, m, d] = dateString.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
+
+    function formatDateIndo(date, withDayName = true, shortMonth = true) {
+      const dayName = NAMA_HARI[date.getDay()];
+      const day = date.getDate();
+      const month = shortMonth ? NAMA_BULAN_PENDEK[date.getMonth()] : NAMA_BULAN[date.getMonth()];
+      const year = date.getFullYear();
+
+      if (withDayName) {
+        return `${dayName}, ${day} ${month} ${year}`;
+      }
+      return `${day} ${month} ${year}`;
+    }
+
+    function isSameDate(d1, d2) {
+      return d1.getFullYear() === d2.getFullYear() &&
+             d1.getMonth() === d2.getMonth() &&
+             d1.getDate() === d2.getDate();
+    }
+
+    // ======================
+    // GENERATE DATA
+    // ======================
+    function generateData() {
+      const data = [];
+      let saldo = MODAL;
+      const baseDate = parseDate(startDateStr);
+
+      for (let hari = 0; hari <= TOTAL_DAYS; hari++) {
+        // Tanggal: Hari 0 = Hari Deposit (tanggal mulai)
+        // Hari 1 = Hari trading pertama (tanggal mulai)
+        // Hari 2 = tanggal mulai + 1 hari, dst.
+        const rowDate = new Date(baseDate);
+        if (hari > 0) {
+          rowDate.setDate(baseDate.getDate() + (hari - 1));
+        }
+
+        const saldoAwal = hari === 0 ? MODAL : saldo;
+        const profitHariIni = hari === 0 ? 0 : saldoAwal * RATE;
+        const saldoAkhir = hari === 0 ? MODAL : saldoAwal + profitHariIni;
+        const profitKumulatif = saldoAkhir - MODAL;
+
+        data.push({
+          hari,
+          date: rowDate,
+          isWeekend: rowDate.getDay() === 0 || rowDate.getDay() === 6,
+          saldoAwal,
+          profitHariIni,
+          saldoAkhir,
+          profitKumulatif
+        });
+
+        saldo = saldoAkhir;
+      }
+      return data;
+    }
+
+    let allData = generateData();
+
+    // ======================
+    // RENDER SUMMARY & PROGRESS
+    // ======================
+    function updateSummary() {
+      const lastRow = allData[allData.length - 1];
+      const baseDate = parseDate(startDateStr);
+      
+      // Update header info
+      document.getElementById('startDateText').textContent = formatDateIndo(baseDate, true, false);
+      document.getElementById('modalAwal').textContent = currencyFormat.format(MODAL);
+      document.getElementById('saldoAkhirTarget').textContent = currencyFormat.format(lastRow.saldoAkhir);
+      document.getElementById('targetDateText').textContent = `Target: ${formatDateIndo(lastRow.date, true, true)}`;
+      document.getElementById('totalProfitTarget').textContent = `+${currencyFormat.format(lastRow.profitKumulatif)}`;
+      
+      const persenTotal = ((lastRow.saldoAkhir / MODAL - 1) * 100);
+      document.getElementById('persentaseTarget').textContent = `+${percentFormat.format(persenTotal)}%`;
+
+      // Hitung progress ceklis
+      let completedCount = 0;
+      let lastCheckedDay = 0;
+      let realizedProfit = 0;
+      let currentBalance = MODAL;
+
+      for (let h = 1; h <= TOTAL_DAYS; h++) {
+        if (checkedDays[h]) {
+          completedCount++;
+          if (h > lastCheckedDay) {
+            lastCheckedDay = h;
+          }
+        }
+      }
+
+      if (lastCheckedDay > 0) {
+        const checkedRow = allData.find(d => d.hari === lastCheckedDay);
+        if (checkedRow) {
+          currentBalance = checkedRow.saldoAkhir;
+          realizedProfit = checkedRow.profitKumulatif;
+        }
+      }
+
+      const progressPercentage = ((completedCount / TOTAL_DAYS) * 100).toFixed(1);
+
+      document.getElementById('progressPercent').textContent = `${progressPercentage}%`;
+      document.getElementById('progressBarFill').style.width = `${progressPercentage}%`;
+      document.getElementById('progressCount').textContent = `${completedCount} dari ${TOTAL_DAYS} hari tercapai`;
+      document.getElementById('realizedProfitText').textContent = `Profit Realisasi: +${currencyFormat.format(realizedProfit)}`;
+      document.getElementById('currentRealizedBalance').textContent = currencyFormat.format(currentBalance);
+      
+      if (lastCheckedDay === 0) {
+        document.getElementById('currentRealizedDay').textContent = 'Belum ada target diceklis';
+      } else {
+        const checkedRow = allData.find(d => d.hari === lastCheckedDay);
+        document.getElementById('currentRealizedDay').textContent = `Hari ke-${lastCheckedDay} • ${formatDateIndo(checkedRow.date, true, true)}`;
+      }
+    }
+
+    // ======================
+    // TOAST NOTIFICATION
+    // ======================
+    let toastTimeout;
+    function showToast(msg) {
+      const toast = document.getElementById('toastMessage');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+
+    // ======================
+    // RENDER TABLE
+    // ======================
+    function renderTable(data) {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      const today = new Date();
+
+      data.forEach((row) => {
+        const tr = document.createElement('tr');
+        const isChecked = !!checkedDays[row.hari];
+        const isToday = isSameDate(row.date, today);
+
+        if (isChecked && row.hari > 0) {
+          tr.classList.add('row-completed');
+        }
+        if (row.hari === TOTAL_DAYS) {
+          tr.classList.add('highlight-final');
+        }
+
+        // Checklist HTML
+        let checkColHtml = '';
+        if (row.hari === 0) {
+          checkColHtml = `<input type="checkbox" class="custom-checkbox checkbox-initial" checked disabled title="Modal Awal Deposit" />`;
+        } else {
+          checkColHtml = `<input type="checkbox" class="custom-checkbox row-checkbox" data-day="${row.hari}" ${isChecked ? 'checked' : ''} title="Tandai Hari ke-${row.hari} tercapai" />`;
+        }
+
+        // Status Badge HTML
+        let statusHtml = '';
+        if (row.hari === 0) {
+          statusHtml = `<span class="status-pill initial">Deposit Awal</span>`;
+        } else if (isChecked) {
+          statusHtml = `<span class="status-pill done">✓ Selesai</span>`;
+        } else {
+          statusHtml = `<span class="status-pill pending">Menunggu</span>`;
+        }
+
+        // Date Display
+        const dayName = NAMA_HARI[row.date.getDay()];
+        const dateFormatted = `${row.date.getDate()} ${NAMA_BULAN_PENDEK[row.date.getMonth()]} ${row.date.getFullYear()}`;
+        const weekendClass = row.isWeekend ? 'weekend' : '';
+
+        const dateHtml = `
+          <div class="date-cell-wrapper">
+            <span class="day-name-badge ${weekendClass}">${dayName}</span>
+            <span>${dateFormatted}</span>
+            ${isToday ? '<span class="badge-today">Hari Ini</span>' : ''}
+            ${row.hari === 0 ? '<span style="font-size: 0.75rem; color: var(--text-muted);">(Mulai)</span>' : ''}
+          </div>
+        `;
+
+        tr.innerHTML = `
+          <td class="checklist-cell">${checkColHtml}</td>
+          <td><strong class="day-title">Hari ${row.hari}</strong></td>
+          <td>${dateHtml}</td>
+          <td class="text-right font-mono">${currencyFormat.format(row.saldoAwal)}</td>
+          <td class="text-right profit-cell">${row.profitHariIni > 0 ? '+' + currencyFormat.format(row.profitHariIni) : '$0.00'}</td>
+          <td class="text-right font-mono" style="font-weight: 700;">${currencyFormat.format(row.saldoAkhir)}</td>
+          <td class="text-right profit-cell">+${currencyFormat.format(row.profitKumulatif)}</td>
+          <td class="text-center">${statusHtml}</td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      // Pasang event listener untuk checkbox
+      document.querySelectorAll('.row-checkbox').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          const day = parseInt(e.target.getAttribute('data-day'));
+          if (e.target.checked) {
+            checkedDays[day] = true;
+          } else {
+            delete checkedDays[day];
+          }
+          saveChecklistState();
+          updateSummary();
+          applyFilter(false); // Refresh row display
+        });
+      });
+    }
+
+    function saveChecklistState() {
+      localStorage.setItem('compound_checklist_v1', JSON.stringify(checkedDays));
+    }
+
+    // ======================
+    // FILTER & SEARCH LOGIC
+    // ======================
+    let currentFilter = 'all';
+
+    function applyFilter(showNotification = true) {
+      let filtered = [...allData];
+
+      // Filter tombol
+      if (currentFilter === 'uncompleted') {
+        filtered = allData.filter(d => d.hari === 0 || !checkedDays[d.hari]);
+      } else if (currentFilter === 'completed') {
+        filtered = allData.filter(d => d.hari === 0 || checkedDays[d.hari]);
+      } else if (currentFilter === '5') {
+        filtered = allData.filter(d => d.hari === 0 || d.hari % 5 === 0 || d.hari === TOTAL_DAYS);
+      } else if (currentFilter === '10') {
+        filtered = allData.filter(d => d.hari === 0 || d.hari % 10 === 0 || d.hari === TOTAL_DAYS);
+      }
+
+      // Filter Pencarian (nomor hari, nama hari, atau tanggal)
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      if (query !== '') {
+        filtered = filtered.filter(d => {
+          const dayStr = `hari ${d.hari}`;
+          const numStr = d.hari.toString();
+          const dayName = NAMA_HARI[d.date.getDay()].toLowerCase();
+          const monthFull = NAMA_BULAN[d.date.getMonth()].toLowerCase();
+          const monthShort = NAMA_BULAN_PENDEK[d.date.getMonth()].toLowerCase();
+          const fullDateStr = `${d.date.getDate()} ${monthFull} ${d.date.getFullYear()}`.toLowerCase();
+
+          return dayStr.includes(query) ||
+                 numStr === query ||
+                 dayName.includes(query) ||
+                 monthFull.includes(query) ||
+                 monthShort.includes(query) ||
+                 fullDateStr.includes(query);
+        });
+      }
+
+      renderTable(filtered);
+      if (showNotification && currentFilter !== 'all') {
+        showToast(`Filter aktif: Menampilkan ${filtered.length} baris`);
+      }
+    }
+
+    // ======================
+    // EVENT LISTENERS
+    // ======================
+    // Ganti tanggal mulai
+    document.getElementById('startDateInput').addEventListener('change', (e) => {
+      if (e.target.value) {
+        startDateStr = e.target.value;
+        localStorage.setItem('compound_start_date', startDateStr);
+        allData = generateData();
+        updateSummary();
+        applyFilter(false);
+        showToast(`Tanggal mulai diubah ke: ${formatDateIndo(parseDate(startDateStr), true, false)}`);
+      }
+    });
+
+    // Tombol Filter
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        applyFilter(true);
+      });
+    });
+
+    // Pencarian
+    document.getElementById('searchInput').addEventListener('input', () => {
+      applyFilter(false);
+    });
+
+    // Ceklis Sampai Hari Ini
+    document.getElementById('btnCheckAllUntilToday').addEventListener('click', () => {
+      const today = new Date();
+      today.setHours(23, 59, 59, 999);
+      let marked = 0;
+
+      allData.forEach(d => {
+        if (d.hari > 0 && d.date <= today) {
+          if (!checkedDays[d.hari]) {
+            checkedDays[d.hari] = true;
+            marked++;
+          }
+        }
+      });
+
+      saveChecklistState();
+      updateSummary();
+      applyFilter(false);
+      showToast(`Berhasil menandai ${marked} hari sampai hari ini!`);
+    });
+
+    // Reset Ceklis
+    document.getElementById('btnResetChecklist').addEventListener('click', () => {
+      if (confirm('Apakah Anda yakin ingin mengosongkan semua status ceklis?')) {
+        checkedDays = {};
+        saveChecklistState();
+        updateSummary();
+        applyFilter(false);
+        showToast('Semua ceklis telah direset.');
+      }
+    });
+
+    // Tombol Cetak / PDF
+    document.getElementById('btnPrint').addEventListener('click', () => {
+      window.print();
+    });
+
+    // Tombol Unduh CSV
+    document.getElementById('btnExportCsv').addEventListener('click', () => {
+      let csv = 'Hari,Tanggal,Hari Pasaran,Saldo Awal ($),Target Profit 10% ($),Target Saldo Akhir ($),Profit Kumulatif ($),Status Target\n';
+      allData.forEach(d => {
+        const isChecked = !!checkedDays[d.hari];
+        const status = d.hari === 0 ? 'Deposit Awal' : (isChecked ? 'Selesai' : 'Menunggu');
+        const dayName = NAMA_HARI[d.date.getDay()];
+        const dateStr = formatDateIndo(d.date, false, false);
+        csv += `${d.hari},"${dateStr}","${dayName}",${d.saldoAwal.toFixed(2)},${d.profitHariIni.toFixed(2)},${d.saldoAkhir.toFixed(2)},${d.profitKumulatif.toFixed(2)},"${status}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `target_compound_profit_10persen_${startDateStr}.csv`);
+      link.click();
+      showToast('File CSV berhasil diunduh!');
+    });
+
+    // ======================
+    // DARK MODE
+    // ======================
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    if (localStorage.getItem('compound_theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeIcon.textContent = '☀️';
+      themeText.textContent = 'Light Mode';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark Mode';
+        localStorage.setItem('compound_theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Light Mode';
+        localStorage.setItem('compound_theme', 'dark');
+      }
+    });
+
+    // ======================
+    // INISIALISASI
+    // ======================
+    updateSummary();
+    applyFilter(false);
+  </script>
+</body>
+</html>
