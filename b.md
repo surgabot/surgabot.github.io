@@ -32,3 +32,20 @@
 | ![3](https://img.shields.io/badge/3-ffa07a) | ![34](https://img.shields.io/badge/$34-3422E2) | ![34](https://img.shields.io/badge/$34-8A2BE2) | ![34](https://img.shields.io/badge/$34-2be23e) | ![12 Okt](https://img.shields.io/badge/12_Okt_2026-2be23e) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
 | ![2](https://img.shields.io/badge/2-ffa07a) | ![13](https://img.shields.io/badge/$13-3422E2) | ![13](https://img.shields.io/badge/$13-8A2BE2) | ![13](https://img.shields.io/badge/$13-2be23e) | ![02 Okt](https://img.shields.io/badge/02_Okt_2026-2be23e) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
 | ![1](https://img.shields.io/badge/1-fabec8) | ![5](https://img.shields.io/badge/$5.00-3422E2) | ![5](https://img.shields.io/badge/$5.00-8A2BE2) | ![5](https://img.shields.io/badge/$5.00-2be23e) | ![22 Sep](https://img.shields.io/badge/22_Sep_2026-2be23e) | ![Berjalan](https://img.shields.io/badge/Berjalan-2be23e) |
+
+# Ilustrasi Peta Jalan Pertumbuhan Modal $5
+**10% per hari · Compound Daily · 100 Hari**
+
+| Level | Rentang Tanggal | Ekuitas Akhir Level | Status |
+| :---: | :---: | :---: | :---: |
+| ![11](https://img.shields.io/badge/11-ffd700) | 31 Des 2026 | ![68,903](https://img.shields.io/badge/$68,903-2be23e) | ![Target](https://img.shields.io/badge/Target_Akhir-2be23e) |
+| ![10](https://img.shields.io/badge/10-ffd700) | 21–30 Des 2026 | ![62,639](https://img.shields.io/badge/$62,639-8A2BE2) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
+| ![9](https://img.shields.io/badge/9-ffa07a) | 11–20 Des 2026 | ![26,565](https://img.shields.io/badge/$26,565-8A2BE2) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
+| ![8](https://img.shields.io/badge/8-ffa07a) | 01–10 Des 2026 | ![10,242](https://img.shields.io/badge/$10,242-8A2BE2) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
+| ![7](https://img.shields.io/badge/7-ffd700) | 21–30 Nov 2026 | ![3,949](https://img.shields.io/badge/$3,949-8A2BE2) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
+| ![6](https://img.shields.io/badge/6-ffd700) | 11–20 Nov 2026 | ![1,522](https://img.shields.io/badge/$1,522-8A2BE2) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
+| ![5](https://img.shields.io/badge/5-fabec8) | 01–10 Nov 2026 | ![587](https://img.shields.io/badge/$587-8A2BE2) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
+| ![4](https://img.shields.io/badge/4-fabec8) | 22–31 Okt 2026 | ![226](https://img.shields.io/badge/$226-8A2BE2) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
+| ![3](https://img.shields.io/badge/3-ffa07a) | 12–21 Okt 2026 | ![87](https://img.shields.io/badge/$87-8A2BE2) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
+| ![2](https://img.shields.io/badge/2-ffa07a) | 02–11 Okt 2026 | ![34](https://img.shields.io/badge/$34-8A2BE2) | ![Tunggu](https://img.shields.io/badge/Tunggu-8A2BE2) |
+| ![1](https://img.shields.io/badge/1-2be23e) | ![22 Sep](https://img.shields.io/badge/22_Sep_-_1_Okt_2026-2be23e) | ![13](https://img.shields.io/badge/$12.97-2be23e) | ![Berjalan](https://img.shields.io/badge/Sedang_Berjalan-2be23e) |
