@@ -1,8 +1,10 @@
 <!doctype html>
+<html lang="id">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>要件からIssueへ</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<title>Dari Kebutuhan ke Issue: Tahapan Menentukan Apa yang Ingin Dibuat Sebelum Menyuruh AI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   :root {
     --bg: #F6F8F5;
@@ -18,8 +20,8 @@
     --warn: #8A4B12;
     --warn-soft: #F7ECDF;
     --focus: #1F7AE0;
-    --display: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
-    --body: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+    --display: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   }
   @media (prefers-color-scheme: dark) {
@@ -79,7 +81,7 @@
     padding: 0 20px 96px;
   }
   @media (min-width: 1000px) {
-    .page { display: grid; grid-template-columns: 216px minmax(0, 1fr); column-gap: 56px; }
+    .page { display: grid; grid-template-columns: 226px minmax(0, 1fr); column-gap: 56px; }
     .toc { position: sticky; top: 24px; align-self: start; }
     header.intro, main { grid-column: 2; }
     .toc { grid-column: 1; grid-row: 2; }
@@ -93,7 +95,7 @@
     text-transform: uppercase;
     color: var(--muted);
   }
-  header.intro h1 { font-size: clamp(30px, 4.6vw, 44px); margin-top: 12px; }
+  header.intro h1 { font-size: clamp(28px, 4.2vw, 42px); margin-top: 12px; }
   .lede { max-width: 66ch; margin-top: 20px; font-size: 17px; }
   .who {
     margin-top: 28px;
@@ -164,7 +166,7 @@
   .weight span.main { border-color: var(--accent); color: var(--accent-ink); }
 
   .part { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; margin-top: 32px; }
-  @media (min-width: 720px) { .part { grid-template-columns: 148px minmax(0, 1fr); column-gap: 24px; } }
+  @media (min-width: 720px) { .part { grid-template-columns: 158px minmax(0, 1fr); column-gap: 24px; } }
   .part > h3 {
     font-family: var(--mono);
     font-size: 12px;
@@ -288,60 +290,62 @@
   details:last-of-type { border-bottom: 1px solid var(--line); }
   summary { cursor: pointer; padding: 12px 0; font-weight: 500; list-style: none; display: flex; justify-content: space-between; align-items: center; }
   summary::-webkit-details-marker { display: none; }
-  summary::after { content: "開く"; font-family: var(--mono); font-size: 12px; color: var(--muted); }
-  details[open] summary::after { content: "閉じる"; }
+  summary::after { content: "Buka"; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  details[open] summary::after { content: "Tutup"; }
   details > div { padding: 0 0 18px; font-size: 15px; }
   details > div p + p { margin-top: 10px; }
 
   footer { padding-top: 32px; font-size: 13px; color: var(--muted); max-width: 66ch; }
 </style>
+</head>
+<body>
 
 <div class="page">
   <header class="intro">
-    <p class="eyebrow">Vibe coding workflow</p>
-    <h1>要件からIssueへ。AIに作らせる前に、作るものを決める段取り</h1>
+    <p class="eyebrow">Alur Kerja Vibe Coding</p>
+    <h1>Dari Kebutuhan ke Issue: Tahapan Menentukan Apa yang Ingin Dibuat Sebelum Menyuruh AI</h1>
     <p class="lede">
-      AIに「こういうアプリ作って」と頼むと、最初は驚くほど速く動くものが出てきます。ところが機能を足すたびに前の動きが壊れ、何が完成で何が未完成なのか自分でも分からなくなる。この段取りは、その状態を避けるために、作るものを先に文章で固め、小さなタスクに切ってGitHub Issueで管理し、1本ずつAIに渡していく流れです。
+      Ketika meminta AI "buatkan aplikasi seperti ini", pada awalnya hasil kerja yang berjalan muncul dengan sangat cepat dan mengagumkan. Namun, setiap kali Anda menambah fitur baru, fitur sebelumnya justru rusak, dan Anda sendiri bingung mana yang sudah selesai dan mana yang belum. Panduan tahapan ini dirancang untuk mencegah kekacauan tersebut: merumuskan apa yang ingin dibuat dalam bentuk tulisan terlebih dahulu, membaginya menjadi tugas-tugas kecil yang dikelola lewat GitHub Issues, lalu menyerahkannya satu per satu kepada AI.
     </p>
     <dl class="who">
-      <dt>読み手</dt><dd>コードは書かないがAIでアプリを作っている人。GitHubのアカウントが無くても、段0で作ります。</dd>
-      <dt>使うもの</dt><dd>ファイルやターミナルを代わりに操作できるAI（Claude Code、Cursor など）と、GitHub。この段取りでは、コマンドを打つ工程はすべてAIに頼みます。文章を作る段1〜4だけなら、ChatGPTのような会話だけのAIでも回せます。</dd>
-      <dt>題材</dt><dd>本文の例はすべて、架空の「オフ会の出欠管理アプリ」で通します。</dd>
+      <dt>Pembaca</dt><dd>Orang yang tidak menulis kode manual tetapi membuat aplikasi menggunakan bantuan AI. Jika belum memiliki akun GitHub, kita akan membuatnya di Tahap 0.</dd>
+      <dt>Alat Bantu</dt><dd>AI yang dapat mengoperasikan file dan terminal (seperti Claude Code, Cursor, Antigravity, dll.) dan GitHub. Dalam alur kerja ini, seluruh perintah di terminal diserahkan kepada AI. Jika hanya menyusun dokumen pada Tahap 1–4, AI percakapan biasa seperti ChatGPT pun sudah cukup.</dd>
+      <dt>Studi Kasus</dt><dd>Seluruh contoh dalam artikel ini menggunakan studi kasus fiktif: "Aplikasi Manajemen Kehadiran Temu Komunitas (Offkai / Gathering)".</dd>
     </dl>
   </header>
 
-  <nav class="toc" aria-label="目次">
-    <p class="eyebrow">目次</p>
+  <nav class="toc" aria-label="Daftar Isi">
+    <p class="eyebrow">Daftar Isi</p>
     <ol>
-      <li><a href="#flow">全体の流れ</a></li>
-      <li><a href="#why">なぜこの順番か</a></li>
-      <li class="stage"><a href="#s0"><b>0</b>事前準備</a></li>
-      <li class="stage"><a href="#s1"><b>1</b>要件定義</a></li>
-      <li class="stage"><a href="#s2"><b>2</b>仕様書</a></li>
-      <li class="stage"><a href="#s3"><b>3</b>設計書</a></li>
-      <li class="stage"><a href="#s4"><b>4</b>タスク分解</a></li>
-      <li class="stage"><a href="#s5"><b>5</b>Issue登録</a></li>
-      <li class="stage"><a href="#s6"><b>6</b>実行</a></li>
-      <li><a href="#claude-code">Claude Codeで回す場合</a></li>
-      <li><a href="#next">次の一歩</a></li>
+      <li><a href="#flow">Alur Keseluruhan</a></li>
+      <li><a href="#why">Mengapa Urutan Ini?</a></li>
+      <li class="stage"><a href="#s0"><b>0</b>Persiapan Awal</a></li>
+      <li class="stage"><a href="#s1"><b>1</b>Definisi Kebutuhan</a></li>
+      <li class="stage"><a href="#s2"><b>2</b>Dokumen Spesifikasi</a></li>
+      <li class="stage"><a href="#s3"><b>3</b>Dokumen Desain Sistem</a></li>
+      <li class="stage"><a href="#s4"><b>4</b>Dekomposisi Tugas</a></li>
+      <li class="stage"><a href="#s5"><b>5</b>Registrasi Issue</a></li>
+      <li class="stage"><a href="#s6"><b>6</b>Eksekusi</a></li>
+      <li><a href="#claude-code">Penerapan dengan Claude Code</a></li>
+      <li><a href="#next">Langkah Selanjutnya</a></li>
     </ol>
   </nav>
 
   <main>
     <section class="block" id="flow">
-      <h2>全体の流れ</h2>
+      <h2>Alur Keseluruhan</h2>
       <p>
-        本編は6段あります。各段は「前の段の成果物を受け取り、次の段の成果物を作る」だけの単純な受け渡しです。本題は最初の5段で、6段目の実行はここで作ったIssueを1本ずつ消化する作業になります。その前に、GitHubのアカウントと道具を用意する事前準備（段0）を一度だけ行います。
+        Alur kerja ini terdiri dari 6 tahapan utama. Setiap tahap merupakan serah-terima sederhana: "menerima hasil dari tahap sebelumnya, lalu menghasilkan output untuk tahap berikutnya". Inti perencanaan ada pada 5 tahap pertama, sedangkan tahap ke-6 (Eksekusi) adalah mengeksekusi Issue yang telah dibuat satu per satu. Sebelum mulai, ada tahap persiapan awal (Tahap 0) untuk menyiapkan akun GitHub dan peralatan, yang cukup dilakukan sekali saja.
       </p>
       <figure>
         <div class="fig-scroll">
-        <svg viewBox="0 0 1030 250" role="img" aria-label="6段の流れ。頭の中の構想から要件定義、仕様書、設計書、タスク分解、Issue登録へと成果物が受け渡され、最後の実行ではIssueを1本ずつ処理する。最初の5段が本題。" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1030 250" role="img" aria-label="Alur 6 tahap. Dari ide di kepala berlanjut ke definisi kebutuhan, spesifikasi, desain sistem, dekomposisi tugas, registrasi issue, hingga eksekusi pengerjaan issue satu per satu. 5 tahap pertama adalah intinya." xmlns="http://www.w3.org/2000/svg">
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
             </marker>
           </defs>
-          <g fill="none" stroke="currentColor" stroke-width="1.4" font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="13">
+          <g fill="none" stroke="currentColor" stroke-width="1.4" font-family="Plus Jakarta Sans, Inter, sans-serif" font-size="13">
             <!-- stage boxes -->
             <rect x="20" y="70" width="140" height="60" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"></rect>
             <rect x="190" y="70" width="140" height="60" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"></rect>
@@ -351,18 +355,18 @@
             <rect x="870" y="70" width="140" height="60" rx="6" fill="var(--surface)" stroke="currentColor" stroke-dasharray="4 3"></rect>
             <!-- stage numbers + names -->
             <g fill="currentColor" stroke="none" text-anchor="middle">
-              <text x="90" y="94" font-size="11" fill="var(--accent)">STAGE 1</text>
-              <text x="90" y="116" font-size="15" font-weight="700">要件定義</text>
-              <text x="260" y="94" font-size="11" fill="var(--accent)">STAGE 2</text>
-              <text x="260" y="116" font-size="15" font-weight="700">仕様書</text>
-              <text x="430" y="94" font-size="11" fill="var(--accent)">STAGE 3</text>
-              <text x="430" y="116" font-size="15" font-weight="700">設計書</text>
-              <text x="600" y="94" font-size="11" fill="var(--accent)">STAGE 4</text>
-              <text x="600" y="116" font-size="15" font-weight="700">タスク分解</text>
-              <text x="770" y="94" font-size="11" fill="var(--accent)">STAGE 5</text>
-              <text x="770" y="116" font-size="15" font-weight="700">Issue登録</text>
-              <text x="940" y="94" font-size="11">STAGE 6</text>
-              <text x="940" y="116" font-size="15" font-weight="700">実行</text>
+              <text x="90" y="94" font-size="11" fill="var(--accent)">TAHAP 1</text>
+              <text x="90" y="116" font-size="14" font-weight="700">Kebutuhan</text>
+              <text x="260" y="94" font-size="11" fill="var(--accent)">TAHAP 2</text>
+              <text x="260" y="116" font-size="14" font-weight="700">Spesifikasi</text>
+              <text x="430" y="94" font-size="11" fill="var(--accent)">TAHAP 3</text>
+              <text x="430" y="116" font-size="14" font-weight="700">Desain Sistem</text>
+              <text x="600" y="94" font-size="11" fill="var(--accent)">TAHAP 4</text>
+              <text x="600" y="116" font-size="14" font-weight="700">Bagi Tugas</text>
+              <text x="770" y="94" font-size="11" fill="var(--accent)">TAHAP 5</text>
+              <text x="770" y="116" font-size="14" font-weight="700">Daftar Issue</text>
+              <text x="940" y="94" font-size="11">TAHAP 6</text>
+              <text x="940" y="116" font-size="14" font-weight="700">Eksekusi</text>
             </g>
             <!-- arrows between boxes -->
             <line x1="160" y1="100" x2="188" y2="100" marker-end="url(#arrow)"></line>
@@ -387,39 +391,39 @@
               <path d="M708,158 h116 l8,8 v36 h-124 z"></path>
               <path d="M878,158 h116 l8,8 v36 h-124 z"></path>
             </g>
-            <g fill="currentColor" stroke="none" text-anchor="middle" font-size="12">
-              <text x="90" y="185">要件定義書（1枚）</text>
-              <text x="260" y="185">仕様書</text>
-              <text x="430" y="185">設計書</text>
-              <text x="600" y="185">タスク一覧（順番つき）</text>
-              <text x="770" y="185">子Issue #2 〜 #6</text>
-              <text x="940" y="185">動くアプリ + PR</text>
+            <g fill="currentColor" stroke="none" text-anchor="middle" font-size="11.5">
+              <text x="90" y="185">Dok. Kebutuhan (1 lbr)</text>
+              <text x="260" y="185">Dok. Spesifikasi</text>
+              <text x="430" y="185">Dok. Desain Sistem</text>
+              <text x="600" y="185">Daftar Tugas (urut)</text>
+              <text x="770" y="185">Sub-Issue #2 ~ #6</text>
+              <text x="940" y="185">Aplikasi Jalan + PR</text>
             </g>
             <!-- input from the left -->
-            <text x="20" y="48" fill="currentColor" stroke="none" font-size="12">入力: 頭の中の構想</text>
+            <text x="20" y="48" fill="currentColor" stroke="none" font-size="12">Masukan: Ide di kepala</text>
             <!-- loop on stage 6 -->
             <path d="M1000,70 C1000,40 940,40 910,52" marker-end="url(#arrow)"></path>
-            <text x="955" y="36" fill="currentColor" stroke="none" font-size="11" text-anchor="middle">Issueを1本ずつ</text>
+            <text x="955" y="36" fill="currentColor" stroke="none" font-size="11" text-anchor="middle">Satu per satu issue</text>
             <!-- bracket under stages 1-5 -->
             <path d="M20,222 v8 h820 v-8" stroke="var(--accent)" stroke-width="1.6"></path>
-            <text x="430" y="246" fill="var(--accent)" stroke="none" font-size="12" text-anchor="middle" font-weight="700">この5段が本題。ここで決めたことが、後の実行の質を決める</text>
+            <text x="430" y="246" fill="var(--accent)" stroke="none" font-size="12" text-anchor="middle" font-weight="700">5 tahap ini intinya. Keputusan di sini menentukan kualitas eksekusi nanti</text>
           </g>
         </svg>
         </div>
-        <figcaption>矢印の上を流れているのは、各段が作る成果物そのものです。段を飛ばすと、次の段に渡すものが無いまま進むことになります。</figcaption>
+        <figcaption>Yang mengalir di atas tanda panah adalah deliverable (hasil kerja nyata) dari setiap tahap. Jika Anda melompati suatu tahapan, Anda akan melangkah tanpa memiliki bahan untuk diserahkan ke tahap berikutnya.</figcaption>
       </figure>
     </section>
 
     <section class="block" id="why">
-      <h2>なぜこの順番か</h2>
-      <p>理由は3つに絞れます。</p>
+      <h2>Mengapa Urutan Ini?</h2>
+      <p>Ada 3 alasan utama:</p>
       <ul>
-        <li><b>作りたいものは、言葉にするまで自分でも決まっていない。</b>AIに丸投げしてぶれるのは、AIの問題ではなく、依頼側の要件が固まっていないからです。要件定義と仕様書は、AIのためというより自分のために書きます。</li>
-        <li><b>仕様が先にあると、AIの出力が安定する。</b>会話のたびに前提を言い直す代わりに、仕様書を貼るだけで同じ前提から始められます。</li>
-        <li><b>小さく切ると、確認できる。</b>「アプリ全部」は動作確認のしようがありませんが、「日程候補に○×で答えられる」なら5分で確認できます。Issueはその確認単位を記録する場所です。</li>
+        <li><b>Apa yang ingin dibuat belum benar-benar jelas sampai kita menuangkannya ke dalam kata-kata.</b> Hasil AI yang melenceng sering kali bukan kesalahan AI, melainkan karena kebutuhan dari pihak pemesan memang belum matang. Definisi kebutuhan dan spesifikasi ditulis bukan hanya untuk AI, melainkan untuk memperjelas pikiran Anda sendiri.</li>
+        <li><b>Jika spesifikasi sudah siap di awal, hasil keluaran AI akan jauh lebih konsisten dan stabil.</b> Alih-alih mengulang asumsi dan instruksi dasar di setiap sesi percakapan, Anda cukup menyematkan dokumen spesifikasi agar AI selalu memulai dari konteks yang sama.</li>
+        <li><b>Memecahnya menjadi bagian kecil memungkinkan verifikasi langsung.</b> "Aplikasi secara keseluruhan" mustahil diverifikasi sekaligus secara menyeluruh, tetapi "bisa memilih Ya/Tidak pada opsi tanggal" bisa diuji dalam 5 menit. Issue adalah tempat mencatat unit verifikasi tersebut.</li>
       </ul>
       <p>
-        以下、まず一度だけ行う事前準備（段0）を置き、そのあと6段それぞれを同じ型で説明します。型は、目的、入力と出力、AIに渡すプロンプト、成果物のテンプレート、オフ会アプリでの例、完了チェック、よくある失敗の7項目です。プロンプトとテンプレートはそのままコピーして使えます。
+        Berikutnya, kita mulai dari persiapan awal (Tahap 0) yang cukup dilakukan sekali, lalu mengupas tuntas ke-6 tahap dengan struktur pola yang sama: Tujuan, Masukan & Keluaran, Prompt untuk AI, Templat Hasil Kerja, Contoh Kasus Nyata (Aplikasi Temu Komunitas), Kriteria Selesai (Checklist), serta Jebakan/Kesalahan Umum. Prompt dan templat dapat langsung disalin dan digunakan.
       </p>
     </section>
 
@@ -428,93 +432,93 @@
       <div class="stage-head">
         <div class="stage-num">0</div>
         <div>
-          <h2>事前準備</h2>
-          <p class="sub">GitHubのアカウントを自分で作り、道具の導入とリポジトリ作成はAIに頼む</p>
-          <p class="weight"><span>最初に一度だけ</span></p>
+          <h2>Persiapan Awal</h2>
+          <p class="sub">Buat akun GitHub sendiri, lalu serahkan instalasi alat dan pembuatan repositori kepada AI</p>
+          <p class="weight"><span>Hanya Sekali di Awal</span></p>
         </div>
       </div>
 
       <div class="part">
-        <h3>目的</h3>
+        <h3>Tujuan</h3>
         <div>
-          <p>段1〜6は、GitHubを「記録の置き場」として使います。段5でIssueを作り、段6でPull Requestを作るとき、GitHub側の準備が無いとそこで止まります。ここで準備を済ませておきます。</p>
-          <p>準備は3つです。GitHubのアカウント作成、GitHubをターミナルから扱う道具 <code>gh</code> の導入、アプリ用リポジトリ（保管庫）の作成。このうち<b>自分で行うのはアカウント作成だけ</b>で、残りの2つはAIに頼みます。ターミナルは開きません。</p>
+          <p>Tahap 1–6 memanfaatkan GitHub sebagai "tempat penyimpanan catatan dan progres". Ketika membuat Issue di Tahap 5 dan membuat Pull Request di Tahap 6, proses akan terhenti jika sisi GitHub belum siap. Oleh karena itu, kita selesaikan persiapannya di sini.</p>
+          <p>Ada 3 persiapan: pembuatan akun GitHub, pemasangan alat <code>gh</code> (GitHub CLI) untuk mengelola GitHub lewat terminal, dan pembuatan repositori aplikasi. Dari ketiga hal ini, <b>yang perlu Anda lakukan sendiri hanyalah membuat akun</b>. Dua langkah sisanya serahkan kepada AI. Anda tidak perlu membuka terminal sendiri.</p>
         </div>
       </div>
 
       <div class="part">
-        <h3>入力と出力</h3>
+        <h3>Masukan dan Keluaran</h3>
         <div>
           <dl class="io">
-            <dt>入力</dt><dd>メールアドレスと、アプリを置くフォルダ（AIを開いているフォルダ）。</dd>
-            <dt>出力</dt><dd>ログイン済みのGitHubアカウント、AIがGitHubを操作できる状態、中身が空のアプリ用リポジトリ。</dd>
+            <dt>Masukan</dt><dd>Alamat email, serta folder tempat aplikasi disimpan (folder tempat Anda membuka AI).</dd>
+            <dt>Keluaran</dt><dd>Akun GitHub yang sudah login, kondisi AI yang siap mengoperasikan GitHub, dan repositori aplikasi baru yang siap digunakan.</dd>
           </dl>
         </div>
       </div>
 
       <div class="part">
-        <h3>1. アカウント（自分で）</h3>
+        <h3>1. Buat Akun GitHub (Lakukan Sendiri)</h3>
         <div>
           <ol class="steps" style="margin-top:0">
-            <li><a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a> を開き、メールアドレスとパスワードを入れる。</li>
-            <li>ユーザー名を決める。半角英数とハイフンだけ。後でリポジトリのURLに入るので、あとから変えにくい。</li>
-            <li>届いたメールの確認コードを入れる。プランは無料（Free）で足りる。</li>
-            <li>設定から二段階認証（Two-factor authentication）を有効にしておく。スマホの認証アプリで済む。</li>
+            <li>Buka <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>, lalu masukkan alamat email dan kata sandi Anda.</li>
+            <li>Tentukan username. Hanya gunakan huruf latin, angka, dan tanda hubung (-). Karena username akan menjadi bagian dari URL repositori, sebaiknya tentukan nama yang rapi sejak awal.</li>
+            <li>Masukkan kode verifikasi yang dikirimkan ke email Anda. Pilih paket gratis (Free), ini sudah lebih dari cukup.</li>
+            <li>Aktifkan otentikasi dua faktor (Two-Factor Authentication / 2FA) di pengaturan keamanan akun menggunakan aplikasi autentikator di ponsel.</li>
           </ol>
-          <p style="margin-top:14px">パスワードやメールの確認コードは、AIに渡さず自分で入力します。</p>
+          <p style="margin-top:14px">Kata sandi dan kode verifikasi email harus Anda masukkan sendiri secara langsung di browser, jangan pernah diberikan kepada AI.</p>
         </div>
       </div>
 
       <div class="part">
-        <h3>2. 道具とリポジトリ（AIに頼む）</h3>
+        <h3>2. Alat dan Repositori (Serahkan ke AI)</h3>
         <div>
-          <p>アプリを置きたいフォルダでAIを開き、下の文をそのまま渡します。AIが道具を入れ、GitHubへのログインを案内し、リポジトリを作ってつなぎます。</p>
+          <p>Buka AI di folder tempat Anda ingin membuat aplikasi, lalu berikan instruksi di bawah ini apa adanya. AI akan memasang alat bantu yang diperlukan, memandu proses login ke GitHub, membuat repositori, dan menghubungkannya.</p>
           <div class="prompt" style="margin-top:12px">
-            <div class="prompt-head"><span class="kind">AIに渡す</span><button class="copy" type="button">コピー</button></div>
-            <pre>GitHub を使う準備を、私の代わりにしてください。私はコードを書かない人間で、ターミナルの操作はしません。
+            <div class="prompt-head"><span class="kind">Berikan ke AI</span><button class="copy" type="button">Salin</button></div>
+            <pre>Tolong siapkan lingkungan kerja GitHub untuk saya. Saya tidak menulis kode dan tidak ingin mengoperasikan terminal secara manual.
 
-やってほしいこと:
-1. GitHub の公式コマンド gh が入っているか確認し、無ければインストールする（git も無ければ一緒に）
-2. gh auth status でログイン済みか確認する。未ログインなら gh auth login を実行し、私がブラウザで押す場面になったら「今、何をどこで押すか」を一言で教える
-3. このフォルダを git で管理する状態にして、README.md と、docs フォルダ（中に案内用の README.md）を作り、初回コミットする
-4. gh repo create で GitHub 上に private（自分だけが見られる）のリポジトリ <span class="var">{アプリ名。半角英数。例: offkai-app}</span> を作り、このフォルダとつないで push する
-5. 最後に gh repo view --web でブラウザに開き、README が見えるかを私に確認してもらう
+Yang perlu kamu lakukan:
+1. Periksa apakah perintah resmi GitHub 'gh' sudah terpasang, jika belum tolong pasang (sekaligus pasang 'git' jika belum ada).
+2. Periksa status login dengan 'gh auth status'. Jika belum login, jalankan 'gh auth login'. Ketika tiba saatnya saya harus menekan tombol di browser, beri tahu saya secara ringkas: "apa yang harus ditekan dan di mana".
+3. Konfigurasikan folder ini agar dikelola oleh Git, buat README.md dan folder docs/ (berisi README.md sebagai panduan), lalu lakukan commit pertama.
+4. Buat repositori private (hanya bisa dilihat oleh saya) di GitHub bernama <span class="var">{nama-aplikasi. huruf kecil dan tanda hubung, contoh: offkai-app}</span> menggunakan 'gh repo create', lalu hubungkan folder ini dan push.
+5. Terakhir, buka repositori tersebut di browser dengan 'gh repo view --web', dan minta saya memastikan apakah README sudah terlihat.
 
-守ってほしいこと:
-- 各手順で何をしたかを、私に分かる言葉で1行ずつ報告する
-- 途中で私の操作が必要になったら、止まって待つ
-- 私のパスワードや確認コードを聞かない</pre>
+Aturan yang harus dipatuhi:
+- Laporkan setiap langkah yang telah kamu lakukan dalam 1 baris dengan bahasa yang mudah dipahami orang awam.
+- Jika di tengah jalan membutuhkan tindakan saya, berhenti dan tunggu arahan saya.
+- Jangan pernah meminta kata sandi atau kode verifikasi saya.</pre>
           </div>
-          <p style="margin-top:14px">途中でAIが「ブラウザを開いてください」と言う場面が1回あります。ログインの許可です。ブラウザにGitHubのページが開くので、AIが示した8桁のコードを貼って「Authorize」を押します。これだけが自分の操作で、あとはAIが進めます。</p>
-          <p style="margin-top:12px">最後にブラウザで開いたリポジトリに、README と <code>docs</code> が見えていれば完了です。<code>docs</code> は、段1〜3で作る要件定義書・仕様書・設計書の置き場になります。</p>
+          <p style="margin-top:14px">Di tengah proses, AI akan sekali meminta Anda untuk "membuka browser". Ini adalah proses otorisasi login. Halaman GitHub akan terbuka di browser, Anda cukup menempelkan kode 8 digit yang diberikan oleh AI lalu menekan tombol "Authorize". Hanya ini tindakan yang perlu Anda lakukan, selebihnya AI yang akan menyelesaikan semuanya.</p>
+          <p style="margin-top:12px">Terakhir, jika repositori yang terbuka di browser sudah menampilkan file README dan folder <code>docs</code>, maka persiapan selesai. Folder <code>docs</code> akan menjadi tempat menyimpan Dokumen Kebutuhan, Spesifikasi, dan Desain Sistem yang dibuat pada Tahap 1–3.</p>
           <div style="margin-top:16px">
             <details>
-              <summary>参考: AIが裏で実行しているコマンド（自分で打つ必要はありません）</summary>
+              <summary>Referensi: Perintah yang dijalankan AI di balik layar (Anda tidak perlu mengetiknya)</summary>
               <div>
                 <div class="prompt" style="margin-top:8px">
-                  <div class="prompt-head"><span class="kind">道具の導入</span><button class="copy" type="button">コピー</button></div>
+                  <div class="prompt-head"><span class="kind">Pemasangan Alat</span><button class="copy" type="button">Salin</button></div>
                   <pre># Mac
 brew install gh
-# Windows（PowerShell）
+# Windows (PowerShell)
 winget install GitHub.cli
 winget install Git.Git
 
-# GitHub にログインし、確認する
+# Login ke GitHub dan periksa status
 gh auth login
 gh auth status</pre>
                 </div>
                 <div class="prompt">
-                  <div class="prompt-head"><span class="kind">リポジトリの作成</span><button class="copy" type="button">コピー</button></div>
+                  <div class="prompt-head"><span class="kind">Pembuatan Repositori</span><button class="copy" type="button">Salin</button></div>
                   <pre>git init
-echo "# <span class="var">{アプリ名}</span>" > README.md
+echo "# <span class="var">{nama-aplikasi}</span>" > README.md
 mkdir docs
-echo "要件定義書・仕様書・設計書をここに置く" > docs/README.md
+echo "Dokumen kebutuhan, spesifikasi, dan desain disimpan di sini" > docs/README.md
 git add .
-git commit -m "初回コミット"
-gh repo create <span class="var">{アプリ名}</span> --private --source=. --push
+git commit -m "Commit perdana"
+gh repo create <span class="var">{nama-aplikasi}</span> --private --source=. --push
 gh repo view --web</pre>
                 </div>
-                <p style="margin-top:10px">AIの報告にこれらの名前が出てきたときに、何をしているかを照らし合わせる用です。</p>
+                <p style="margin-top:10px">Gunakan referensi ini untuk mencocokkan apa yang sedang dilakukan jika nama-nama perintah ini muncul dalam laporan AI.</p>
               </div>
             </details>
           </div>
@@ -522,23 +526,23 @@ gh repo view --web</pre>
       </div>
 
       <div class="part">
-        <h3>完了チェック</h3>
+        <h3>Kriteria Selesai (Checklist)</h3>
         <div>
           <ul class="done">
-            <li>GitHubにブラウザでログインでき、二段階認証が有効になっている</li>
-            <li>AIに「<code>gh auth status</code> の結果を見せて」と頼むと、「Logged in」を含む結果が返ってくる</li>
-            <li>ブラウザでリポジトリを開くと、README と <code>docs</code> が見える</li>
-            <li>リポジトリ名の横に Private と表示されている</li>
+            <li>Berhasil login ke GitHub di browser dan otentikasi dua faktor (2FA) sudah aktif</li>
+            <li>Ketika meminta AI menjalankan <code>gh auth status</code>, muncul laporan status yang menyertakan teks "Logged in"</li>
+            <li>Saat membuka repositori di browser, file README dan folder <code>docs</code> sudah terlihat</li>
+            <li>Terdapat label "Private" di samping nama repositori</li>
           </ul>
         </div>
       </div>
 
       <div class="part">
-        <h3>よくある失敗</h3>
+        <h3>Jebakan & Kesalahan Umum</h3>
         <div class="pitfalls">
-          <div class="pitfall"><b>コマンドを自分で打とうとして詰まる。</b>この段取りでは、ターミナルに向かう工程はすべてAIに頼みます。AIの報告に知らない言葉が出てきたら、「それは何をしたの」と聞き返せば十分です。</div>
-          <div class="pitfall"><b>ログインの許可を飛ばす。</b>AIが「ブラウザで押してください」と言った場面を放置すると、段5のIssue登録が「認証されていません」で失敗します。AIに「もう一度ログインを案内して」と頼めば、やり直せます。</div>
-          <div class="pitfall"><b>private のつもりが public になっている。</b>会場や会費のような実データを入れる前に、リポジトリ名の横の表示を確認します。切り替えはAIに「このリポジトリを private にして」と頼めます。</div>
+          <div class="pitfall"><b>Mencoba mengetik perintah sendiri lalu buntu.</b> Dalam alur kerja ini, seluruh proses yang melibatkan terminal dipercayakan ke AI. Jika muncul istilah asing dalam laporan AI, cukup tanyakan: "Apa maksudnya langkah tadi?".</div>
+          <div class="pitfall"><b>Melewatkan otorisasi login.</b> Jika instruksi AI untuk "klik tombol di browser" diabaikan, pendaftaran Issue di Tahap 5 akan gagal karena error "belum terotentikasi". Anda cukup meminta AI: "Pandu saya untuk login sekali lagi" untuk mengulanginya.</div>
+          <div class="pitfall"><b>Niatnya private tetapi terbuat sebagai public.</b> Sebelum memasukkan data riil seperti lokasi atau biaya, pastikan label di samping nama repositori adalah Private. Anda bisa meminta AI: "Ubah repositori ini menjadi private" jika keliru.</div>
         </div>
       </div>
     </section>
@@ -548,125 +552,125 @@ gh repo view --web</pre>
       <div class="stage-head">
         <div class="stage-num">1</div>
         <div>
-          <h2>要件定義</h2>
-          <p class="sub">誰が、何に困っていて、できると何が嬉しいかを1枚にする</p>
-          <p class="weight"><span class="main">本題</span></p>
+          <h2>Definisi Kebutuhan (Requirements)</h2>
+          <p class="sub">Merangkum siapa penggunanya, apa masalahnya, dan apa manfaat yang diharapkan ke dalam 1 lembar dokumen</p>
+          <p class="weight"><span class="main">Tahap Inti</span></p>
         </div>
       </div>
 
       <div class="part">
-        <h3>目的</h3>
+        <h3>Tujuan</h3>
         <div>
-          <p>機能の一覧を書く段階ではありません。「困りごと」と「嬉しさ」を言葉にする段階です。ここが曖昧だと、後のすべての段が曖昧なまま進みます。</p>
-          <p>コツは、AIに書かせるのではなく、AIに<b>聞かせる</b>ことです。自分が答えているうちに要件が固まります。</p>
+          <p>Ini bukan tahap membuat daftar fitur panjang. Ini adalah tahap mendefinisikan "masalah nyata yang dihadapi" dan "manfaat/solusi yang melegakan". Jika bagian ini kabur, seluruh tahapan berikutnya akan berjalan dalam ketidakpastian.</p>
+          <p>Kuncinya adalah: jangan menyuruh AI langsung menulis dokumennya, melainkan biarkan AI <b>mewawancarai Anda</b>. Sembari Anda menjawab pertanyaannya, kebutuhan aplikasi akan mengkristal dengan sendirinya.</p>
         </div>
       </div>
 
       <div class="part">
-        <h3>入力と出力</h3>
+        <h3>Masukan dan Keluaran</h3>
         <div>
           <dl class="io">
-            <dt>入力</dt><dd>頭の中の構想。まとまっていなくて構いません。</dd>
-            <dt>出力</dt><dd>要件定義書。A4で1枚に収まる長さ。</dd>
+            <dt>Masukan</dt><dd>Ide dasar di kepala Anda. Belum rapi pun tidak masalah.</dd>
+            <dt>Keluaran</dt><dd>Dokumen Definisi Kebutuhan. Cukup ringkas sepanjang 1 lembar A4.</dd>
           </dl>
         </div>
       </div>
 
       <div class="part">
-        <h3>プロンプト</h3>
+        <h3>Prompt untuk AI</h3>
         <div>
           <div class="prompt">
-            <div class="prompt-head"><span class="kind">AIに渡す</span><button class="copy" type="button">コピー</button></div>
-            <pre>あなたは、これから作るアプリの要件を引き出すインタビュアーです。
-私はコードを書かない人間です。技術用語を使わず、私に質問を1つずつしてください。
+            <div class="prompt-head"><span class="kind">Berikan ke AI</span><button class="copy" type="button">Salin</button></div>
+            <pre>Kamu adalah pewawancara profesional yang bertugas menggali kebutuhan aplikasi yang akan dibuat.
+Saya adalah orang awam yang tidak menulis kode. Jangan gunakan istilah teknis, dan ajukan pertanyaan kepada saya satu per satu secara bertahap.
 
-作りたいもの: <span class="var">{一言で。例: オフ会の出欠を管理するアプリ}</span>
+Aplikasi yang ingin saya buat: <span class="var">{Jelaskan dalam satu kalimat. Contoh: Aplikasi untuk mengelola kehadiran temu komunitas / gathering offline}</span>
 
-次のことが分かるまで質問を続けてください。
-- 誰が使うのか（主催者と参加者など、立場ごとに）
-- 今どうやっていて、何に困っているのか
-- できるようになると、何が嬉しいのか
-- 最低限これができれば十分、と言える範囲
-- やらなくていいこと
+Lanjutkan wawancara dengan pertanyaan sampai hal-hal berikut jelas:
+- Siapa saja yang akan menggunakannya (bedakan peran, misal: panitia/penyelenggara dan peserta)
+- Bagaimana cara yang dilakukan saat ini, dan kendala apa yang dialami
+- Jika aplikasi ini ada, apa nilai/kemudahan terbesar yang dirasakan
+- Batasan fitur minimal yang sudah dianggap "cukup berfungsi" (MVP)
+- Hal-hal yang secara tegas TIDAK PERLU dibuat sekarang
 
-分かったと判断したら、下のテンプレートの形で要件定義書を書いてください。
-私が答えていない項目は「未定」と書き、勝手に補わないでください。
+Setelah merasa informasinya cukup, buatlah Dokumen Definisi Kebutuhan sesuai templat di bawah ini.
+Bagian yang belum pernah saya jawab wajib ditulis "Belum Ditentukan", jangan mengarang atau berasumsi sendiri.
 
-テンプレート:
-# 要件定義書
-## 目的（一文）
-## 使う人
-## 今の困りごと
-## できるようになること（必須）
-## できるようになること（あれば嬉しい）
-## やらないこと
-## 完成の目安</pre>
+Templat:
+# Dokumen Definisi Kebutuhan
+## Tujuan (1 kalimat)
+## Pengguna Sasaran
+## Kendala Saat Ini
+## Fitur Wajib (Harus Ada)
+## Fitur Tambahan (Bagus Jika Ada)
+## Yang Tidak Dibuat (Out of Scope)
+## Kriteria Penyelesaian</pre>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>例</h3>
+        <h3>Contoh Penerapan</h3>
         <div>
           <div class="example">
-            <div class="example-head"><span class="title">要件定義書（オフ会の出欠管理アプリ）</span></div>
+            <div class="example-head"><span class="title">Dokumen Definisi Kebutuhan (Aplikasi Temu Komunitas / Gathering)</span></div>
             <div class="example-body">
-              <h4>目的（一文）</h4>
-              <p>趣味の集まりのオフ会について、日程決めと出欠の把握を、主催者がチャットを追いかけずに済ませられるようにする。</p>
-              <h4>使う人</h4>
+              <h4>Tujuan (1 kalimat)</h4>
+              <p>Memudahkan panitia menentukan jadwal dan mendata kehadiran gathering komunitas tanpa harus menyisir riwayat chat grup secara manual.</p>
+              <h4>Pengguna Sasaran</h4>
               <ul>
-                <li>主催者（月1回、10〜20人規模のオフ会を開く。1人）</li>
-                <li>参加者（常連と初参加が混ざる。スマホから使う）</li>
+                <li>Penyelenggara / Panitia (1 orang, mengadakan temu komunitas sebulan sekali berkapasitas 10–20 orang)</li>
+                <li>Peserta (campuran anggota lama dan peserta baru, mengakses via ponsel/smartphone)</li>
               </ul>
-              <h4>今の困りごと</h4>
+              <h4>Kendala Saat Ini</h4>
               <ul>
-                <li>グループチャットで日程を聞くと、返事が流れて誰が来るのか数えられない</li>
-                <li>会場と会費を毎回聞かれる</li>
-                <li>前日に「明日でしたっけ」と聞かれる</li>
+                <li>Menanyakan opsi tanggal lewat chat grup membuat balasan tertimbun sehingga sulit menghitung siapa saja yang bisa hadir</li>
+                <li>Lokasi dan besaran iuran selalu ditanyakan berulang kali</li>
+                <li>H-1 acara selalu ada yang bertanya: "Acaranya jadi besok kan?"</li>
               </ul>
-              <h4>できるようになること（必須）</h4>
+              <h4>Fitur Wajib (Harus Ada)</h4>
               <ul>
-                <li>主催者がオフ会を作り、日程の候補を複数出せる</li>
-                <li>参加者が候補ごとに ○ △ × で答えられる</li>
-                <li>主催者が、候補ごとの ○ の人数と名前を一覧で見られる</li>
-                <li>会場と会費をオフ会のページに書いておける</li>
+                <li>Penyelenggara dapat membuat agenda temu dan menyediakan beberapa opsi tanggal/waktu</li>
+                <li>Peserta dapat merespons tiap opsi tanggal dengan pilihan: Bisa (○), Ragu-ragu (△), atau Tidak Bisa (×)</li>
+                <li>Penyelenggara dapat melihat daftar nama dan rekapitulasi jumlah orang yang memilih "Bisa" pada setiap opsi tanggal</li>
+                <li>Informasi lokasi dan besaran iuran tertulis jelas di halaman acara</li>
               </ul>
-              <h4>できるようになること（あれば嬉しい）</h4>
+              <h4>Fitur Tambahan (Bagus Jika Ada)</h4>
               <ul>
-                <li>前日にリマインドのメールが届く</li>
+                <li>Email pengingat otomatis terkirim H-1 sebelum acara dimulai</li>
               </ul>
-              <h4>やらないこと</h4>
+              <h4>Yang Tidak Dibuat (Out of Scope)</h4>
               <ul>
-                <li>会費の集金（現地で現金）</li>
-                <li>写真の共有（既存のチャットで足りる）</li>
-                <li>参加者どうしのチャット</li>
+                <li>Pembayaran iuran secara online (dilakukan tunai di lokasi)</li>
+                <li>Berbagi foto acara (cukup gunakan chat grup yang sudah ada)</li>
+                <li>Fitur chat antar peserta di dalam aplikasi</li>
               </ul>
-              <h4>完成の目安</h4>
-              <p>次回のオフ会の日程決めを、グループチャットを使わずこのアプリだけで終えられる。</p>
+              <h4>Kriteria Penyelesaian</h4>
+              <p>Penentuan tanggal dan pendataan kehadiran untuk acara gathering berikutnya dapat diselesaikan tuntas hanya melalui aplikasi ini tanpa bantuan polling di chat grup.</p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>完了チェック</h3>
+        <h3>Kriteria Selesai (Checklist)</h3>
         <div>
           <ul class="done">
-            <li>「目的」が一文で書けている</li>
-            <li>使う人が立場ごとに分かれている（主催者と参加者、など）</li>
-            <li>「やらないこと」が3つ以上ある</li>
-            <li>「完成の目安」が、実際にやってみれば確認できる形になっている</li>
-            <li>技術の話（データベース、フレームワークなど）が一切出てこない</li>
+            <li>"Tujuan" tertulis padat dalam 1 kalimat jelas</li>
+            <li>Pengguna dipisahkan menurut perannya (misal: panitia vs peserta)</li>
+            <li>Terdapat minimal 3 poin pada bagian "Yang Tidak Dibuat"</li>
+            <li>"Kriteria Penyelesaian" dapat diuji dan dibuktikan secara nyata</li>
+            <li>Sama sekali tidak mengandung istilah teknis (database, framework, dsb.)</li>
           </ul>
         </div>
       </div>
 
       <div class="part">
-        <h3>よくある失敗</h3>
+        <h3>Jebakan & Kesalahan Umum</h3>
         <div class="pitfalls">
-          <div class="pitfall"><b>機能の羅列から始める。</b>「ログイン、投稿、いいね、通知」と並べても、誰が何に困っているかが無いので、どれが必須か判断できません。</div>
-          <div class="pitfall"><b>「やらないこと」が空。</b>境界が無いと、AIは善意で機能を足し続けます。やらないことを決めるのは、要件定義の半分です。</div>
-          <div class="pitfall"><b>AIに全部書かせる。</b>質問なしで書かれた要件定義書は、AIが平均的なアプリを想像して埋めたものです。自分の困りごとは自分しか知りません。</div>
+          <div class="pitfall"><b>Memulai dari daftar fitur acak.</b> Mendaftar "login, posting, like, notifikasi" tanpa memahami siapa yang sedang menghadapi masalah apa akan membuat Anda bingung menentukan prioritas mana yang wajib dan mana yang sekunder.</div>
+          <div class="pitfall"><b>Kolom "Yang Tidak Dibuat" dibiarkan kosong.</b> Jika tidak ada batasan tegas, AI akan terus berinisiatif menambahkan fitur karena niat baik. Menentukan apa yang tidak perlu dibuat adalah separuh dari kesuksesan definisi kebutuhan.</div>
+          <div class="pitfall"><b>Menyuruh AI mengarang seluruh dokumen.</b> Dokumen kebutuhan yang dibuat tanpa wawancara hanyalah imajinasi AI tentang aplikasi rata-rata. Kendala nyata di lapangan hanya Anda yang mengetahuinya.</div>
         </div>
       </div>
     </section>
@@ -676,94 +680,94 @@ gh repo view --web</pre>
       <div class="stage-head">
         <div class="stage-num">2</div>
         <div>
-          <h2>仕様書</h2>
-          <p class="sub">要件を「画面・データ・ルール」に翻訳する</p>
-          <p class="weight"><span class="main">本題</span></p>
+          <h2>Dokumen Spesifikasi</h2>
+          <p class="sub">Menerjemahkan kebutuhan menjadi "Layar Halaman, Data, dan Aturan Main"</p>
+          <p class="weight"><span class="main">Tahap Inti</span></p>
         </div>
       </div>
 
       <div class="part">
-        <h3>目的</h3>
+        <h3>Tujuan</h3>
         <div>
-          <p>要件定義書は「何のために」を書いたものです。仕様書はそれを「具体的に何があるか」に翻訳します。画面が何枚あり、それぞれで何ができ、どんなデータを覚えておき、誰に何が許されるか。</p>
-          <p>ここは技術の一歩手前です。「データベースに何のテーブルを作るか」ではなく、「オフ会には名前と日程候補と会場がある」という日本語の粒度で書きます。</p>
+          <p>Dokumen kebutuhan menjelaskan "untuk apa aplikasi dibuat". Dokumen spesifikasi menerjemahkannya ke dalam "apa saja wujud konkretnya": ada berapa layar tampilan, apa yang bisa dilakukan di tiap layar, data apa yang harus disimpan sistem, serta siapa yang berhak melakukan apa.</p>
+          <p>Ini adalah tahap tepat satu langkah sebelum ranah teknis. Bukan menulis "tabel apa yang dibuat di database", melainkan tetap dalam bahasa manusia sehari-hari seperti: "Sebuah acara gathering memiliki nama acara, opsi tanggal, dan lokasi".</p>
         </div>
       </div>
 
       <div class="part">
-        <h3>入力と出力</h3>
+        <h3>Masukan dan Keluaran</h3>
         <div>
           <dl class="io">
-            <dt>入力</dt><dd>段1の要件定義書。</dd>
-            <dt>出力</dt><dd>仕様書。画面一覧、データ、ルール、やらないこと、用語の5節。</dd>
+            <dt>Masukan</dt><dd>Dokumen Definisi Kebutuhan dari Tahap 1.</dd>
+            <dt>Keluaran</dt><dd>Dokumen Spesifikasi yang mencakup 6 bagian: Daftar Layar, Data yang Dikelola, Aturan Main, Yang Tidak Dibuat, Glosarium Istilah, dan Usulan Tambahan.</dd>
           </dl>
         </div>
       </div>
 
       <div class="part">
-        <h3>プロンプト</h3>
+        <h3>Prompt untuk AI</h3>
         <div>
           <div class="prompt">
-            <div class="prompt-head"><span class="kind">AIに渡す</span><button class="copy" type="button">コピー</button></div>
-            <pre>下の要件定義書をもとに、仕様書を書いてください。私はコードを書かない人間です。
+            <div class="prompt-head"><span class="kind">Berikan ke AI</span><button class="copy" type="button">Salin</button></div>
+            <pre>Berdasarkan Dokumen Definisi Kebutuhan berikut, tolong susun Dokumen Spesifikasi. Saya adalah orang awam yang tidak menulis kode.
 
-守ってほしいこと:
-- 技術の選択（言語、データベース、ライブラリ）は書かない
-- 要件定義書に無い機能を足さない。足したくなったら「提案」として末尾に分けて書く
-- 判断に迷う点があれば、書き始める前に私に質問する
-- 「やらないこと」は要件定義書から必ず引き継ぐ
+Aturan yang wajib dipatuhi:
+- Jangan menulis pilihan teknologi (bahasa pemrograman, database, library).
+- Jangan menambah fitur baru di luar Dokumen Definisi Kebutuhan. Jika ada ide bagus, pisahkan di bagian paling akhir sebagai "Usulan Tambahan".
+- Jika ada hal yang meragukan atau belum jelas, tanyakan kepada saya terlebih dahulu sebelum mulai menulis.
+- Bagian "Yang Tidak Dibuat" wajib diwarisi dari Dokumen Definisi Kebutuhan.
 
-仕様書の形:
-# 仕様書
-## 画面一覧（画面の名前と、そこで誰が何をできるか）
-## 扱うデータ（覚えておく情報を、項目ごとに日本語で）
-## ルール（誰が何をできるか。できないことも書く）
-## やらないこと
-## 用語（この仕様書で使う言葉の定義）
-## 提案（要件に無いが、あると良さそうなこと。採用するかは私が決める）
+Format Dokumen Spesifikasi:
+# Dokumen Spesifikasi
+## Daftar Layar (Nama layar, siapa yang mengakses, dan apa yang bisa dilakukan)
+## Data yang Dikelola (Informasi yang perlu diingat sistem, ditulis dalam bahasa awam)
+## Aturan Main / Kebijakan (Siapa boleh apa, dan apa yang TIDAK boleh dilakukan)
+## Yang Tidak Dibuat (Out of Scope)
+## Glosarium Istilah (Definisi istilah yang digunakan dalam dokumen ini)
+## Usulan Tambahan (Fitur opsional yang diusulkan AI; keputusan adopsi ada di tangan saya)
 
-要件定義書:
-<span class="var">{段1で作った要件定義書をここに貼る}</span></pre>
+Dokumen Definisi Kebutuhan:
+<span class="var">{Tempelkan Dokumen Definisi Kebutuhan dari Tahap 1 di sini}</span></pre>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>例</h3>
+        <h3>Contoh Penerapan</h3>
         <div>
           <div class="example">
-            <div class="example-head"><span class="title">仕様書（抜粋）</span></div>
+            <div class="example-head"><span class="title">Dokumen Spesifikasi (Kutipan Ringkas)</span></div>
             <div class="example-body">
-              <h4>画面一覧</h4>
+              <h4>Daftar Layar</h4>
               <div class="table-scroll">
               <table>
-                <tr><th>画面</th><th>誰が</th><th>できること</th></tr>
-                <tr><td>ログイン</td><td>全員</td><td>メールアドレスでログインする</td></tr>
-                <tr><td>オフ会一覧</td><td>全員</td><td>自分が関わるオフ会を新しい順に見る。主催者は「新しく作る」に進める</td></tr>
-                <tr><td>オフ会作成</td><td>主催者</td><td>名前、説明、会場、会費、日程候補（複数）を入れて作る</td></tr>
-                <tr><td>オフ会詳細</td><td>全員</td><td>会場と会費を見る。参加者は候補ごとに ○ △ × を選ぶ。主催者は候補ごとの人数と名前を見る</td></tr>
+                <tr><th>Layar</th><th>Siapa</th><th>Hal yang Dapat Dilakukan</th></tr>
+                <tr><td>Login</td><td>Semua Pengguna</td><td>Masuk ke sistem menggunakan alamat email</td></tr>
+                <tr><td>Daftar Acara</td><td>Semua Pengguna</td><td>Melihat daftar acara yang berkaitan, diurutkan dari yang terbaru. Penyelenggara dapat menekan tombol "Buat Acara Baru"</td></tr>
+                <tr><td>Buat Acara</td><td>Penyelenggara</td><td>Mengisi judul acara, deskripsi, lokasi, iuran, serta memasukkan beberapa opsi jadwal (tanggal & jam)</td></tr>
+                <tr><td>Detail Acara</td><td>Semua Pengguna</td><td>Melihat lokasi dan iuran. Peserta memilih Ya (○) / Ragu (△) / Tidak (×) pada tiap opsi jadwal. Penyelenggara melihat rekapitulasi nama dan jumlah peserta</td></tr>
               </table>
               </div>
-              <h4>扱うデータ</h4>
+              <h4>Data yang Dikelola</h4>
               <ul>
-                <li>利用者: 表示名、メールアドレス</li>
-                <li>オフ会: 名前、説明、会場、会費、主催者、日程候補（日付と時刻の組を複数）</li>
-                <li>出欠回答: どの利用者が、どの日程候補に、○ △ × のどれで答えたか。1人1候補につき1つ。あとから変えられる</li>
+                <li>Pengguna: Nama tampilan, alamat email</li>
+                <li>Acara: Nama acara, deskripsi, lokasi, besaran iuran, identitas panitia penyelenggara, opsi jadwal (kumpulan tanggal dan jam)</li>
+                <li>Respons Kehadiran: Pengguna mana, untuk opsi jadwal mana, memilih Ya (○), Ragu (△), atau Tidak (×). Setiap orang memiliki 1 jawaban per opsi jadwal, dan dapat mengubahnya sewaktu-waktu</li>
               </ul>
-              <h4>ルール</h4>
+              <h4>Aturan Main / Kebijakan</h4>
               <ul>
-                <li>オフ会を作れるのはログインしている人。作った人が主催者になる</li>
-                <li>オフ会を編集・削除できるのは主催者だけ</li>
-                <li>出欠に答えられるのはログインしている人。他人の回答は変えられない</li>
+                <li>Hanya pengguna yang sudah login yang dapat membuat acara. Pembuat acara otomatis menjadi Penyelenggara</li>
+                <li>Hanya Penyelenggara yang berhak mengedit atau menghapus acara terkait</li>
+                <li>Pengguna yang login dapat mengisi kehadiran. Jawaban milik orang lain tidak dapat diubah</li>
               </ul>
-              <h4>やらないこと</h4>
+              <h4>Yang Tidak Dibuat (Out of Scope)</h4>
               <ul>
-                <li>会費の集金、写真共有、参加者どうしのチャット（要件定義書から引き継ぎ）</li>
-                <li>オフ会の公開・非公開の区別（初回はリンクを知っている人だけが見る前提）</li>
+                <li>Pengumpulan iuran secara daring, berbagi foto acara, fitur chat antar-peserta (diwarisi dari Dokumen Kebutuhan)</li>
+                <li>Pemisahan status acara publik vs privat (pada versi awal, diasumsikan hanya orang yang memiliki tautan/link yang dapat melihat)</li>
               </ul>
-              <h4>提案</h4>
+              <h4>Usulan Tambahan</h4>
               <ul>
-                <li>主催者が「この日に決定」を押すと、詳細画面の先頭に決定日が出る。採用するかは要判断</li>
+                <li>Penyelenggara dapat menekan tombol "Tetapkan Tanggal Ini", sehingga tanggal terpilih akan disematkan di bagian paling atas halaman detail acara. (Keputusan adopsi diserahkan kepada pengguna)</li>
               </ul>
             </div>
           </div>
@@ -771,24 +775,24 @@ gh repo view --web</pre>
       </div>
 
       <div class="part">
-        <h3>完了チェック</h3>
+        <h3>Kriteria Selesai (Checklist)</h3>
         <div>
           <ul class="done">
-            <li>画面一覧の各行に「誰が」がある</li>
-            <li>要件定義書の「必須」がすべて、どこかの画面に対応している</li>
-            <li>「ルール」に、できないことが書いてある（他人の回答は変えられない、など）</li>
-            <li>「やらないこと」が要件定義書と一致している</li>
-            <li>AIが勝手に足した機能が「提案」に隔離され、本文に混ざっていない</li>
+            <li>Kolom "Siapa" tertera jelas di setiap baris tabel daftar layar</li>
+            <li>Seluruh fitur "Wajib" di Tahap 1 terakomodasi di salah satu layar</li>
+            <li>Larangan tertulis eksplisit di bagian "Aturan Main" (misal: tidak dapat mengubah jawaban orang lain)</li>
+            <li>Bagian "Yang Tidak Dibuat" selaras dan konsisten dengan Tahap 1</li>
+            <li>Inisiatif fitur baru dari AI terisolasi rapi di bagian "Usulan Tambahan" dan tidak tercampur ke badan utama</li>
           </ul>
         </div>
       </div>
 
       <div class="part">
-        <h3>よくある失敗</h3>
+        <h3>Jebakan & Kesalahan Umum</h3>
         <div class="pitfalls">
-          <div class="pitfall"><b>仕様書が長くなりすぎる。</b>10画面を超えたら、要件定義書の「必須」が多すぎます。段1に戻って「あれば嬉しい」に降ろしてください。</div>
-          <div class="pitfall"><b>実装の話が混ざる。</b>「Supabaseで認証」「Reactで作る」は仕様ではなく手段です。手段は次の設計書（段3）で決めます。ここで固めると、仕様の議論と技術の議論が混ざって、どちらも決まりません。</div>
-          <div class="pitfall"><b>提案を全部採用する。</b>AIの提案は、よくある機能を並べているだけのことが多いです。要件定義書の「困りごと」に効くものだけ採用します。</div>
+          <div class="pitfall"><b>Dokumen spesifikasi terlalu panjang dan membengkak.</b> Jika jumlah layar melebihi 10 layar, berarti fitur wajib di Dokumen Kebutuhan terlalu banyak. Kembalilah ke Tahap 1 dan turunkan sebagian fitur menjadi "Fitur Tambahan".</div>
+          <div class="pitfall"><b>Tercampur bahasan implementasi teknis.</b> Kalimat seperti "Autentikasi menggunakan Supabase" atau "Dibuat dengan React" adalah sarana/alat, bukan spesifikasi. Sarana teknis ditetapkan di Tahap 3 (Desain Sistem). Mencampurnya di sini akan membuat diskusi spesifikasi dan teknologi saling tumpang tindih.</div>
+          <div class="pitfall"><b>Mengadopsi seluruh usulan tambahan dari AI.</b> Usulan AI sering kali hanya sekadar mendaftar fitur generik yang umum di pasaran. Hanya adopsi usulan yang benar-benar menjawab kendala di Dokumen Kebutuhan.</div>
         </div>
       </div>
     </section>
@@ -798,97 +802,97 @@ gh repo view --web</pre>
       <div class="stage-head">
         <div class="stage-num">3</div>
         <div>
-          <h2>設計書</h2>
-          <p class="sub">「何があるか」を「どう作るか」に翻訳し、技術の選択を1か所に残す</p>
-          <p class="weight"><span class="main">本題</span></p>
+          <h2>Dokumen Desain Sistem (Architecture)</h2>
+          <p class="sub">Menerjemahkan "apa saja komponennya" menjadi "bagaimana cara membuatnya", serta mendokumentasikan pilihan teknologi di satu tempat</p>
+          <p class="weight"><span class="main">Tahap Inti</span></p>
         </div>
       </div>
 
       <div class="part">
-        <h3>目的</h3>
+        <h3>Tujuan</h3>
         <div>
-          <p>仕様書には技術を書きませんでした。設計書は、その仕様をどんな道具で、どんな形で作るかを決める段です。ここで初めて「使う技術」「データの持ち方」「権限の実現方法」が出てきます。</p>
-          <p>技術を自分で選べる必要はありません。AIに選ばせて、<b>理由を自分が読める言葉で書かせ</b>、決めたことを1か所に残します。設計書が無いと、AIは会話のたびに違う技術や違うデータの形を選び、Issueをまたいだ途端に噛み合わなくなります。</p>
+          <p>Pada tahap spesifikasi kita tidak menyebut teknologi sama sekali. Dokumen desain sistem adalah tahap menentukan dengan alat apa dan arsitektur seperti apa spesifikasi tersebut diwujudkan. Di sinilah "pilihan teknologi", "struktur tabel data", dan "mekanisme hak akses" ditetapkan.</p>
+          <p>Anda tidak harus paham cara memilih teknologi sendiri. Biarkan AI yang merekomendasikannya, tetapi <b>wajibkan AI menuliskan alasannya dalam bahasa yang Anda pahami</b>, dan catat keputusan itu di satu tempat. Tanpa dokumen desain, AI akan berganti-ganti teknologi atau struktur data di setiap sesi percakapan baru, dan kode antar-Issue akan saling bertabrakan.</p>
         </div>
       </div>
 
       <div class="part">
-        <h3>入力と出力</h3>
+        <h3>Masukan dan Keluaran</h3>
         <div>
           <dl class="io">
-            <dt>入力</dt><dd>段2の仕様書。</dd>
-            <dt>出力</dt><dd>設計書。使う技術と理由、画面の遷移、データの構造、権限の実現方法、外部サービス、動作確認の方法の6節。</dd>
+            <dt>Masukan</dt><dd>Dokumen Spesifikasi dari Tahap 2.</dd>
+            <dt>Keluaran</dt><dd>Dokumen Desain Sistem (Teknologi & Alasan, Alur Navigasi, Struktur Data, Mekanisme Hak Akses, Layanan Eksternal, Metode Verifikasi Pengujian, Konsultasi Perubahan Spesifikasi).</dd>
           </dl>
         </div>
       </div>
 
       <div class="part">
-        <h3>プロンプト</h3>
+        <h3>Prompt untuk AI</h3>
         <div>
           <div class="prompt">
-            <div class="prompt-head"><span class="kind">AIに渡す</span><button class="copy" type="button">コピー</button></div>
-            <pre>下の仕様書をもとに、設計書を書いてください。私はコードを書かない人間で、この設計書を読んで「なぜこの技術なのか」を人に説明できる必要があります。
+            <div class="prompt-head"><span class="kind">Berikan ke AI</span><button class="copy" type="button">Salin</button></div>
+            <pre>Berdasarkan Dokumen Spesifikasi berikut, tolong buatkan Dokumen Desain Sistem. Saya orang awam yang tidak menulis kode, namun saya harus bisa menjelaskan "mengapa teknologi ini yang dipilih" kepada orang lain setelah membaca dokumen ini.
 
-守ってほしいこと:
-- 技術を選ぶときは、候補を2つまでに絞って比べ、推奨と理由を書く。理由は私が理解できる言葉で（例:「ログインとデータベースとホスティングが1つのサービスで済む」）
-- 無料か、少額で始められる構成にする
-- 仕様書に無い機能を足さない。設計の都合で仕様を変えたくなったら、変えずに「仕様書への相談」として末尾に分けて書く
-- 専門用語を使うときは、初出で一言の説明を付ける
-- 判断に迷う点があれば、書き始める前に私に質問する
+Aturan yang wajib dipatuhi:
+- Saat memilih teknologi, bandingkan maksimal 2 kandidat utama, lalu berikan rekomendasi beserta alasannya. Alasan harus dalam bahasa awam yang mudah saya mengerti (contoh: "Login, database, dan hosting sudah terintegrasi dalam satu layanan gratis").
+- Utamakan arsitektur yang gratis (free tier) atau berbiaya sangat minim untuk memulai.
+- Jangan menambah fitur baru. Jika demi kemudahan teknis ada spesifikasi yang perlu diubah, jangan diubah langsung, melainkan tulis di bagian akhir sebagai "Konsultasi Perubahan Spesifikasi".
+- Setiap kali menggunakan istilah teknis, sertakan penjelasan singkat saat pertama kali muncul.
+- Jika ada hal yang meragukan, tanyakan kepada saya terlebih dahulu sebelum mulai menulis.
 
-設計書の形:
-# 設計書
-## 使う技術と理由（何に何を使うか。候補と、選んだ理由）
-## 画面の遷移（どの画面からどの画面へ行けるか）
-## データの構造（表ごとに、項目と、表どうしのつながり）
-## 権限の実現方法（仕様書の「ルール」を、どこでどう守らせるか）
-## 外部サービス（メール送信など、外部に頼るもの）
-## 動作確認の方法（各タスクの完了条件を、誰のアカウントでどう確認するか）
-## 仕様書への相談（設計の都合で仕様を変えたい点。採用するかは私が決める）
+Format Dokumen Desain Sistem:
+# Dokumen Desain Sistem
+## Teknologi yang Digunakan & Alasannya (Kandidat yang dibandingkan dan alasan pemilihan)
+## Alur Navigasi Antar-Layar (Perpindahan dari satu layar ke layar lain)
+## Struktur Data (Daftar tabel, kolom utama, dan hubungan antar-tabel)
+## Mekanisme Hak Akses (Bagaimana aturan main spesifikasi ditegakkan secara teknis)
+## Layanan Eksternal (Pengiriman email, dsb.)
+## Metode Verifikasi Pengujian (Bagaimana menguji kriteria selesai tiap tugas secara manual menggunakan akun pengujian)
+## Konsultasi Perubahan Spesifikasi (Usulan penyesuaian demi efisiensi teknis; keputusan ada pada saya)
 
-仕様書:
-<span class="var">{段2で作った仕様書をここに貼る}</span></pre>
+Dokumen Spesifikasi:
+<span class="var">{Tempelkan Dokumen Spesifikasi dari Tahap 2 di sini}</span></pre>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>例</h3>
+        <h3>Contoh Penerapan</h3>
         <div>
           <div class="example">
-            <div class="example-head"><span class="title">設計書（抜粋）</span></div>
+            <div class="example-head"><span class="title">Dokumen Desain Sistem (Kutipan Ringkas)</span></div>
             <div class="example-body">
-              <h4>使う技術と理由</h4>
+              <h4>Teknologi yang Digunakan & Alasannya</h4>
               <ul>
-                <li>形態: スマホのブラウザで使うWebアプリ。アプリストアには出さない（参加者に「インストールして」と頼まなくて済む）</li>
-                <li>画面と処理: Next.js。候補は Next.js と Rails。AIが最も安定してコードを書け、次の Vercel でそのまま公開できるため Next.js を選ぶ</li>
-                <li>ログインとデータベース: Supabase。候補は Supabase と Firebase。データが普通の表（テーブル）で見られて、権限の規則をデータベース側に置けるため Supabase を選ぶ</li>
-                <li>公開: Vercel。Next.js の開発元で、無料枠で始められる</li>
+                <li>Bentuk Aplikasi: Web app yang dibuka di browser smartphone. Tidak dirilis ke App Store/Play Store (peserta tidak perlu mengunduh atau menginstal aplikasi).</li>
+                <li>Tampilan & Pemrosesan: Next.js. Kandidat yang dibandingkan: Next.js vs Ruby on Rails. Dipilih Next.js karena AI paling stabil dalam menulis kodenya dan dapat langsung dideploy gratis ke Vercel.</li>
+                <li>Login & Database: Supabase. Kandidat yang dibandingkan: Supabase vs Firebase. Dipilih Supabase karena data dapat dilihat dalam bentuk tabel biasa yang mudah dipahami, serta aturan hak akses dapat diterapkan langsung di sisi database.</li>
+                <li>Hosting Publikasi: Vercel. Penyedia resmi Next.js yang menyediakan paket gratis mumpuni untuk memulai.</li>
               </ul>
-              <h4>画面の遷移</h4>
-              <p>ログイン → オフ会一覧 → オフ会詳細。一覧から「新しく作る」でオフ会作成へ行き、作成後は詳細へ戻る。</p>
-              <h4>データの構造</h4>
+              <h4>Alur Navigasi Antar-Layar</h4>
+              <p>Login → Daftar Acara → Detail Acara. Dari Daftar Acara, tombol "Buat Acara Baru" membuka form pembuatan acara, dan setelah selesai disimpan akan langsung diarahkan ke halaman Detail Acara.</p>
+              <h4>Struktur Data</h4>
               <div class="table-scroll">
               <table>
-                <tr><th>表</th><th>主な項目</th><th>つながり</th></tr>
-                <tr><td>利用者</td><td>表示名、メールアドレス</td><td>ログインの仕組みが持つ利用者と1対1</td></tr>
-                <tr><td>オフ会</td><td>名前、説明、会場、会費、主催者</td><td>主催者は「利用者」の1人</td></tr>
-                <tr><td>日程候補</td><td>日時、どのオフ会のものか</td><td>1つのオフ会に複数</td></tr>
-                <tr><td>出欠回答</td><td>誰が、どの日程候補に、○ △ × のどれか</td><td>利用者と日程候補の組み合わせにつき1行</td></tr>
+                <tr><th>Tabel</th><th>Kolom Utama</th><th>Hubungan Antar-Tabel</th></tr>
+                <tr><td>Pengguna (users)</td><td>Nama tampilan, email</td><td>Berelasi 1-ke-1 dengan akun sistem autentikasi login</td></tr>
+                <tr><td>Acara (events)</td><td>Nama acara, deskripsi, lokasi, iuran, id_panitia</td><td>id_panitia merujuk ke 1 baris Pengguna</td></tr>
+                <tr><td>Opsi Jadwal (event_dates)</td><td>Tanggal & jam, id_acara</td><td>1 acara memiliki banyak opsi jadwal</td></tr>
+                <tr><td>Respons Kehadiran (rsvps)</td><td>id_pengguna, id_opsi_jadwal, pilihan (Ya/Ragu/Tidak)</td><td>1 baris per kombinasi pengguna dan opsi jadwal</td></tr>
               </table>
               </div>
-              <h4>権限の実現方法</h4>
+              <h4>Mekanisme Hak Akses</h4>
               <ul>
-                <li>「主催者だけが編集できる」は、オフ会の主催者欄とログイン中の利用者が同じかどうかで判定する</li>
-                <li>「他人の回答は変えられない」は、画面側だけでなくデータベース側の規則（RLS: 行ごとのアクセス制限）でも守らせる。画面のバグで破られないようにするため</li>
+                <li>Aturan "Hanya panitia yang boleh mengedit acara" diverifikasi dengan mencocokkan apakah id_panitia pada acara sama dengan pengguna yang sedang login.</li>
+                <li>Aturan "Tidak dapat mengubah respons milik orang lain" ditegakkan tidak hanya di tampilan antarmuka, tetapi juga melalui kebijakan keamanan di level database (RLS / Row Level Security), sehingga tetap aman meskipun ada celah di sisi tampilan.</li>
               </ul>
-              <h4>外部サービス</h4>
-              <p>前日リマインドのメール送信に Resend を使う。無料枠で足りる。</p>
-              <h4>動作確認の方法</h4>
-              <p>主催者用と参加者用の2つのアカウントを用意し、各Issueの完了条件を両方の立場で手で確認する。</p>
-              <h4>仕様書への相談</h4>
+              <h4>Layanan Eksternal</h4>
+              <p>Pengiriman email pengingat H-1 menggunakan Resend. Paket gratisnya sudah mencukupi untuk kebutuhan komunitas.</p>
+              <h4>Metode Verifikasi Pengujian</h4>
+              <p>Siapkan 2 akun pengujian: satu sebagai panitia dan satu sebagai peserta. Setiap kali menyelesaikan suatu tugas, lakukan pengujian manual dari perspektif kedua akun tersebut.</p>
+              <h4>Konsultasi Perubahan Spesifikasi</h4>
               <ul>
-                <li>出欠回答を「○ △ ×」の3択でなく「○ ×」の2択にすると集計が単純になる。ただし仕様書は3択なので、変えるなら仕様書側を直してから</li>
+                <li>Jika respons kehadiran disederhanakan menjadi 2 pilihan (Ya / Tidak) alih-alih 3 pilihan (Ya / Ragu / Tidak), logika rekapitulasi akan jauh lebih sederhana. Namun karena di spesifikasi tercatat 3 pilihan, perubahan ini baru akan diterapkan jika disetujui di dokumen spesifikasi terlebih dahulu.</li>
               </ul>
             </div>
           </div>
@@ -896,24 +900,24 @@ gh repo view --web</pre>
       </div>
 
       <div class="part">
-        <h3>完了チェック</h3>
+        <h3>Kriteria Selesai (Checklist)</h3>
         <div>
           <ul class="done">
-            <li>使う技術ごとに、理由が一文で書いてあり、自分が人に説明できる</li>
-            <li>「データの構造」の表が、仕様書の「扱うデータ」と一対一で対応している</li>
-            <li>仕様書の「ルール」がすべて、「権限の実現方法」のどこかで扱われている</li>
-            <li>仕様書に無い機能が増えていない。変えたい点は「仕様書への相談」に隔離されている</li>
-            <li>読んで分からない用語が残っていない（残っていたらAIに説明を足させる）</li>
+            <li>Setiap pilihan teknologi memiliki alasan dalam 1 kalimat yang dapat Anda jelaskan kembali kepada orang lain</li>
+            <li>Tabel dalam "Struktur Data" berkorespondensi 1-ke-1 dengan "Data yang Dikelola" pada dokumen spesifikasi</li>
+            <li>Seluruh "Aturan Main" pada spesifikasi tertangani dalam "Mekanisme Hak Akses"</li>
+            <li>Tidak ada fitur baru yang tiba-tiba ditambahkan; ide penyesuaian diisolasi di "Konsultasi Perubahan Spesifikasi"</li>
+            <li>Tidak ada istilah teknis asing yang belum dipahami (minta AI menambahkan penjelasan jika ada)</li>
           </ul>
         </div>
       </div>
 
       <div class="part">
-        <h3>よくある失敗</h3>
+        <h3>Jebakan & Kesalahan Umum</h3>
         <div class="pitfalls">
-          <div class="pitfall"><b>設計を飛ばして実装に入る。</b>AIは頼まれるたびに、そのとき最もらしい技術とデータの形を選びます。Issueが2本目に入った時点で、1本目と噛み合わなくなります。</div>
-          <div class="pitfall"><b>理解できない設計を承認する。</b>読めない設計書は、後で「なぜこうなっているの」と聞かれたときに答えられません。分からない箇所は、分かるまで説明を足させてから先へ進みます。</div>
-          <div class="pitfall"><b>設計の都合で仕様を書き換える。</b>「実装が楽だから機能を減らす」は、設計書の中で勝手にやらず、仕様書に戻って直します。仕様書と設計書が食い違うと、タスク分解がどちらを信じればいいか分からなくなります。</div>
+          <div class="pitfall"><b>Melompati desain langsung ke penulisan kode.</b> AI akan memilih teknologi dan struktur data yang paling lazim saat sesi chat itu berlangsung. Begitu Anda masuk ke Issue kedua di sesi chat baru, kodenya tidak akan nyambung dengan Issue pertama.</div>
+          <div class="pitfall"><b>Menyetujui dokumen desain yang tidak Anda pahami.</b> Desain yang tidak bisa Anda baca akan membuat Anda tidak berkutik ketika di kemudian hari terjadi masalah. Mintalah penjelasan berulang kali sampai Anda paham sebelum melanjutkan.</div>
+          <div class="pitfall"><b>Mengubah spesifikasi diam-diam demi kemudahan teknis.</b> Mengurangi fitur karena alasan "kodingnya rumit" tidak boleh dilakukan sepihak di dokumen desain. Kembalilah ke spesifikasi untuk mengubahnya secara resmi agar dekomposisi tugas tidak bingung menentukan acuan.</div>
         </div>
       </div>
     </section>
@@ -923,125 +927,125 @@ gh repo view --web</pre>
       <div class="stage-head">
         <div class="stage-num">4</div>
         <div>
-          <h2>タスク分解</h2>
-          <p class="sub">1回のAI作業で完成して、動作確認できる単位に切る</p>
-          <p class="weight"><span class="main">本題</span></p>
+          <h2>Dekomposisi Tugas (Task Breakdown)</h2>
+          <p class="sub">Memecah pekerjaan menjadi unit tugas yang bisa diselesaikan dalam 1 sesi AI dan dapat langsung diverifikasi jalannya</p>
+          <p class="weight"><span class="main">Tahap Inti</span></p>
         </div>
       </div>
 
       <div class="part">
-        <h3>目的</h3>
+        <h3>Tujuan</h3>
         <div>
-          <p>仕様書と設計書をそのままAIに渡して「全部作って」と言うと、途中で壊れたときに戻る場所がありません。仕様書の機能を、設計書の順序に沿って、1つずつ完成させて確認できるタスクに切り、順番を決めます。</p>
-          <p>切り方の基準は一つです。<b>そのタスクだけが終わった状態で、自分で動かして「できた」と言えるか。</b>言えないなら、大きすぎるか、依存する別のタスクが先です。</p>
+          <p>Jika Anda langsung menyerahkan dokumen spesifikasi dan desain ke AI sambil berkata "buatkan semuanya sekarang", maka saat ada yang rusak di tengah jalan, Anda tidak punya titik kembali yang jelas. Kita perlu memecah fitur spesifikasi mengikuti urutan desain menjadi tugas-tugas kecil yang bisa diselesaikan dan diuji satu per satu, lalu menentukan urutan pengerjaannya.</p>
+          <p>Standar ukurannya hanya satu: <b>Ketika tugas itu selesai dikerjakan, bisakah Anda mengujinya sendiri di aplikasi dan memastikan dengan yakin bahwa tugas itu "sudah berfungsi"?</b> Jika belum bisa, berarti tugas itu terlalu besar, atau ada tugas prasyarat yang harus dikerjakan terlebih dahulu.</p>
         </div>
       </div>
 
       <div class="part">
-        <h3>入力と出力</h3>
+        <h3>Masukan dan Keluaran</h3>
         <div>
           <dl class="io">
-            <dt>入力</dt><dd>段2の仕様書と、段3の設計書。</dd>
-            <dt>出力</dt><dd>タスク一覧。各タスクに、名前、完了条件、順番、依存があるもの。</dd>
+            <dt>Masukan</dt><dd>Dokumen Spesifikasi dari Tahap 2 dan Dokumen Desain Sistem dari Tahap 3.</dd>
+            <dt>Keluaran</dt><dd>Daftar Tugas Berurutan, lengkap dengan nama tugas, kriteria selesai yang dapat diuji, nomor urut, dan ketergantungan (dependensi).</dd>
           </dl>
         </div>
       </div>
 
       <div class="part">
-        <h3>プロンプト</h3>
+        <h3>Prompt untuk AI</h3>
         <div>
           <div class="prompt">
-            <div class="prompt-head"><span class="kind">AIに渡す</span><button class="copy" type="button">コピー</button></div>
-            <pre>下の仕様書と設計書をもとに、開発タスクに分解してください。
+            <div class="prompt-head"><span class="kind">Berikan ke AI</span><button class="copy" type="button">Salin</button></div>
+            <pre>Berdasarkan Dokumen Spesifikasi dan Dokumen Desain Sistem berikut, tolong pecah pekerjaan ini menjadi tugas-tugas pengembangan (task breakdown).
 
-タスクの条件:
-- 1つのタスクだけが終わった状態で、私がアプリを触って「できた」と確認できること
-- 1つのタスクは、AIとの1回の作業（数時間以内）で終わる大きさ
-- 最初のタスクは「ログインして、空っぽの一覧画面が出る」のような、いちばん薄い一本道にする
-- 各タスクに「完了条件」を書く。私が触って確認できる文にする（「〜が表示される」「〜を押すと〜になる」）
-- 順番を付け、前のタスクに依存する場合はそれを書く
-- 仕様書の「やらないこと」はタスクにしない
-- 設計書の「使う技術」を前提にする。技術を選び直さない
+Kriteria pembagian tugas:
+- Setelah 1 tugas selesai dikerjakan, saya harus bisa mencoba aplikasinya langsung dan memverifikasi bahwa fitur itu "berfungsi".
+- Ukuran 1 tugas harus realistis diselesaikan dalam 1 sesi kerja bersama AI (dalam hitungan beberapa jam).
+- Tugas pertama harus berupa alur paling ramping (end-to-end tipis), misalnya: "Bisa login dan muncul halaman daftar acara yang masih kosong".
+- Tuliskan "Kriteria Selesai" untuk setiap tugas dalam bentuk kalimat yang bisa saya uji langsung di layar ("Muncul tampilan ...", "Ketika tombol X ditekan maka ...").
+- Beri nomor urut dan cantumkan ketergantungan (dependensi) jika membutuhkan tugas sebelumnya.
+- Hal-hal pada "Yang Tidak Dibuat" jangan dijadikan tugas.
+- Pegang teguh pilihan teknologi di Dokumen Desain Sistem, jangan mengubah stack teknologi.
 
-出力の形（タスクごと）:
-### タスク N: {名前}
-- 依存: タスク {番号}（無ければ「なし」）
-- 内容: {何を作るか、2〜3行}
-- 完了条件:
-  - [ ] {私が確認できる文}
+Format Keluaran (per tugas):
+### Tugas N: {Nama Tugas}
+- Ketergantungan: Tugas {Nomor} (atau "Tidak ada")
+- Rincian: {Apa yang dibuat, 2-3 baris}
+- Kriteria Selesai:
+  - [ ] {Kalimat verifikasi yang bisa saya uji sendiri}
   - [ ] ...
 
-最後に、全体で何本になったかと、順番の理由を短く書いてください。
+Di bagian akhir, tuliskan ringkasan total jumlah tugas dan alasan pemilihan urutan pengerjaan tersebut secara singkat.
 
-仕様書:
-<span class="var">{段2で作った仕様書をここに貼る}</span>
+Dokumen Spesifikasi:
+<span class="var">{Tempelkan Dokumen Spesifikasi dari Tahap 2 di sini}</span>
 
-設計書:
-<span class="var">{段3で作った設計書をここに貼る}</span></pre>
+Dokumen Desain Sistem:
+<span class="var">{Tempelkan Dokumen Desain Sistem dari Tahap 3 di sini}</span></pre>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>切り方の決まり</h3>
+        <h3>Aturan Pembagian Tugas</h3>
         <div class="rules">
           <div class="rule">
-            <b>1タスク = 1つの完成した変更</b>
-            <p>1つのタスクは、後で1つのPull Request（変更のまとまり）になります。「ログイン機能一式」のような大きさは、途中で止まると全部が中途半端になるので、「ログインできる」「ログアウトできる」まで分けます。</p>
+            <b>1 Tugas = 1 Perubahan Utuh yang Berfungsi</b>
+            <p>Satu tugas nantinya akan menjadi 1 Pull Request (satu bundel perubahan kode). Ukuran sebesar "Seluruh Fitur Login & Autentikasi" terlalu luas; jika macet di tengah jalan semuanya akan berantakan. Pecahlah menjadi unit yang jelas seperti "Bisa login dan menampilkan profil" dan "Bisa logout".</p>
           </div>
           <div class="rule">
-            <b>親タスクは束ねるだけ。中身を持たない</b>
-            <p>「オフ会アプリ v1」のような親タスクを1つ作り、子タスクを列挙して進捗を見る場所にします。親自体には作業内容を書きません。段5で、親が勝手に閉じないための書き方を説明します。</p>
+            <b>Tugas Induk Hanya Berfungsi Mengelompokkan</b>
+            <p>Buat 1 Tugas Induk seperti "Aplikasi Temu Komunitas v1" yang mendaftar seluruh sub-tugas untuk memantau progres keseluruhan. Tugas induk tidak memuat instruksi pengerjaan kode langsung. Pada Tahap 5, kita akan membahas cara penulisan agar tugas induk tidak tertutup otomatis secara prematur.</p>
           </div>
           <div class="rule">
-            <b>分けるなら、着手する前に全部分ける</b>
-            <p>作業を始めてから「やっぱり分けよう」とすると、どこまでが何だったか分からなくなります。段階分けは、この段で終わらせます。</p>
+            <b>Pecah Seluruh Tugas di Awal Sebelum Mulai Menulis Kode</b>
+            <p>Jika Anda baru memecah tugas di tengah-tengah pengerjaan kode ("eh, bagian ini kita pisah saja deh"), Anda akan kehilangan kendali tentang bagian mana yang sudah beres dan mana yang belum. Seluruh pemilahan tugas wajib diselesaikan tuntas di tahap ini.</p>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>例</h3>
+        <h3>Contoh Penerapan</h3>
         <div>
           <div class="example">
-            <div class="example-head"><span class="title">タスク一覧（オフ会の出欠管理アプリ）</span></div>
+            <div class="example-head"><span class="title">Daftar Tugas (Aplikasi Temu Komunitas)</span></div>
             <div class="example-body">
               <div class="table-scroll">
               <table>
-                <tr><th>順</th><th>タスク</th><th>依存</th><th>完了条件（抜粋）</th></tr>
-                <tr><td>1</td><td>ログインと空のオフ会一覧</td><td>なし</td><td>メールでログインすると、空の一覧画面が出る。ログアウトできる</td></tr>
-                <tr><td>2</td><td>オフ会の作成と詳細表示</td><td>1</td><td>名前・会場・会費・日程候補を入れて作ると、一覧と詳細に出る。主催者だけが編集できる</td></tr>
-                <tr><td>3</td><td>日程候補への出欠回答</td><td>2</td><td>参加者が候補ごとに ○ △ × を選べる。選び直せる。他人の回答は変えられない</td></tr>
-                <tr><td>4</td><td>主催者向けの集計表示</td><td>3</td><td>候補ごとに ○ の人数と名前が一覧で見える</td></tr>
-                <tr><td>5</td><td>前日リマインドのメール</td><td>3</td><td>各日程候補の前日に、その候補に ○ と答えた参加者へメールが届く</td></tr>
+                <tr><th>No</th><th>Nama Tugas</th><th>Dependensi</th><th>Kriteria Selesai (Ringkasan)</th></tr>
+                <tr><td>1</td><td>Login dan Tampilan Daftar Acara Kosong</td><td>Tidak ada</td><td>Login menggunakan email menampilkan halaman daftar acara yang masih kosong. Pengguna dapat logout</td></tr>
+                <tr><td>2</td><td>Pembuatan Acara dan Tampilan Detail</td><td>Tugas 1</td><td>Mengisi judul, lokasi, iuran, dan opsi tanggal; data muncul di daftar dan detail. Hanya panitia yang dapat mengedit</td></tr>
+                <tr><td>3</td><td>Respons Kehadiran pada Opsi Tanggal</td><td>Tugas 2</td><td>Peserta dapat memilih Ya / Ragu / Tidak pada tiap opsi tanggal. Pilihan dapat diubah. Tidak dapat mengubah jawaban orang lain</td></tr>
+                <tr><td>4</td><td>Rekapitulasi Data untuk Panitia</td><td>Tugas 3</td><td>Panitia dapat melihat daftar nama dan total peserta yang memilih "Ya" pada masing-masing opsi tanggal</td></tr>
+                <tr><td>5</td><td>Email Pengingat Otomatis H-1</td><td>Tugas 3</td><td>Terkirim email otomatis pada H-1 ke peserta yang memilih "Ya" untuk opsi tanggal terkait</td></tr>
               </table>
               </div>
-              <p style="margin-top:12px">5本。1で一本道を通し、2から4は仕様書の「必須」を上から順に。5は「あれば嬉しい」なので最後に置く。回答（3）には依存するが集計（4）には依存しないため、4と入れ替えても構わない。</p>
+              <p style="margin-top:12px">Total ada 5 tugas. Tugas 1 membangun alur awal paling ramping. Tugas 2 s.d. 4 menyelesaikan seluruh fitur "Wajib" dari atas ke bawah. Tugas 5 merupakan "Fitur Tambahan" sehingga diletakkan paling akhir. Tugas 5 bergantung pada respons kehadiran (Tugas 3), namun tidak bergantung pada rekap panitia (Tugas 4), sehingga urutan Tugas 4 dan 5 dapat saling ditukar jika diinginkan.</p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>完了チェック</h3>
+        <h3>Kriteria Selesai (Checklist)</h3>
         <div>
           <ul class="done">
-            <li>タスク1が「一本道」になっている（ログインして何か1画面が出る、程度）</li>
-            <li>すべてのタスクに、自分が触って確認できる完了条件がある</li>
-            <li>依存関係が一方向で、順に進めれば詰まらない</li>
-            <li>要件定義書の「必須」がすべて、どれかのタスクに含まれている</li>
-            <li>本数が3〜10本に収まっている（超えるなら仕様が大きすぎる）</li>
-            <li>設計書に無い技術や外部サービスが、タスクの中に出てきていない</li>
+            <li>Tugas 1 berupa "alur ramping" (cukup login dan membuka satu halaman sederhana)</li>
+            <li>Seluruh tugas memiliki kriteria selesai yang dapat diuji langsung dengan tangan sendiri</li>
+            <li>Hubungan dependensi bersifat searah sehingga pengerjaan berurutan tidak akan menemui jalan buntu</li>
+            <li>Seluruh fitur "Wajib" pada dokumen kebutuhan terakomodasi dalam salah satu tugas</li>
+            <li>Jumlah total berkisar antara 3 hingga 10 tugas (jika lebih, berarti spesifikasi terlalu besar)</li>
+            <li>Tidak ada teknologi atau layanan eksternal baru yang tiba-tiba muncul di luar dokumen desain sistem</li>
           </ul>
         </div>
       </div>
 
       <div class="part">
-        <h3>よくある失敗</h3>
+        <h3>Jebakan & Kesalahan Umum</h3>
         <div class="pitfalls">
-          <div class="pitfall"><b>大きすぎるタスク。</b>「オフ会機能」は1本ではありません。完了条件が3行を超えたら分ける合図です。</div>
-          <div class="pitfall"><b>順番を考えない。</b>「出欠回答」を先に作ると、答える相手のオフ会が無くて確認できません。依存を書けば順番は自然に決まります。</div>
-          <div class="pitfall"><b>完了条件が「実装する」になっている。</b>「出欠機能を実装する」は確認できません。「○ を押すと ○ が保存され、再読み込みしても残っている」が完了条件です。</div>
+          <div class="pitfall"><b>Ukuran tugas terlalu besar.</b> "Membuat fitur acara komunitas" bukanlah 1 tugas tunggal. Jika kriteria selesai membutuhkan lebih dari 3 poin besar, itu pertanda tugas harus dipecah.</div>
+          <div class="pitfall"><b>Mengabaikan urutan logis.</b> Jika Anda membuat fitur "Respons Kehadiran" terlebih dahulu, Anda tidak memiliki wadah acara untuk diisi responsnya, sehingga tidak bisa diverifikasi. Cantumkan dependensi agar urutan pengerjaan terbentuk secara alami.</div>
+          <div class="pitfall"><b>Kriteria selesai berbunyi "Mengimplementasikan fitur X".</b> Kalimat "Mengimplementasikan fitur kehadiran" tidak dapat diverifikasi secara visual. Gantilah menjadi: "Ketika menekan tombol Ya, pilihan tersimpan dan tetap ada saat halaman dimuat ulang (refresh)".</div>
         </div>
       </div>
     </section>
@@ -1051,78 +1055,78 @@ gh repo view --web</pre>
       <div class="stage-head">
         <div class="stage-num">5</div>
         <div>
-          <h2>Issue登録</h2>
-          <p class="sub">タスクをGitHub Issueに書き、進捗と記録の置き場にする</p>
-          <p class="weight"><span class="main">本題</span></p>
+          <h2>Registrasi Issue di GitHub</h2>
+          <p class="sub">Mencatat tugas ke dalam GitHub Issue sebagai pusat pemantauan progres dan rekam jejak</p>
+          <p class="weight"><span class="main">Tahap Inti</span></p>
         </div>
       </div>
 
       <div class="part">
-        <h3>目的</h3>
+        <h3>Tujuan</h3>
         <div>
-          <p>段4で作ったタスク一覧を、GitHubのIssueとして1本ずつ登録します。チャットのログやメモ帳ではなくIssueにする理由は4つあります。</p>
+          <p>Daftar tugas yang telah disusun pada Tahap 4 kini didaftarkan satu per satu sebagai GitHub Issue. Alasan menggunakan Issue dan bukan sekadar catatan obrolan atau aplikasi notes adalah:</p>
           <ul>
-            <li>番号が付く。「#3をやって」とAIにも人にも一言で渡せる</li>
-            <li>完了条件がチェックリストとして残り、終わったかどうかを後から見返せる</li>
-            <li>変更（Pull Request）と自動で結びつき、「この機能はどの変更で入ったか」を辿れる</li>
-            <li>閉じたIssueが、そのまま開発の履歴になる</li>
+            <li>Setiap tugas memiliki nomor unik. Anda bisa menginstruksikan AI maupun manusia cukup dengan kalimat singkat: "Tolong kerjakan Issue #3".</li>
+            <li>Kriteria selesai tersimpan sebagai checklist rapi, sehingga Anda bisa meninjau kapan saja apakah tugas benar-benar tuntas.</li>
+            <li>Terhubung otomatis dengan perubahan kode (Pull Request), sehingga mudah melacak: "fitur ini masuk melalui perubahan yang mana".</li>
+            <li>Kumpulan Issue yang telah selesai ditutup akan menjadi riwayat rekam jejak (changelog) perkembangan aplikasi Anda.</li>
           </ul>
         </div>
       </div>
 
       <div class="part">
-        <h3>入力と出力</h3>
+        <h3>Masukan dan Keluaran</h3>
         <div>
           <dl class="io">
-            <dt>入力</dt><dd>段4のタスク一覧。</dd>
-            <dt>出力</dt><dd>GitHub Issue。子Issueがタスクの本数分と、それを束ねる親Issueが1本。</dd>
+            <dt>Masukan</dt><dd>Daftar tugas dari Tahap 4.</dd>
+            <dt>Keluaran</dt><dd>GitHub Issues: Sub-issue sebanyak jumlah tugas, serta 1 Issue Induk yang mengelompokkan semuanya.</dd>
           </dl>
         </div>
       </div>
 
       <div class="part">
-        <h3>Issueの型</h3>
+        <h3>Format Baku Sub-Issue</h3>
         <div>
-          <p>子Issueの本文は、いつも同じ4節にします。この型は、著者が実際に運用しているプロジェクトのIssueの形をそのまま一般化したものです。</p>
+          <p>Badan sub-issue sebaiknya selalu menggunakan 4 bagian yang konsisten. Format ini merupakan generalisasi langsung dari praktik pengelolaan Issue riil pada proyek produksi.</p>
           <div class="prompt" style="margin-top:12px">
-            <div class="prompt-head"><span class="kind">子Issueのテンプレート</span><button class="copy" type="button">コピー</button></div>
-            <pre>## 概要
-<span class="var">{何を作るか、1〜3文}</span>
+            <div class="prompt-head"><span class="kind">Templat Sub-Issue</span><button class="copy" type="button">Salin</button></div>
+            <pre>## Ringkasan
+<span class="var">{Apa yang dibuat, 1–3 kalimat}</span>
 
-## 背景と目的
-<span class="var">{要件定義書のどの困りごとに効くか。仕様書のどの画面・ルール、設計書のどの表に対応するか}</span>
+## Latar Belakang & Tujuan
+<span class="var">{Menjawab kendala apa di Dokumen Kebutuhan. Berkaitan dengan layar/aturan mana di Spesifikasi, dan tabel mana di Desain Sistem}</span>
 
-## 対応チェックリスト
-- [ ] <span class="var">{作業の区切り1}</span>
-- [ ] <span class="var">{作業の区切り2}</span>
+## Checklist Pengerjaan
+- [ ] <span class="var">{Tahapan pengerjaan 1}</span>
+- [ ] <span class="var">{Tahapan pengerjaan 2}</span>
 
-## 完了条件（Acceptance Criteria）
-- [ ] <span class="var">{自分が触って確認できる文1}</span>
-- [ ] <span class="var">{自分が触って確認できる文2}</span>
+## Kriteria Selesai (Acceptance Criteria)
+- [ ] <span class="var">{Kalimat verifikasi yang bisa saya uji sendiri 1}</span>
+- [ ] <span class="var">{Kalimat verifikasi yang bisa saya uji sendiri 2}</span>
 
-Refs #<span class="var">{親Issueの番号}</span></pre>
+Refs #<span class="var">{Nomor Issue Induk}</span></pre>
           </div>
-          <p style="margin-top:14px">タイトルには種類を接頭辞で付けます。新機能は <code>feat:</code>、不具合の修正は <code>fix:</code>、文書は <code>docs:</code>。一覧で見たときに種類が揃って読めます。</p>
+          <p style="margin-top:14px">Judul issue diberi awalan jenis pekerjaan (prefix): fitur baru diawali <code>feat:</code>, perbaikan bug diawali <code>fix:</code>, dokumentasi diawali <code>docs:</code>. Hal ini membuat daftar issue rapi dan mudah dibaca sekilas.</p>
         </div>
       </div>
 
       <div class="part">
-        <h3>親と子の関係</h3>
+        <h3>Hubungan Induk dan Anak (Parent-Child)</h3>
         <div>
           <figure style="margin-top:0">
             <div class="fig-scroll">
-            <svg viewBox="0 0 760 250" role="img" aria-label="親Issueは子Issueを Refs で束ねるだけ。各子Issueは自分のPull Requestから Closes で参照され、マージされると自動で閉じる。親は自動では閉じない。" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 760 250" role="img" aria-label="Issue induk hanya mengelompokkan sub-issue dengan Refs. Setiap sub-issue dirujuk dari Pull Request terkait dengan Closes, sehingga otomatis tertutup saat PR di-merge. Issue induk tidak ditutup otomatis." xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
                   <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
                 </marker>
               </defs>
-              <g fill="none" stroke="currentColor" stroke-width="1.3" font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="12">
+              <g fill="none" stroke="currentColor" stroke-width="1.3" font-family="Plus Jakarta Sans, Inter, sans-serif" font-size="12">
                 <!-- parent -->
                 <rect x="16" y="96" width="150" height="58" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"></rect>
                 <g fill="currentColor" stroke="none" text-anchor="middle">
-                  <text x="91" y="119" font-weight="700" font-size="13">親 Issue #1</text>
-                  <text x="91" y="139" font-size="11">オフ会アプリ v1</text>
+                  <text x="91" y="119" font-weight="700" font-size="13">Issue Induk #1</text>
+                  <text x="91" y="139" font-size="11">Aplikasi Temu v1</text>
                 </g>
                 <!-- children -->
                 <g fill="var(--surface)" stroke="currentColor">
@@ -1133,11 +1137,11 @@ Refs #<span class="var">{親Issueの番号}</span></pre>
                   <rect x="300" y="198" width="170" height="34" rx="5"></rect>
                 </g>
                 <g fill="currentColor" stroke="none" font-size="12">
-                  <text x="310" y="36">#2 ログインと空の一覧</text>
-                  <text x="310" y="82">#3 オフ会の作成と詳細</text>
-                  <text x="310" y="128">#4 出欠回答</text>
-                  <text x="310" y="174">#5 主催者向け集計</text>
-                  <text x="310" y="220">#6 前日リマインド</text>
+                  <text x="310" y="36">#2 Login & daftar kosong</text>
+                  <text x="310" y="82">#3 Buat acara & detail</text>
+                  <text x="310" y="128">#4 Konfirmasi kehadiran</text>
+                  <text x="310" y="174">#5 Rekapitulasi panitia</text>
+                  <text x="310" y="220">#6 Pengingat H-1</text>
                 </g>
                 <!-- PRs -->
                 <g fill="var(--code-bg)" stroke="currentColor">
@@ -1148,11 +1152,11 @@ Refs #<span class="var">{親Issueの番号}</span></pre>
                   <rect x="600" y="198" width="140" height="34" rx="5"></rect>
                 </g>
                 <g fill="currentColor" stroke="none" font-size="12" text-anchor="middle">
-                  <text x="670" y="36">PR（変更）</text>
-                  <text x="670" y="82">PR（変更）</text>
-                  <text x="670" y="128">PR（変更）</text>
-                  <text x="670" y="174">PR（変更）</text>
-                  <text x="670" y="220">PR（変更）</text>
+                  <text x="670" y="36">PR (Perubahan)</text>
+                  <text x="670" y="82">PR (Perubahan)</text>
+                  <text x="670" y="128">PR (Perubahan)</text>
+                  <text x="670" y="174">PR (Perubahan)</text>
+                  <text x="670" y="220">PR (Perubahan)</text>
                 </g>
                 <!-- Refs: parent -> children (dashed) -->
                 <g stroke-dasharray="5 4">
@@ -1173,99 +1177,100 @@ Refs #<span class="var">{親Issueの番号}</span></pre>
                 <!-- legend -->
                 <g font-size="11" fill="currentColor" stroke="none">
                   <line x1="16" y1="200" x2="52" y2="200" stroke="currentColor" stroke-dasharray="5 4"></line>
-                  <text x="60" y="204">Refs: 束ねるだけ。閉じない</text>
+                  <text x="60" y="204">Refs: Hanya mengaitkan. Tidak ditutup otomatis</text>
                   <line x1="16" y1="224" x2="52" y2="224" stroke="var(--accent)" stroke-width="1.8"></line>
-                  <text x="60" y="228">Closes: マージで自動的に閉じる</text>
+                  <text x="60" y="228">Closes: Otomatis tertutup saat PR di-merge</text>
                 </g>
               </g>
             </svg>
             </div>
-            <figcaption>子IssueからPRへは <code>Closes #番号</code>、子から親へは <code>Refs #番号</code>。ここを逆にすると、最初の子が終わった時点で親が自動で閉じてしまい、進捗を見る場所が消えます。</figcaption>
+            <figcaption>Dari Pull Request (PR) ke sub-issue gunakan kata kunci <code>Closes #nomor</code>, sedangkan dari sub-issue ke issue induk gunakan <code>Refs #nomor</code>. Jika Anda keliru menaruh kata kunci Closes ke issue induk, issue induk akan otomatis tertutup begitu sub-issue pertama di-merge, dan Anda kehilangan wadah pemantauan progres.</figcaption>
           </figure>
           <div class="prompt" style="margin-top:16px">
-            <div class="prompt-head"><span class="kind">親Issueのテンプレート</span><button class="copy" type="button">コピー</button></div>
-            <pre>## 概要
-<span class="var">{何を作るかを1〜2文}</span>。本Issueは作業を持たず、子Issueを束ねる。
-子Issueがすべて閉じたら、手動でこのIssueを閉じる。
-子IssueからこのIssueへは Closes ではなく Refs で参照すること（自動クローズ防止）。
+            <div class="prompt-head"><span class="kind">Templat Issue Induk</span><button class="copy" type="button">Salin</button></div>
+            <pre>## Ringkasan
+<span class="var">{Apa yang dibuat dalam 1–2 kalimat}</span>. Issue ini tidak memuat kode langsung, melainkan mengelompokkan sub-issue terkait.
+Tutup issue ini secara manual hanya setelah seluruh sub-issue selesai dan tertutup.
+Sub-issue wajib merujuk ke issue ini menggunakan Refs, BUKAN Closes (untuk mencegah penutupan otomatis prematur).
 
-## 子Issue
-- [ ] #<span class="var">{番号}</span> <span class="var">{タスク1の名前}</span>
-- [ ] #<span class="var">{番号}</span> <span class="var">{タスク2の名前}</span>
-- [ ] #<span class="var">{番号}</span> <span class="var">{タスク3の名前}</span>
+## Daftar Sub-Issue
+- [ ] #<span class="var">{nomor}</span> <span class="var">{Nama Tugas 1}</span>
+- [ ] #<span class="var">{nomor}</span> <span class="var">{Nama Tugas 2}</span>
+- [ ] #<span class="var">{nomor}</span> <span class="var">{Nama Tugas 3}</span>
 
-## 参照
-- 要件定義書: <span class="var">{置き場所へのリンク}</span>
-- 仕様書: <span class="var">{置き場所へのリンク}</span>
-- 設計書: <span class="var">{置き場所へのリンク}</span></pre>
+## Dokumen Referensi
+- Dokumen Kebutuhan: <span class="var">{tautan/path file}</span>
+- Dokumen Spesifikasi: <span class="var">{tautan/path file}</span>
+- Dokumen Desain Sistem: <span class="var">{tautan/path file}</span></pre>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>プロンプト</h3>
+        <h3>Prompt untuk AI</h3>
         <div>
-          <p>Issueは自分でGitHubの画面から作っても構いませんが、本文をタスク一覧から起こす作業はAIに任せられます。</p>
+          <p>Anda dapat membuat Issue secara manual lewat antarmuka web GitHub, namun menyusun badan teks dari daftar tugas dapat dilakukan dengan sangat cepat oleh AI.</p>
           <div class="prompt" style="margin-top:12px">
-            <div class="prompt-head"><span class="kind">AIに渡す</span><button class="copy" type="button">コピー</button></div>
-            <pre>下のタスク一覧を、GitHub Issue の本文に書き起こしてください。
+            <div class="prompt-head"><span class="kind">Berikan ke AI</span><button class="copy" type="button">Salin</button></div>
+            <pre>Tolong ubah daftar tugas berikut menjadi naskah GitHub Issue.
 
-- 子Issueは、タスク1本につき1つ。下のテンプレートの4節で書く
-- タイトルは「feat: {何ができるようになるか}」の形
-- 「完了条件」は、タスク一覧の完了条件をそのまま使う。私が触って確認できる文になっていなければ直す
-- 親Issueを1つ作り、子Issueを並べる。親の本文には「子から親へは Refs で参照」と明記する
-- 書き終えたら、私に一度見せて確認を取る。確認後に gh issue create で登録する。親を先に作り、返ってきた番号を子の Refs に入れる
-- 登録が終わったら gh issue list の結果を見せる
+Aturan pendaftaran:
+- Buat 1 Sub-Issue untuk setiap 1 tugas pengembangan, menggunakan templat 4 bagian di bawah ini.
+- Judul wajib diawali prefix "feat: {kemampuan baru yang dihasilkan}".
+- Bagian "Kriteria Selesai" wajib mengambil kriteria dari daftar tugas. Jika belum berupa kalimat yang bisa saya uji sendiri, sempurnakan terlebih dahulu.
+- Buat 1 Issue Induk yang merangkum seluruh sub-issue. Pada badan issue induk, tegaskan bahwa "sub-issue merujuk ke induk menggunakan Refs".
+- Setelah selesai menulis naskah, tunjukkan kepada saya untuk konfirmasi. Setelah saya setujui, daftarkan menggunakan perintah 'gh issue create'. Buat Issue Induk terlebih dahulu, lalu masukkan nomor yang didapat ke dalam Refs pada setiap sub-issue.
+- Terakhir, tampilkan daftar hasil pendaftaran dengan 'gh issue list'.
 
-子Issueのテンプレート:
-## 概要
-## 背景と目的
-## 対応チェックリスト
-## 完了条件（Acceptance Criteria）
-Refs #{親の番号}
+Templat Sub-Issue:
+## Ringkasan
+## Latar Belakang & Tujuan
+## Checklist Pengerjaan
+## Kriteria Selesai (Acceptance Criteria)
+Refs #{Nomor Issue Induk}
 
-タスク一覧:
-<span class="var">{段4で作ったタスク一覧をここに貼る}</span></pre>
+Daftar Tugas:
+<span class="var">{Tempelkan daftar tugas dari Tahap 4 di sini}</span></pre>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>gh コマンド</h3>
+        <h3>Perintah gh CLI</h3>
         <div>
-          <p>GitHubの画面でIssueを5本作るのは、手作業としては意外に重いです。段0で入れた <code>gh</code>（GitHub公式のコマンドラインツール）があると、AIがIssueの登録、一覧、内容の確認、書き換えをすべて代行できます。上のプロンプトの最後の2行が、その指示です。</p>
-          <p style="margin-top:12px">登録後の確認や手直しも、AIに頼みます。</p>
+          <p>Membuat 5 buah Issue secara manual lewat website GitHub memakan waktu yang cukup menyita perhatian. Dengan adanya alat <code>gh</code> (GitHub CLI) yang disiapkan di Tahap 0, AI dapat mendaftarkan, menampilkan, memeriksa isi, dan memperbarui seluruh Issue secara otomatis. Dua baris terakhir pada prompt di atas adalah instruksi untuk memanfaatkan kemampuan ini.</p>
+          <p style="margin-top:12px">Pengecekan dan perbaikan setelah pendaftaran pun cukup diserahkan kepada AI.</p>
           <div class="prompt" style="margin-top:12px">
-            <div class="prompt-head"><span class="kind">AIに渡す（確認と手直し）</span><button class="copy" type="button">コピー</button></div>
-            <pre>登録した Issue を確認したい。
-- gh issue list で一覧を見せて
-- Issue #<span class="var">{番号}</span> の本文を見せて
-- 親 Issue #<span class="var">{親の番号}</span> の「子Issue」の一覧を、確定した番号で書き直して</pre>
+            <div class="prompt-head"><span class="kind">Berikan ke AI (Pemeriksaan & Perbaikan)</span><button class="copy" type="button">Salin</button></div>
+            <pre>Saya ingin memeriksa Issue yang baru didaftarkan:
+- Tampilkan daftarnya dengan 'gh issue list'
+- Tampilkan isi lengkap Issue #<span class="var">{nomor}</span>
+- Perbarui daftar checklist pada Issue Induk #<span class="var">{nomor-induk}</span> dengan nomor-nomor sub-issue yang sudah pasti terbentuk</pre>
           </div>
-          <p style="margin-top:14px">うまくいかないときは、たいてい段0のログインが切れています。AIに「<code>gh auth status</code> を確認して、未ログインなら案内して」と頼めば直ります。</p>
+          <p style="margin-top:14px">Jika terjadi kendala saat menjalankan perintah, biasanya sesi login dari Tahap 0 kedaluwarsa. Cukup minta AI: "Periksa status dengan <code>gh auth status</code>, dan pandu saya jika perlu login ulang".</p>
           <div style="margin-top:16px">
             <details>
-              <summary>参考: AIが裏で実行しているコマンド（自分で打つ必要はありません）</summary>
+              <summary>Referensi: Perintah yang dijalankan AI di balik layar (Anda tidak perlu mengetiknya)</summary>
               <div>
                 <div class="prompt" style="margin-top:8px">
-                  <div class="prompt-head"><span class="kind">よく使う gh コマンド</span><button class="copy" type="button">コピー</button></div>
-                  <pre># 親Issueを作る（本文はファイルから渡す。番号が返ってくる）
-gh issue create --title "chore: オフ会アプリ v1（親）" --body-file parent.md
+                  <div class="prompt-head"><span class="kind">Perintah gh yang Sering Digunakan</span><button class="copy" type="button">Salin</button></div>
+                  <pre># Membuat Issue Induk (isi dibaca dari file markdown. Perintah mengembalikan nomor issue baru)
+gh issue create --title "chore: Aplikasi Temu Komunitas v1 (Induk)" --body-file parent.md
 
-# 子Issueを作る（ラベルも同時に付ける）
-gh issue create --title "feat: 日程候補への出欠回答" --body-file issue-4.md --label enhancement
+# Membuat Sub-Issue (sekaligus menyematkan label)
+gh issue create --title "feat: Respons kehadiran pada opsi tanggal" --body-file issue-4.md --label enhancement
 
-# 一覧を見る / 1本を見る
+# Melihat daftar issue / melihat isi 1 issue
 gh issue list
 gh issue view 4
 
-# 親Issueの本文を、子の番号が決まったあとで書き直す
+# Memperbarui isi Issue Induk setelah nomor sub-issue diketahui
 gh issue edit 1 --body-file parent.md
 
-# 終わったIssueを閉じる（PRの Closes #4 で自動的に閉じるなら不要）
+# Menutup issue yang selesai (tidak perlu jika sudah otomatis via Closes #4 pada PR)
 gh issue close 4</pre>
                 </div>
-                <p style="margin-top:10px">本文は <code>--body-file</code> でファイルから渡すのが安全で、ファイルが手元に残るので後から見直せます。</p>
+                <p style="margin-top:10px">Mengirim teks isi issue menggunakan parameter <code>--body-file</code> lebih aman dan file salinannya tersimpan di lokal komputer sehingga dapat ditinjau kembali sewaktu-waktu.</p>
               </div>
             </details>
           </div>
@@ -1273,30 +1278,30 @@ gh issue close 4</pre>
       </div>
 
       <div class="part">
-        <h3>例</h3>
+        <h3>Contoh Penerapan</h3>
         <div>
           <div class="example">
             <div class="example-head">
               <span class="label open">Open</span>
-              <span class="title">feat: 日程候補への出欠回答</span>
+              <span class="title">feat: Respons kehadiran pada opsi tanggal</span>
               <span class="meta">#4</span>
             </div>
             <div class="example-body">
-              <h4>概要</h4>
-              <p>参加者がオフ会の各日程候補に ○ △ × で答えられるようにする。答えは選び直せる。</p>
-              <h4>背景と目的</h4>
-              <p>要件定義書の困りごと「返事が流れて誰が来るのか数えられない」に対する中核機能。仕様書「オフ会詳細」画面とルール「他人の回答は変えられない」、設計書の表「出欠回答」と権限の実現方法（データベース側の規則）に対応する。</p>
-              <h4>対応チェックリスト</h4>
+              <h4>Ringkasan</h4>
+              <p>Memungkinkan peserta menjawab kehadiran pada masing-masing opsi tanggal acara dengan pilihan Ya (○), Ragu (△), atau Tidak (×). Jawaban yang sudah dipilih dapat diperbarui sewaktu-waktu.</p>
+              <h4>Latar Belakang & Tujuan</h4>
+              <p>Merupakan fitur inti untuk mengatasi kendala di Dokumen Kebutuhan: "balasan tertimbun sehingga sulit menghitung siapa yang datang". Berkaitan langsung dengan layar "Detail Acara" dan aturan "tidak dapat mengubah respons orang lain" pada Spesifikasi, serta tabel "rsvps" dan mekanisme RLS pada Desain Sistem.</p>
+              <h4>Checklist Pengerjaan</h4>
               <ul class="check">
-                <li>出欠回答のデータを保存できるようにする</li>
-                <li>オフ会詳細画面に、候補ごとの ○ △ × の選択を付ける</li>
-                <li>自分の回答だけ変更できるようにする</li>
+                <li>Menyediakan penyimpanan data respons kehadiran di database</li>
+                <li>Menambahkan kontrol tombol pilihan ○ △ × untuk tiap tanggal di halaman Detail Acara</li>
+                <li>Menerapkan proteksi hak akses agar pengguna hanya dapat mengubah jawabannya sendiri</li>
               </ul>
-              <h4>完了条件（Acceptance Criteria）</h4>
+              <h4>Kriteria Selesai (Acceptance Criteria)</h4>
               <ul class="check">
-                <li>参加者としてログインし、詳細画面で候補ごとに ○ △ × のどれかを選べる</li>
-                <li>選び直すと、最後に選んだものだけが残る。再読み込みしても残っている</li>
-                <li>別の参加者でログインしても、前の人の回答を変更できない</li>
+                <li>Login sebagai peserta, lalu di halaman Detail Acara dapat memilih salah satu dari ○ △ × pada tiap opsi tanggal</li>
+                <li>Ketika opsi diubah, sistem hanya menyimpan pilihan terakhir. Jawaban tetap tersimpan setelah halaman dimuat ulang (refresh)</li>
+                <li>Ketika login menggunakan akun peserta lain, pengguna tidak dapat mengedit atau menimpa jawaban milik peserta sebelumnya</li>
               </ul>
               <p style="margin-top:12px" class="meta">Refs #1</p>
             </div>
@@ -1305,24 +1310,24 @@ gh issue close 4</pre>
       </div>
 
       <div class="part">
-        <h3>完了チェック</h3>
+        <h3>Kriteria Selesai (Checklist)</h3>
         <div>
           <ul class="done">
-            <li>子Issueがタスクの本数分あり、それぞれに完了条件がある</li>
-            <li>親Issueに子が全部並び、「Refs で参照」と書いてある</li>
-            <li>子Issueの本文に <code>Refs #親</code> があり、<code>Closes #親</code> になっていない</li>
-            <li>タイトルに <code>feat:</code> などの接頭辞がある</li>
-            <li>要件定義書・仕様書・設計書の置き場所が、親Issueからリンクされている</li>
+            <li>Sub-issue terdaftar sejumlah total tugas, masing-masing dilengkapi kriteria selesai</li>
+            <li>Issue Induk merangkum seluruh sub-issue dan memuat peringatan "merujuk dengan Refs"</li>
+            <li>Di badan setiap sub-issue tercantum <code>Refs #induk</code>, bukan <code>Closes #induk</code></li>
+            <li>Judul issue diawali prefix yang teratur seperti <code>feat:</code></li>
+            <li>Tautan/lokasi file Dokumen Kebutuhan, Spesifikasi, dan Desain Sistem terhubung dari Issue Induk</li>
           </ul>
         </div>
       </div>
 
       <div class="part">
-        <h3>よくある失敗</h3>
+        <h3>Jebakan & Kesalahan Umum</h3>
         <div class="pitfalls">
-          <div class="pitfall"><b>完了条件が無い。</b>Issueに「出欠機能」とだけ書くと、AIは自分の解釈で完成を宣言します。完了条件はAIへの依頼文であり、自分が確認するときのチェック表でもあります。</div>
-          <div class="pitfall"><b>1つのIssueに複数のタスク。</b>「作成と回答と集計」を1本にすると、途中で止まったときに何が終わっているのか分からなくなります。段4の切り方に戻ります。</div>
-          <div class="pitfall"><b>親を Closes で参照する。</b>最初の子がマージされた瞬間に親が閉じます。閉じた親は一覧から消え、残りの進捗を見失います。</div>
+          <div class="pitfall"><b>Tidak menulis Kriteria Selesai.</b> Jika Issue hanya ditulis "Fitur kehadiran", AI akan mengklaim tugas selesai menurut interpretasinya sendiri. Kriteria selesai adalah kontrak instruksi bagi AI sekaligus checklist verifikasi bagi Anda.</div>
+          <div class="pitfall"><b>Menggabungkan beberapa tugas ke dalam satu Issue.</b> Menggabungkan "Pembuatan acara, respons, dan rekap panitia" ke dalam 1 Issue akan membuat Anda kehilangan jejak jika pengerjaan terhenti di tengah jalan. Kembalilah ke prinsip dekomposisi Tahap 4.</div>
+          <div class="pitfall"><b>Merujuk Issue Induk dengan kata kunci Closes.</b> Begitu PR pertama di-merge, Issue Induk akan otomatis tertutup dan hilang dari daftar utama, sehingga Anda kehilangan tempat memantau progres tugas-tugas berikutnya.</div>
         </div>
       </div>
     </section>
@@ -1332,156 +1337,156 @@ gh issue close 4</pre>
       <div class="stage-head">
         <div class="stage-num">6</div>
         <div>
-          <h2>実行</h2>
-          <p class="sub">Issueを1本ずつAIに渡し、完了条件を自分で確認して閉じる</p>
-          <p class="weight"><span>1本ずつ繰り返す</span></p>
+          <h2>Eksekusi</h2>
+          <p class="sub">Serahkan Issue satu per satu kepada AI, verifikasi kriteria selesai sendiri, lalu merge dan tutup</p>
+          <p class="weight"><span>Ulangi Per Satu Tugas</span></p>
         </div>
       </div>
 
       <div class="part">
-        <h3>目的</h3>
+        <h3>Tujuan</h3>
         <div>
-          <p>ここまでで、AIに渡す単位と、終わったかどうかの判定基準が全部揃っています。実行は、その単位を上から順に消化する作業です。段1〜5が丁寧なら、ここは単純になります。</p>
+          <p>Sampai di sini, unit kerja untuk AI dan standar pengujian tuntasnya sudah lengkap tersedia. Tahap eksekusi adalah mengeksekusi unit-unit tersebut dari atas ke bawah. Jika Tahap 1–5 dipersiapkan dengan cermat, tahap eksekusi ini akan berlangsung sangat mulus dan terukur.</p>
         </div>
       </div>
 
       <div class="part">
-        <h3>手順</h3>
+        <h3>Langkah Kerja</h3>
         <div>
           <ol class="steps" style="margin-top:0">
-            <li>次のIssueの番号を選ぶ。依存が終わっているものだけ。</li>
-            <li>AIに「Issue #番号 を読んで実装して」と頼む。会話の最初に仕様書と設計書を貼っておくと前提がぶれない。<code>gh</code> があれば、AIがIssueの本文を自分で読みに行く。</li>
-            <li>AIが「できた」と言ったら、そのAIに「レビュー用に、変更した内容をまとめて review.md に書いて」と頼む。それを<b>別の新しい会話</b>のAIに貼ってレビューさせる。同じ会話の中のAIは自分の仕事を甘く採点する。</li>
-            <li>レビューの指摘を、実装した側の会話に貼って直させる。</li>
-            <li>AIに「動かして」と頼み、表示されたURLをブラウザで開いて、Issueの完了条件を1つずつ自分で確認する。満たしていなければ2に戻る。</li>
-            <li>AIに「Pull Request を作って。本文に <code>Closes #番号</code> を入れて」と頼む。GitHubの画面でそのPull Requestを開き、「Merge pull request」を押す。Issueは自動で閉じる。</li>
-            <li>AIに「親Issueの #番号 にチェックを入れて」と頼み、次のIssueへ。</li>
+            <li>Pilih nomor Issue berikutnya yang dependensinya sudah terpenuhi.</li>
+            <li>Minta AI: "Tolong baca dan kerjakan Issue #nomor". Lampirkan dokumen spesifikasi dan desain di awal sesi percakapan agar asumsi AI tidak bias. Jika alat <code>gh</code> terpasang, AI bisa langsung membaca isi Issue sendiri.</li>
+            <li>Saat AI menyatakan "sudah selesai", minta AI tersebut: "Tuliskan ringkasan seluruh perubahan kode ke dalam file review.md untuk ditinjau". Lalu tempelkan file tersebut ke <b>sesi percakapan AI yang baru dan terpisah</b> untuk direview secara objektif. AI pada sesi yang sama cenderung menilai kodingannya sendiri terlalu lunak.</li>
+            <li>Salin masukan/catatan dari sesi review, lalu tempelkan kembali ke sesi AI pengembang untuk diperbaiki.</li>
+            <li>Minta AI pengembang: "Jalankan aplikasinya", lalu buka alamat URL lokal di browser. Uji setiap poin Kriteria Selesai pada Issue dengan tangan Anda sendiri. Jika ada yang belum sesuai, kembali ke langkah 2.</li>
+            <li>Minta AI: "Buat Pull Request dan cantumkan <code>Closes #nomor</code> di keterangannya". Buka Pull Request tersebut di antarmuka web GitHub, lalu tekan tombol "Merge pull request". Issue akan tertutup secara otomatis.</li>
+            <li>Minta AI: "Beri tanda centang pada sub-issue #nomor di Issue Induk", lalu lanjutkan ke Issue berikutnya.</li>
           </ol>
         </div>
       </div>
 
       <div class="part">
-        <h3>プロンプト</h3>
+        <h3>Prompt untuk AI</h3>
         <div>
           <div class="prompt">
-            <div class="prompt-head"><span class="kind">実装させる</span><button class="copy" type="button">コピー</button></div>
-            <pre>次のIssueを実装してください。仕様書に無いことは足さず、設計書で決めた技術とデータの構造を守ってください。
-完了条件をすべて満たしたと自分で確認できたら、何をどう確認したかを書いてから「できた」と報告してください。
+            <div class="prompt-head"><span class="kind">Menginstruksikan Pengerjaan</span><button class="copy" type="button">Salin</button></div>
+            <pre>Tolong implementasikan Issue berikut. Jangan menambah fitur di luar dokumen spesifikasi, dan patuhi pilihan teknologi serta struktur data yang telah ditetapkan di dokumen desain sistem.
+Setelah kamu yakin semua kriteria selesai terpenuhi, jelaskan apa saja yang telah kamu verifikasi dan bagaimana caranya sebelum melaporkan bahwa pekerjaan "selesai".
 
-仕様書:
-<span class="var">{段2の仕様書}</span>
+Dokumen Spesifikasi:
+<span class="var">{Dokumen Spesifikasi Tahap 2}</span>
 
-設計書:
-<span class="var">{段3の設計書}</span>
+Dokumen Desain Sistem:
+<span class="var">{Dokumen Desain Sistem Tahap 3}</span>
 
-Issue #<span class="var">{番号}</span>:
-<span class="var">{Issueの本文をそのまま貼る。gh があれば「gh issue view {番号} で読んで」でもよい}</span></pre>
+Issue #<span class="var">{nomor}</span>:
+<span class="var">{Tempelkan isi Issue di sini, atau jika gh aktif: "Tolong baca langsung dengan gh issue view {nomor}"}</span></pre>
           </div>
           <div class="prompt">
-            <div class="prompt-head"><span class="kind">別の会話でレビューさせる</span><button class="copy" type="button">コピー</button></div>
-            <pre>あなたはこの変更を初めて見るレビュアーです。実装した人の説明は読まず、変更内容だけを見てください。
+            <div class="prompt-head"><span class="kind">Review di Sesi Terpisah</span><button class="copy" type="button">Salin</button></div>
+            <pre>Kamu adalah reviewer independen yang baru pertama kali melihat perubahan kode ini. Jangan percaya penjelasan pembuatnya, fokuslah murni pada perubahan kode yang ada.
 
-確認してほしいこと:
-- Issue の完了条件が、本当に満たされるか。満たされない条件があれば、どの条件か
-- 仕様書に無い機能や、設計書と違う技術・データの形が混ざっていないか
-- 明らかに壊れそうな箇所（保存されない、他人のデータが見える、など）
+Hal yang harus kamu periksa:
+- Apakah seluruh Kriteria Selesai (Acceptance Criteria) pada Issue benar-benar terpenuhi? Jika ada yang belum, sebutkan secara spesifik.
+- Apakah ada fitur tambahan di luar spesifikasi, atau teknologi/struktur data yang menyimpang dari dokumen desain?
+- Apakah ada potensi bug atau kerusakan nyata (data tidak tersimpan, data pengguna lain bocor, dll.)?
 
-指摘は「場所、何が問題か、どう直すか」の3点で、重要な順に並べてください。
+Sajikan masukan dalam format: "Lokasi file/kode, Masalahnya apa, Cara memperbaikinya bagaimana", diurutkan dari yang paling kritis.
 
-Issue #<span class="var">{番号}</span>:
-<span class="var">{Issueの本文}</span>
+Issue #<span class="var">{nomor}</span>:
+<span class="var">{Isi Issue}</span>
 
-変更内容:
-<span class="var">{実装したAIに作らせた review.md の中身を貼る}</span></pre>
+Perubahan Kode:
+<span class="var">{Isi file review.md yang dibuat oleh AI pengembang}</span></pre>
           </div>
         </div>
       </div>
 
       <div class="part">
-        <h3>完了チェック</h3>
+        <h3>Kriteria Selesai (Checklist)</h3>
         <div>
           <ul class="done">
-            <li>完了条件を、AIの報告ではなく自分の手で確認した</li>
-            <li>レビューを、実装したのとは別の会話で行った</li>
-            <li>PRの本文に <code>Closes #番号</code> があり、マージでIssueが閉じた</li>
+            <li>Memverifikasi kriteria selesai dengan tangan sendiri di aplikasi, bukan sekadar percaya klaim laporan AI</li>
+            <li>Melakukan review kode di sesi percakapan AI baru yang terpisah</li>
+            <li>Pull Request memuat instruksi <code>Closes #nomor</code> dan Issue otomatis tertutup saat merge dilakukan</li>
           </ul>
         </div>
       </div>
 
       <div class="part">
-        <h3>よくある失敗</h3>
+        <h3>Jebakan & Kesalahan Umum</h3>
         <div class="pitfalls">
-          <div class="pitfall"><b>AIの「できました」を信じてマージする。</b>完了条件は自分で触って確認するためのものです。マージのボタンを押すのは自分なので、その前に手順5を必ず通します。ここを省くと、段1〜5の意味が無くなります。</div>
-          <div class="pitfall"><b>レビューを同じ会話でやる。</b>実装したAIに「問題ないか」と聞くと、ほぼ「問題ありません」と返ってきます。会話を分けるだけで指摘の質が変わります。</div>
-          <div class="pitfall"><b>実行中に仕様を変える。</b>作りながら「やっぱりこうしたい」と思ったら、その場で足さず、新しいIssueにして親に追加します。今のIssueは今の完了条件で終わらせます。</div>
+          <div class="pitfall"><b>Percaya begitu saja pada laporan AI "sudah selesai" lalu langsung merge.</b> Kriteria selesai dibuat agar Anda bisa mencobanya langsung. Tombol merge ditekan oleh Anda, maka langkah verifikasi mandiri wajib dijalankan. Melewatkannya akan membuat persiapan Tahap 1–5 sia-sia.</div>
+          <div class="pitfall"><b>Melakukan review di sesi percakapan yang sama.</b> Jika Anda bertanya "apakah ada masalah pada kode ini?" kepada AI yang baru saja menulis kodenya, hampir pasti jawabannya adalah "tidak ada masalah". Cukup memindahkan kode ke sesi chat baru, kualitas review akan meningkat drastis.</div>
+          <div class="pitfall"><b>Mengubah spesifikasi di tengah eksekusi.</b> Jika saat mencoba aplikasi timbul ide "eh, lebih bagus kalau ditambah fitur ini", jangan langsung dikerjakan di sesi tersebut. Buatlah Issue baru dan tambahkan ke Issue Induk. Selesaikan Issue yang sedang berjalan sesuai kriteria aslinya terlebih dahulu.</div>
         </div>
       </div>
     </section>
 
     <!-- ========== APPENDIX: Claude Code ========== -->
     <section class="block" id="claude-code">
-      <h2>Claude Codeで回す場合</h2>
+      <h2>Penerapan Menggunakan Claude Code</h2>
       <p>
-        著者はこの流れを Claude Code で回しています。上の6段は Claude Code が無くても成立しますが、Claude Code には「決まった手順をスラッシュコマンドとして保存する」機能があり、段4〜6の繰り返し部分をかなり自動化できます。
+        Penulis menjalankan alur kerja ini menggunakan Claude Code. Alur 6 tahap di atas tetap dapat berjalan tanpa Claude Code, tetapi Claude Code memiliki kemampuan menyimpan prosedur rutin sebagai "slash command" sehingga bagian berulang di Tahap 4–6 dapat diotomatisasi secara signifikan.
       </p>
       <div class="cc-note">
-        <b>先に一つ注意。</b>下に出てくる <code>/issue-create</code> や <code>/issue-complete</code> は、著者が自分用に作ったコマンドで、Claude Code に最初から入っているものではありません。素の Claude Code では、上の各段のプロンプトをそのまま貼れば同じことができます。コマンドは、同じプロンプトを何度も貼るのが面倒になってから作れば十分です。
+        <b>Catatan penting terlebih dahulu:</b> Perintah <code>/issue-create</code> dan <code>/issue-complete</code> yang dibahas di bawah ini adalah perintah kustom buatan penulis sendiri, bukan fitur bawaan pabrik Claude Code. Di Claude Code standar, Anda cukup menempelkan prompt dari masing-masing tahap di atas untuk mendapatkan hasil yang persis sama. Perintah kustom baru perlu dibuat jika Anda sudah mulai merasa bosan menempelkan prompt yang sama berulang kali.
       </div>
 
       <div class="cmp table-scroll">
         <table>
-          <tr><th>段</th><th>素の Claude Code でやること</th><th>著者が使っているコマンド／スキル</th><th>何が自動になるか</th></tr>
-          <tr><td>1 要件定義</td><td>段1のプロンプトを貼って対話する</td><td>なし（対話そのもの）</td><td>自動化しない。ここは人が答える段</td></tr>
-          <tr><td>2 仕様書</td><td>段2のプロンプトを貼る</td><td>superpowers プラグインの brainstorming スキル（著者の自作ではなく公開プラグイン）</td><td>質問を1つずつ出して、仕様の穴を埋めていく</td></tr>
-          <tr><td>3 設計書</td><td>段3のプロンプトを貼る</td><td>同じ brainstorming スキルの後半</td><td>合意した設計を、日付つきのファイル（<code>docs/</code> 配下）に保存する。著者のプロジェクトでは仕様と設計を同じ対話で続けて決めている</td></tr>
-          <tr><td>4 タスク分解</td><td>段4のプロンプトを貼る</td><td>なし（段3の対話の続きで行う）</td><td>分けるべきかの判断を、設計の段階で必ず聞く決まりにしている</td></tr>
-          <tr><td>5 Issue登録</td><td>段5のプロンプトを貼り、<code>gh issue create</code> を頼む</td><td><code>/issue-create</code>（自作）</td><td>自由文から4節の本文・接頭辞つきタイトル・ラベルを組み立て、確認1回で登録する</td></tr>
-          <tr><td>6 実行</td><td>段6の2つのプロンプトを、会話を分けて貼る</td><td><code>/issue-complete 番号</code>（自作）</td><td>下の4段を一気に回し、最後にレポートを出す</td></tr>
+          <tr><th>Tahap</th><th>Claude Code Standar</th><th>Perintah / Skill yang Dipakai Penulis</th><th>Apa yang Diotomatisasi</th></tr>
+          <tr><td>1 Definisi Kebutuhan</td><td>Tempel prompt Tahap 1 dan berdialog</td><td>Tidak ada (dialog langsung)</td><td>Tidak diotomatisasi. Bagian ini membutuhkan refleksi dan jawaban manusia</td></tr>
+          <tr><td>2 Dokumen Spesifikasi</td><td>Tempel prompt Tahap 2</td><td>Skill brainstorming dari plugin superpowers (plugin publik komunitas)</td><td>Mengajukan pertanyaan satu per satu untuk menambal celah spesifikasi</td></tr>
+          <tr><td>3 Dokumen Desain Sistem</td><td>Tempel prompt Tahap 3</td><td>Paruh kedua dari skill brainstorming yang sama</td><td>Menyimpan desain yang disepakati ke file bertanggal di folder <code>docs/</code>. Penulis merumuskan spesifikasi & desain dalam satu rangkaian dialog</td></tr>
+          <tr><td>4 Dekomposisi Tugas</td><td>Tempel prompt Tahap 4</td><td>Tidak ada (kelanjutan dialog Tahap 3)</td><td>Memastikan penentuan pembagian tugas selalu dikonfirmasi sejak tahap perancangan desain</td></tr>
+          <tr><td>5 Registrasi Issue</td><td>Tempel prompt Tahap 5, minta jalankan <code>gh issue create</code></td><td><code>/issue-create</code> (buatan sendiri)</td><td>Menyusun format 4 bagian, prefix judul, dan label dari teks bebas, lalu mendaftarkannya dengan 1 kali konfirmasi</td></tr>
+          <tr><td>6 Eksekusi</td><td>Tempel kedua prompt Tahap 6 di dua sesi obrolan terpisah</td><td><code>/issue-complete nomor</code> (buatan sendiri)</td><td>Menjalankan 4 sub-tahap sekaligus secara otomatis dan memberikan laporan akhir</td></tr>
         </table>
       </div>
 
-      <h3 style="margin-top:32px; font-size:18px"><code>/issue-complete</code> の中身（4段の要約）</h3>
+      <h3 style="margin-top:32px; font-size:18px">Rincian Alur di dalam <code>/issue-complete</code> (4 Sub-Tahap)</h3>
       <ol class="steps">
-        <li><b>設計。</b>Issueと、段3の設計書やプロジェクトの決まりを読み、そのIssue1本分の実装計画をファイルに書く。段3が全体の設計、こちらは1本分の手順書という関係。ここは判断力の高いモデルに任せる。</li>
-        <li><b>実装。</b>計画に沿って、別の作業者（サブエージェント）がコードを書く。計画が良ければ、ここは速いモデルで足りる。</li>
-        <li><b>レビューと修正。</b>実装を知らない別のエージェントに差分だけを渡してレビューさせ、指摘を直す。指摘が出なくなるまで繰り返す。段6の手順3〜4を、機械的に何周も回す仕組み。</li>
-        <li><b>報告。</b>何を作り、何を指摘され、何を直したかをまとめる。人はこれと完了条件を見てマージを判断する。</li>
+        <li><b>Perancangan (Desain Sesi).</b> Membaca Issue, dokumen desain Tahap 3, serta konvensi proyek, lalu menulis rencana implementasi spesifik untuk Issue tersebut ke sebuah file. Tahap ini dipercayakan kepada model dengan kemampuan penalaran tinggi.</li>
+        <li><b>Implementasi.</b> Sub-agent pekerja menulis kode sesuai rencana kerja tersebut. Jika perencanaannya matang, bagian ini cukup dikerjakan oleh model yang lebih cepat.</li>
+        <li><b>Review dan Perbaikan.</b> Menyerahkan diff/perubahan kode ke agent terpisah yang tidak tahu proses implementasi untuk direview, lalu memperbaiki temuannya secara iteratif hingga bersih dari catatan kritis. Mengotomatiskan langkah 3–4 pada Tahap 6 secara berulang.</li>
+        <li><b>Laporan.</b> Merangkum apa yang dibuat, apa saja catatan review, dan perbaikan apa yang dilakukan. Manusia tinggal membaca ringkasan ini dan menguji kriteria selesai untuk memutuskan merge.</li>
       </ol>
       <p style="margin-top:16px">
-        趣味のアプリなら、ここまでの仕組みは不要です。段6のプロンプト2本を会話を分けて使えば、同じ効果の大半が得られます。
+        Untuk proyek hobi atau aplikasi sederhana, otomasi sekompleks ini belum diperlukan. Cukup gunakan 2 prompt Tahap 6 pada dua sesi obrolan terpisah, Anda sudah mendapatkan sebagian besar manfaat utamanya.
       </p>
 
-      <h3 style="margin-top:32px; font-size:18px">自作コマンドの作り方（さわりだけ）</h3>
+      <h3 style="margin-top:32px; font-size:18px">Cara Membuat Slash Command Sendiri (Panduan Dasar)</h3>
       <div style="margin-top:12px">
         <details>
-          <summary>スラッシュコマンドはただの Markdown ファイル</summary>
+          <summary>Slash command hanyalah file Markdown biasa</summary>
           <div>
-            <p>プロジェクトの <code>.claude/commands/</code> に <code>issue-create.md</code> のようなファイルを置くと、<code>/issue-create</code> と打てるようになります。中身は「この手順でやって」という指示文で、上の各段のプロンプトをそのまま入れれば最初のコマンドになります。</p>
-            <p>まずは段5のプロンプトを <code>.claude/commands/issue-create.md</code> に保存するところから始めると、効果が分かりやすいです。</p>
+            <p>Jika Anda meletakkan file bernama <code>issue-create.md</code> di dalam folder <code>.claude/commands/</code> proyek Anda, Anda dapat menjalankannya dengan mengetik <code>/issue-create</code>. Isinya hanyalah instruksi biasa seperti "Tolong jalankan langkah-langkah berikut", di mana prompt Tahap 5 di atas dapat langsung disimpan sebagai perintah pertama Anda.</p>
+            <p>Mencoba menyimpan prompt Tahap 5 ke dalam <code>.claude/commands/issue-create.md</code> adalah langkah awal yang sangat bagus untuk merasakan kemudahannya.</p>
           </div>
         </details>
         <details>
-          <summary>CLAUDE.md にプロジェクトの決まりを書く</summary>
+          <summary>Tuliskan aturan tetap proyek di dalam file CLAUDE.md</summary>
           <div>
-            <p>プロジェクト直下に <code>CLAUDE.md</code> というファイルを置くと、Claude Code は毎回それを読んでから作業します。「やらないこと」「Issueなしでコードを変えない」「タスクは1 Issue = 1 PR」のような決まりをここに書いておくと、会話のたびに言い直さずに済みます。</p>
-            <p>段1〜5で決めたことのうち、次の作業でも守ってほしいもの（特に設計書の「使う技術」）を、少しずつここへ移していくのがおすすめです。</p>
+            <p>Jika Anda meletakkan file bernama <code>CLAUDE.md</code> di folder utama proyek, Claude Code akan selalu membacanya sebelum mulai bekerja. Aturan penting seperti "Dilarang menambah fitur tanpa Issue", "1 Issue = 1 PR", atau "Teknologi yang digunakan harus sesuai dokumen desain" dapat dicatat di sini agar Anda tidak perlu mengulang instruksi di setiap sesi percakapan.</p>
+            <p>Sangat disarankan untuk memindahkan keputusan-keputusan dari Tahap 1–5 (terutama bagian "Teknologi yang Digunakan" pada Dokumen Desain) ke file ini secara bertahap.</p>
           </div>
         </details>
       </div>
     </section>
 
     <section class="block" id="next">
-      <h2>次の一歩</h2>
-      <p>いきなり本命のアプリでやらず、まず小さな題材で1周してみてください。オフ会アプリなら、段1から段5までで2〜3時間、Issueは5本ほどです。</p>
+      <h2>Langkah Selanjutnya</h2>
+      <p>Jangan langsung memulai pada aplikasi impian Anda yang berskala besar; cobalah selesaikan satu putaran penuh pada proyek kecil terlebih dahulu. Untuk kasus sederhana seperti aplikasi temu komunitas ini, Tahap 1 sampai Tahap 5 biasanya hanya memakan waktu 2–3 jam dengan sekitar 5 buah Issue.</p>
       <ul>
-        <li><b>1周したら、振り返りを3行書く。</b>どの段で迷ったか、どのIssueが大きすぎたか。次の題材で切り方が変わります。</li>
-        <li><b>守れた決まりを、常設のメモに移す。</b>「やらないことを先に決める」「完了条件は触って確認できる文」など、自分に効いたルールを、AIが毎回読む場所（Claude Code なら <code>CLAUDE.md</code>）に書きます。</li>
-        <li><b>要件定義書・仕様書・設計書は、リポジトリに置く。</b>チャットの中に置いたままだと、次の会話から見えません。<code>docs/</code> のようなフォルダに置き、親Issueからリンクします。</li>
+        <li><b>Setelah menyelesaikan 1 putaran penuh, tulis 3 baris refleksi.</b> Di tahap mana Anda sempat bingung? Issue mana yang ternyata terlalu besar? Evaluasi ini akan membuat cara Anda membagi tugas di proyek berikutnya jauh lebih matang.</li>
+        <li><b>Pindahkan aturan yang terbukti efektif ke catatan permanen.</b> Prinsip-prinsip seperti "Menentukan batasan yang tidak dibuat sejak awal" atau "Kriteria selesai harus bisa diuji secara visual" yang terbukti ampuh sebaiknya dicatat di panduan proyek (seperti <code>CLAUDE.md</code>) agar selalu dibaca oleh AI.</li>
+        <li><b>Simpan dokumen kebutuhan, spesifikasi, dan desain di dalam repositori.</b> Jika dokumen hanya tertinggal di jendela obrolan chat, dokumen tersebut tidak akan terbaca di sesi obrolan berikutnya. Simpanlah di folder seperti <code>docs/</code> dan tautkan dari Issue Induk.</li>
       </ul>
     </section>
 
     <footer>
-      本文の例はすべて架空の「オフ会の出欠管理アプリ」で、実在のサービスとは関係ありません。Issueの型と親子の決まりは、著者が実際に運用しているプロジェクトの形を一般化したものです。
+      Seluruh contoh dalam artikel ini menggunakan studi kasus fiktif "Aplikasi Manajemen Kehadiran Temu Komunitas", dan tidak berafiliasi dengan layanan nyata mana pun. Format Issue dan struktur relasi induk-anak merupakan generalisasi dari praktik riil yang diterapkan penulis dalam mengelola proyek pengembangan software.
     </footer>
   </main>
 </div>
@@ -1504,7 +1509,7 @@ Issue #<span class="var">{番号}</span>:
     }
     function mark(btn, ok) {
       var original = btn.textContent;
-      btn.textContent = ok ? 'コピーしました' : 'コピーできませんでした';
+      btn.textContent = ok ? 'Tersalin!' : 'Gagal menyalin';
       if (ok) btn.classList.add('done');
       setTimeout(function () { btn.textContent = original; btn.classList.remove('done'); }, 1600);
     }
@@ -1521,3 +1526,5 @@ Issue #<span class="var">{番号}</span>:
     });
   })();
 </script>
+</body>
+</html>
