@@ -1,14 +1,15 @@
-# 📅 Kalender Jawa 2026 — Modern, Elegan & Responsif
+# 📅 Kalender Jawa 2026 & 2027 — Modern, Elegan & Responsif
 
-Aplikasi web Kalender Jawa Tahun 2026 yang modern, elegan, profesional, dan sangat mudah digunakan (user-friendly). Dibangun menggunakan **HTML5**, **Tailwind CSS**, dan **Vanilla JavaScript (ES6+)** tanpa ketergantungan framework berat.
+Aplikasi web Kalender Jawa Multi-Tahun (2026 & 2027) yang modern, elegan, profesional, dan sangat mudah digunakan (user-friendly). Dibangun menggunakan **HTML5**, **Tailwind CSS**, dan **Vanilla JavaScript (ES6+)** tanpa ketergantungan framework berat.
 
 ---
 
 ## ✨ Fitur-Fitur Utama yang Tersedia
 
-1. **Tampilan Per Bulan yang Rapi & Indah**:
+1. **Dukungan Multi-Tahun & Tampilan Per Bulan yang Rapi**:
+   - Pemilihan tahun via dropdown **Tahun (2026 / 2027)**.
    - Navigasi bulan fleksibel: tombol Sebelumnya (`<`), Berikutnya (`>`), Dropdown Bulan (Januari s/d Desember), dan tombol cepat **"Hari Ini"**.
-   - Dilengkapi padanan nama bulan dalam penanggalan Jawa (Sultan Agungan 1959-1960 Jimawal/Je).
+   - Dilengkapi padanan nama bulan dalam penanggalan Jawa Sultan Agungan (1959-1960 Jimawal/Je untuk 2026, 1960-1961 Je/Dal untuk 2027).
    - Kartu statistik ringkasan bulan: total hari, jumlah hari Minggu, hari libur nasional, dan distribusi kemunculan pasaran.
 
 2. **Tabel Responsif & Sticky Header**:
@@ -34,14 +35,14 @@ Aplikasi web Kalender Jawa Tahun 2026 yang modern, elegan, profesional, dan sang
 5. **Highlight Otomatis Hari Ini**:
    - Baris yang sesuai dengan tanggal hari ini otomatis diberi penanda khusus dengan aksen warna emas/kuning, badge `"HARI INI"`, dan border kiri tebal.
 
-6. **Pencarian Cepat Cerdas (Smart Quick Search)**:
+6. **Pencarian Cepat Cerdas Lintas Tahun (Smart Multi-Year Search)**:
    - Pengguna dapat mengetik di search bar:
      - Nama tanggal: `28 September`, `17 Agustus`, `25 Des`, `01/01`
      - Hitungan hari: `Senin ke-39`, `Kamis ke-1`
      - Pasaran / Weton: `Kamis Pon`, `Jumat Kliwon`, `Wage`, `Pahing`
      - Nilai neptu: `Neptu 15`, `Neptu 18`
-   - Menampilkan autocomplete suggestion secara instan.
-   - Mengklik hasil pencarian langsung memindahkan tampilan ke bulan terkait, men-scroll tepat ke baris tersebut, dan memberikan efek sorot (*flash pulsing animation*).
+   - Menampilkan autocomplete suggestion secara instan lintas tahun (2026 dan 2027).
+   - Mengklik hasil pencarian langsung memindahkan tampilan ke tahun dan bulan terkait, men-scroll tepat ke baris tersebut, dan memberikan efek sorot (*flash pulsing animation*).
 
 7. **Toggle Dark Mode & Light Mode**:
    - Tombol pengalih tema (ikon matahari & bulan) dengan deteksi preferensi sistem dan penyimpanan otomatis di `localStorage`.
@@ -65,11 +66,12 @@ Aplikasi web Kalender Jawa Tahun 2026 yang modern, elegan, profesional, dan sang
 ## 📂 Struktur Berkas Proyek
 
 ```text
-kalender-jawa-2026/
+k/
 ├── index.html              # Halaman web utama
 ├── style.css               # Gaya kustom, badge pasaran, animasi, dan layout cetak
-├── app.js                  # Logika aplikasi vanilla JS (render, search, tooltip, filter)
+├── app.js                  # Logika aplikasi multi-tahun vanilla JS (render, search, tooltip, filter)
 ├── data-kalender-2026.js   # Sumber data 365 hari tahun 2026
+├── data-kalender-2027.js   # Sumber data 365 hari tahun 2027
 └── README.md               # Dokumentasi & panduan
 ```
 
@@ -79,14 +81,14 @@ kalender-jawa-2026/
 
 Aplikasi ini sudah dirancang **sangat modular** agar Anda dapat langsung menempelkan data lengkap kalender milik Anda dengan mudah. Ada 2 cara:
 
-### Cara 1: Mengganti File `data-kalender-2026.js` (Rekomendasi untuk Developer)
-Buka berkas `data-kalender-2026.js` dan ganti isi array `window.KALENDER_2026_DATA = [ ... ];` dengan data milik Anda.
+### Cara 1: Mengganti File `data-kalender-2026.js` atau `data-kalender-2027.js` (Rekomendasi Developer)
+Buka berkas data terkait dan ganti isi array dengan data milik Anda.
 
 ### Cara 2: Melalui Tombol "Data" di Halaman Web (Tanpa Buka Kode)
 1. Buka `index.html` di browser Anda.
 2. Klik tombol **"Data"** di toolbar kanan atas.
 3. Tempelkan (*paste*) array JSON data Anda ke dalam kolom teks yang disediakan.
-4. Klik **"Terapkan & Simpan Data"**. Kalender akan langsung terbarui secara *real-time*!
+4. Klik **"Terapkan & Simpan Data"**. Kalender tahun tersebut akan langsung terbarui secara *real-time*!
 
 ### Format Objek Data JSON:
 ```json

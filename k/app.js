@@ -1,5 +1,5 @@
 /**
- * KALENDER JAWA 2026 - LOGIKA & INTERAKTIVITAS
+ * KALENDER JAWA MULTI-TAHUN (2026 - 2027) - LOGIKA & INTERAKTIVITAS
  * Vanilla JavaScript ES6+
  */
 
@@ -94,27 +94,44 @@ const NAMA_BULAN = [
   'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
 ];
 
-const NAMA_BULAN_JAWA_APPROX = [
-  'Rejeb - Ruwah 1959 Jimawal',
-  'Ruwah - Pasa 1959 Jimawal',
-  'Pasa - Sawal 1959 Jimawal',
-  'Sawal - Sela 1959 Jimawal',
-  'Sela - Besar 1959 Jimawal',
-  'Besar 1959 - Sura 1960 Je',
-  'Sura - Sapar 1960 Je',
-  'Sapar - Mulud 1960 Je',
-  'Mulud - Bakda Mulud 1960 Je',
-  'Bakda Mulud - Jumadilawal 1960 Je',
-  'Jumadilawal - Jumadilakhir 1960 Je',
-  'Jumadilakhir - Rejeb 1960 Je'
-];
+const NAMA_BULAN_JAWA = {
+  2026: [
+    'Rejeb - Ruwah 1959 Jimawal',
+    'Ruwah - Pasa 1959 Jimawal',
+    'Pasa - Sawal 1959 Jimawal',
+    'Sawal - Sela 1959 Jimawal',
+    'Sela - Besar 1959 Jimawal',
+    'Besar 1959 - Sura 1960 Je',
+    'Sura - Sapar 1960 Je',
+    'Sapar - Mulud 1960 Je',
+    'Mulud - Bakda Mulud 1960 Je',
+    'Bakda Mulud - Jumadilawal 1960 Je',
+    'Jumadilawal - Jumadilakhir 1960 Je',
+    'Jumadilakhir - Rejeb 1960 Je'
+  ],
+  2027: [
+    'Rejeb - Ruwah 1960 Je',
+    'Ruwah - Pasa 1960 Je',
+    'Pasa - Sawal 1960 Je',
+    'Sawal - Sela 1960 Je',
+    'Sela - Besar 1960 Je',
+    'Besar 1960 - Sura 1961 Dal',
+    'Sura - Sapar 1961 Dal',
+    'Sapar - Mulud 1961 Dal',
+    'Mulud - Bakda Mulud 1961 Dal',
+    'Bakda Mulud - Jumadilawal 1961 Dal',
+    'Jumadilawal - Jumadilakhir 1961 Dal',
+    'Jumadilakhir - Rejeb 1961 Dal'
+  ]
+};
 
 // =============================================================================
-// 2. STATE MANAGER APLIKASI
+// 2. STATE MANAGER APLIKASI MULTI-TAHUN
 // =============================================================================
 class CalendarApp {
   constructor() {
-    this.allData = [];
+    this.datasets = {};
+    this.currentYear = 2026;
     this.currentMonth = 1; // 1 = Januari s/d 12 = Desember
     this.selectedPasaranFilter = 'all';
     this.searchQuery = '';
@@ -127,13 +144,19 @@ class CalendarApp {
     this.bindDomElements();
     this.bindEvents();
     
-    // Tentukan bulan awal (jika saat ini tahun 2026, buka bulan saat ini)
+    // Tentukan tahun & bulan awal
     const today = new Date();
-    if (today.getFullYear() === 2026) {
+    const systemYear = today.getFullYear();
+    if (this.datasets[systemYear]) {
+      this.currentYear = systemYear;
       this.currentMonth = today.getMonth() + 1;
     } else {
-      this.currentMonth = 1; // Default ke Januari 2026
+      this.currentYear = 2026;
+      this.currentMonth = 1;
     }
+
+    if (this.elYearSelect) this.elYearSelect.value = String(this.currentYear);
+    if (this.elMonthSelect) this.elMonthSelect.value = String(this.currentMonth);
     
     this.renderMonthView();
   }
@@ -147,28 +170,43 @@ class CalendarApp {
   }
 
   initData() {
-    // Coba ambil dari localStorage jika user pernah impor data kustom
-    const customData = localStorage.getItem('kalender_2026_custom_data');
-    if (customData) {
-      try {
-        this.allData = JSON.parse(customData);
-        console.log('Memuat data kustom pengguna dari localStorage.');
-        return;
-      } catch (e) {
-        console.warn('Gagal membaca data kustom, beralih ke data bawaan.', e);
-      }
+    this.datasets = {};
+
+    // 1. Muat dataset 2026
+    if (window.KALENDER_2026_DATA && Array.isArray(window.KALENDER_2026_DATA)) {
+      this.datasets[2026] = window.KALENDER_2026_DATA;
+    } else {
+      this.datasets[2026] = this.generateFallbackData(2026);
     }
 
-    // Ambil dari window.KALENDER_2026_DATA (dari file data-kalender-2026.js)
-    if (window.KALENDER_2026_DATA && Array.isArray(window.KALENDER_2026_DATA)) {
-      this.allData = window.KALENDER_2026_DATA;
+    // 2. Muat dataset 2027
+    if (window.KALENDER_2027_DATA && Array.isArray(window.KALENDER_2027_DATA)) {
+      this.datasets[2027] = window.KALENDER_2027_DATA;
     } else {
-      // Fallback generator jika file data belum termuat
-      this.allData = this.generateFallbackData();
+      this.datasets[2027] = this.generateFallbackData(2027);
+    }
+
+    // 3. Cek apakah ada data kustom pengguna di localStorage
+    const customData = localStorage.getItem('kalender_custom_data');
+    if (customData) {
+      try {
+        const parsed = JSON.parse(customData);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const y = parsed[0].tahun || 2026;
+          this.datasets[y] = parsed;
+          console.log(`Memuat data kustom untuk tahun ${y} dari localStorage.`);
+        }
+      } catch (e) {
+        console.warn('Gagal membaca data kustom, menggunakan dataset bawaan.', e);
+      }
     }
   }
 
-  generateFallbackData() {
+  getActiveYearData() {
+    return this.datasets[this.currentYear] || this.datasets[2026] || [];
+  }
+
+  generateFallbackData(targetYear = 2026) {
     const pasarans = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
     const refDate = new Date(1945, 7, 17); // 17 Agustus 1945 = Jumat Legi
     const namaHari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -177,8 +215,8 @@ class CalendarApp {
     const dayCounts = { Minggu: 0, Senin: 0, Selasa: 0, Rabu: 0, Kamis: 0, Jumat: 0, Sabtu: 0 };
     
     const data = [];
-    const cur = new Date(2026, 0, 1);
-    const end = new Date(2026, 11, 31);
+    const cur = new Date(targetYear, 0, 1);
+    const end = new Date(targetYear, 11, 31);
     
     while (cur <= end) {
       const d = cur.getDate();
@@ -266,7 +304,9 @@ class CalendarApp {
   // 4. BINDING ELEMEN & EVENT LISTENER
   // ===========================================================================
   bindDomElements() {
+    this.elYearSelect = document.getElementById('year-select');
     this.elMonthSelect = document.getElementById('month-select');
+    this.elYearBadge = document.getElementById('year-badge');
     this.elMonthTitle = document.getElementById('month-title');
     this.elMonthSubTitle = document.getElementById('month-subtitle');
     this.elMonthPrintTitle = document.getElementById('print-month-title');
@@ -300,11 +340,14 @@ class CalendarApp {
   }
 
   bindEvents() {
-    // Navigasi Bulan
+    // Navigasi Bulan & Tahun
     this.elBtnPrev?.addEventListener('click', () => this.changeMonth(-1));
     this.elBtnNext?.addEventListener('click', () => this.changeMonth(1));
     this.elMonthSelect?.addEventListener('change', (e) => {
       this.setMonth(parseInt(e.target.value, 10));
+    });
+    this.elYearSelect?.addEventListener('change', (e) => {
+      this.setYear(parseInt(e.target.value, 10));
     });
     this.elBtnToday?.addEventListener('click', () => this.jumpToToday());
 
@@ -318,7 +361,7 @@ class CalendarApp {
     // Filter Pasaran (Tab pill)
     const filterPills = document.querySelectorAll('.filter-pasaran-btn');
     filterPills.forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const pasaran = btn.dataset.pasaran;
         this.setPasaranFilter(pasaran, btn);
       });
@@ -373,13 +416,34 @@ class CalendarApp {
   }
 
   // ===========================================================================
-  // 5. NAVIGASI BULAN
+  // 5. NAVIGASI BULAN & TAHUN
   // ===========================================================================
   changeMonth(delta) {
-    let target = this.currentMonth + delta;
-    if (target < 1) target = 12;
-    if (target > 12) target = 1;
-    this.setMonth(target);
+    let targetMonth = this.currentMonth + delta;
+    let targetYear = this.currentYear;
+
+    if (targetMonth > 12) {
+      if (this.datasets[targetYear + 1]) {
+        targetYear += 1;
+        targetMonth = 1;
+      } else {
+        targetMonth = 1;
+      }
+    } else if (targetMonth < 1) {
+      if (this.datasets[targetYear - 1]) {
+        targetYear -= 1;
+        targetMonth = 12;
+      } else {
+        targetMonth = 12;
+      }
+    }
+
+    this.currentYear = targetYear;
+    this.currentMonth = targetMonth;
+    if (this.elYearSelect) this.elYearSelect.value = String(this.currentYear);
+    if (this.elMonthSelect) this.elMonthSelect.value = String(this.currentMonth);
+
+    this.renderMonthView();
   }
 
   setMonth(monthNum, highlightTargetDate = null) {
@@ -394,25 +458,39 @@ class CalendarApp {
     this.renderMonthView(highlightTargetDate);
   }
 
+  setYear(yearNum) {
+    if (this.datasets[yearNum]) {
+      this.currentYear = yearNum;
+      if (this.elYearSelect) {
+        this.elYearSelect.value = String(yearNum);
+      }
+      this.renderMonthView();
+    }
+  }
+
   jumpToToday() {
     const today = new Date();
+    const todayYear = today.getFullYear();
     const todayMonth = today.getMonth() + 1;
     const todayDay = today.getDate();
     const todayIso = this.getTodayIso();
 
-    // Pindah ke bulan ini
-    this.setMonth(todayMonth, todayIso);
-
-    // Notifikasi feedback kecil jika bukan tahun 2026
-    if (today.getFullYear() !== 2026) {
-      this.showToastNotification(`Saat ini sistem melihat tanggal ${todayDay} ${NAMA_BULAN[todayMonth-1]}. Membuka ${NAMA_BULAN[todayMonth-1]} 2026.`);
+    if (this.datasets[todayYear]) {
+      this.currentYear = todayYear;
+      if (this.elYearSelect) this.elYearSelect.value = String(todayYear);
+      this.setMonth(todayMonth, todayIso);
+    } else {
+      // Default lompat ke bulan aktif di 2026
+      this.currentYear = 2026;
+      if (this.elYearSelect) this.elYearSelect.value = '2026';
+      this.setMonth(todayMonth, null);
+      this.showToastNotification(`Saat ini sistem melihat tanggal ${todayDay} ${NAMA_BULAN[todayMonth-1]}. Membuka kalender 2026.`);
     }
   }
 
   setPasaranFilter(pasaran, activeBtn) {
     this.selectedPasaranFilter = pasaran;
     
-    // Perbarui style tombol filter aktif
     const filterPills = document.querySelectorAll('.filter-pasaran-btn');
     filterPills.forEach(btn => {
       btn.classList.remove('bg-amber-600', 'text-white', 'shadow-sm');
@@ -432,22 +510,27 @@ class CalendarApp {
   // ===========================================================================
   renderMonthView(highlightDateIso = null) {
     const monthNum = this.currentMonth;
+    const yearNum = this.currentYear;
     const monthName = NAMA_BULAN[monthNum - 1];
-    const monthJawaName = NAMA_BULAN_JAWA_APPROX[monthNum - 1] || 'Tahun 1959-1960 Jawa';
+    const monthJawaName = (NAMA_BULAN_JAWA[yearNum] && NAMA_BULAN_JAWA[yearNum][monthNum - 1]) || 'Tahun Sultan Agungan';
 
     // Update Header Card
     if (this.elMonthTitle) {
-      this.elMonthTitle.textContent = `${monthName} 2026`;
+      this.elMonthTitle.textContent = `${monthName} ${yearNum}`;
+    }
+    if (this.elYearBadge) {
+      this.elYearBadge.textContent = `${yearNum} M`;
     }
     if (this.elMonthSubTitle) {
       this.elMonthSubTitle.textContent = `${monthJawaName} • Kalender Sultan Agung`;
     }
     if (this.elMonthPrintTitle) {
-      this.elMonthPrintTitle.textContent = `KALENDER JAWA TAHUN 2026 - BULAN ${monthName.toUpperCase()}`;
+      this.elMonthPrintTitle.textContent = `KALENDER JAWA TAHUN ${yearNum} - BULAN ${monthName.toUpperCase()}`;
     }
 
-    // Ambil data untuk bulan yang dipilih
-    let monthRows = this.allData.filter(d => d.bulan === monthNum);
+    // Ambil data untuk tahun & bulan yang dipilih
+    const activeData = this.getActiveYearData();
+    let monthRows = activeData.filter(d => d.bulan === monthNum && d.tahun === yearNum);
 
     // Hitung statistik bulan sebelum filter pasaran
     this.renderMonthStats(monthRows);
@@ -460,7 +543,7 @@ class CalendarApp {
     // Animasi transisi ganti bulan
     if (this.elCalendarCard) {
       this.elCalendarCard.classList.remove('animate-card-switch');
-      void this.elCalendarCard.offsetWidth; // trigger reflow
+      void this.elCalendarCard.offsetWidth;
       this.elCalendarCard.classList.add('animate-card-switch');
     }
 
@@ -490,9 +573,7 @@ class CalendarApp {
       const isTargetHighlight = highlightDateIso && item.tanggalIso === highlightDateIso;
       const pasaranMeta = PASARAN_METADATA[item.pasaran] || {};
       const neptuHariData = NEPTU_HARI_INFO[item.hari] || { neptu: item.neptuHari, hariJawa: '' };
-      const watakData = WATAK_TOTAL_NEPTU[item.totalNeptu] || { watak: 'Rahayu', arti: 'Keseimbangan' };
 
-      // Kelas Baris
       let rowClasses = [
         'transition-colors',
         'duration-150',
@@ -503,15 +584,9 @@ class CalendarApp {
         'dark:hover:bg-slate-800/60'
       ];
 
-      if (isToday) {
-        rowClasses.push('row-today');
-      }
+      if (isToday) rowClasses.push('row-today');
+      if (isTargetHighlight) rowClasses.push('row-highlight-search');
 
-      if (isTargetHighlight) {
-        rowClasses.push('row-highlight-search');
-      }
-
-      // Warna Teks Hari (Minggu agak merah halus)
       const dayColorClass = isSunday ? 'text-rose-600 dark:text-rose-400 font-semibold' : 'text-slate-800 dark:text-slate-200';
 
       return `
@@ -596,7 +671,6 @@ class CalendarApp {
 
     this.elTableBody.innerHTML = rowsHtml;
 
-    // Jika ada tanggal yang ditargetkan untuk scroll, lakukan auto scroll
     if (highlightDateIso) {
       setTimeout(() => {
         const targetRow = document.getElementById(`row-${highlightDateIso}`);
@@ -621,7 +695,6 @@ class CalendarApp {
     if (this.elStatSundays) this.elStatSundays.textContent = `${totalSundays} Hari`;
     if (this.elStatHolidays) this.elStatHolidays.textContent = `${holidays.length} Libur`;
 
-    // Hitung kemunculan masing-masing pasaran
     const pasaranCounts = { Legi: 0, Pahing: 0, Pon: 0, Wage: 0, Kliwon: 0 };
     monthData.forEach(d => {
       if (pasaranCounts[d.pasaran] !== undefined) {
@@ -645,7 +718,7 @@ class CalendarApp {
   }
 
   // ===========================================================================
-  // 8. PENCARIAN CEPAT (SMART QUICK SEARCH)
+  // 8. PENCARIAN CEPAT LINTAS TAHUN (SMART MULTI-YEAR SEARCH)
   // ===========================================================================
   handleSearchInput(query) {
     const trimmed = query.trim().toLowerCase();
@@ -656,29 +729,22 @@ class CalendarApp {
       return;
     }
 
-    // Filter tanggal yang cocok dengan kata kunci
-    const matches = this.allData.filter(item => {
-      // Pencarian format: "28 September", "28 Sep", "28/09"
+    // Gabungkan seluruh data tahun untuk pencarian lintas tahun
+    const allRecords = Object.values(this.datasets).flat();
+
+    const matches = allRecords.filter(item => {
       const matchTanggalBulan = `${item.tanggal} ${item.namaBulan}`.toLowerCase().includes(trimmed);
       const matchFormatted = item.tanggalFormatted.includes(trimmed);
       const matchIso = item.tanggalIso.includes(trimmed);
-      
-      // Pencarian format: "Senin ke-39", "Kamis", "Senin"
       const matchHitungan = item.hitungan.toLowerCase().includes(trimmed);
       const matchHari = item.hari.toLowerCase().includes(trimmed);
-      
-      // Pencarian pasaran / weton: "Pon", "Legi", "Kamis Pon", "Jumat Kliwon"
       const matchPasaran = item.pasaran.toLowerCase().includes(trimmed);
       const matchWeton = `${item.hari} ${item.pasaran}`.toLowerCase().includes(trimmed);
-      
-      // Pencarian total neptu: "neptu 15", "15"
       const matchNeptuText = `neptu ${item.totalNeptu}`.toLowerCase().includes(trimmed);
-      
-      // Keterangan hari libur
       const matchKet = item.keterangan.toLowerCase().includes(trimmed);
 
       return matchTanggalBulan || matchFormatted || matchIso || matchHitungan || matchHari || matchPasaran || matchWeton || matchNeptuText || matchKet;
-    }).slice(0, 8); // Tampilkan maksimal 8 hasil terbaik
+    }).slice(0, 8);
 
     this.renderSearchDropdown(matches);
   }
@@ -705,12 +771,15 @@ class CalendarApp {
       return `
         <button type="button" 
                 class="w-full px-4 py-2.5 text-left text-xs flex items-center justify-between hover:bg-amber-50 dark:hover:bg-slate-800 border-b border-slate-100 dark:border-slate-800/60 last:border-b-0 transition-colors"
+                data-jump-year="${item.tahun}"
                 data-jump-month="${item.bulan}" 
                 data-jump-iso="${item.tanggalIso}">
           <div class="flex items-center gap-2">
             <span class="font-bold text-slate-900 dark:text-slate-100 w-6 text-center">${item.tanggal}</span>
             <div class="flex flex-col">
-              <span class="font-semibold text-slate-800 dark:text-slate-200">${item.hari}, ${item.tanggal} ${item.namaBulan} 2026</span>
+              <span class="font-semibold text-slate-800 dark:text-slate-200">
+                ${item.hari}, ${item.tanggal} ${item.namaBulan} <span class="text-amber-600 dark:text-amber-400 font-bold">${item.tahun}</span>
+              </span>
               <span class="text-[10px] text-slate-400 dark:text-slate-500">${item.hitungan} • Total Neptu: ${item.totalNeptu}</span>
             </div>
           </div>
@@ -728,14 +797,13 @@ class CalendarApp {
         </div>
       `;
 
-      // Bind event klik pada item search
       const buttons = dd.querySelectorAll('button[data-jump-iso]');
       buttons.forEach(btn => {
         btn.addEventListener('click', () => {
+          const targetYear = parseInt(btn.dataset.jumpYear, 10);
           const targetMonth = parseInt(btn.dataset.jumpMonth, 10);
           const targetIso = btn.dataset.jumpIso;
           
-          // Reset filter agar baris yang dicari pasti terlihat
           this.selectedPasaranFilter = 'all';
           const filterAllBtn = document.querySelector('.filter-pasaran-btn[data-pasaran="all"]');
           if (filterAllBtn) {
@@ -748,6 +816,8 @@ class CalendarApp {
             filterAllBtn.classList.add('bg-amber-600', 'text-white', 'shadow-sm');
           }
 
+          this.currentYear = targetYear;
+          if (this.elYearSelect) this.elYearSelect.value = String(targetYear);
           this.setMonth(targetMonth, targetIso);
           this.closeSearchDropdown();
           if (this.elSearchInput) this.elSearchInput.value = '';
@@ -873,13 +943,11 @@ class CalendarApp {
     let left = rect.left + (rect.width / 2) - (tooltipWidth / 2);
     let top = rect.top - tooltipHeight - 12;
 
-    // Boundary check horizontal
     if (left < 10) left = 10;
     if (left + tooltipWidth > window.innerWidth - 10) {
       left = window.innerWidth - tooltipWidth - 10;
     }
 
-    // Boundary check vertical: jika tidak cukup tempat di atas, letakkan di bawah target
     if (top < 10) {
       top = rect.bottom + 12;
     }
@@ -895,7 +963,7 @@ class CalendarApp {
   printCalendar() {
     const monthName = NAMA_BULAN[this.currentMonth - 1];
     const prevTitle = document.title;
-    document.title = `Kalender-Jawa-2026-${monthName}`;
+    document.title = `Kalender-Jawa-${this.currentYear}-${monthName}`;
     window.print();
     setTimeout(() => {
       document.title = prevTitle;
@@ -908,9 +976,8 @@ class CalendarApp {
   openDataManagerModal() {
     if (!this.elModalData) return;
     if (this.elTextareaData) {
-      // Tampilkan data bulan saat ini sebagai referensi format ringkas
-      const sample = this.allData.slice(0, 3);
-      this.elTextareaData.value = JSON.stringify(this.allData, null, 2);
+      const activeData = this.getActiveYearData();
+      this.elTextareaData.value = JSON.stringify(activeData, null, 2);
     }
     this.elModalData.classList.remove('hidden');
     document.body.classList.add('overflow-hidden');
@@ -932,15 +999,18 @@ class CalendarApp {
         throw new Error('Data harus berupa array JSON objek yang berisi minimal 1 item.');
       }
 
-      // Validasi struktur kunci minimal
       const first = parsed[0];
       if (first.tanggal === undefined || !first.hari || !first.pasaran) {
         throw new Error('Setiap objek harus memiliki properti minimal: tanggal, hari, pasaran, neptuHari, neptuPasaran, totalNeptu.');
       }
 
-      this.allData = parsed;
-      localStorage.setItem('kalender_2026_custom_data', JSON.stringify(parsed));
-      this.showToastNotification('Data kalender berhasil diperbarui!');
+      const y = first.tahun || this.currentYear;
+      this.datasets[y] = parsed;
+      this.currentYear = y;
+      if (this.elYearSelect) this.elYearSelect.value = String(y);
+
+      localStorage.setItem('kalender_custom_data', JSON.stringify(parsed));
+      this.showToastNotification(`Data kalender tahun ${y} berhasil diperbarui!`);
       this.closeDataManagerModal();
       this.renderMonthView();
     } catch (err) {
@@ -949,14 +1019,10 @@ class CalendarApp {
   }
 
   resetToDefaultData() {
-    if (confirm('Apakah Anda yakin ingin menghapus data kustom dan kembali ke data bawaan kalender 2026?')) {
-      localStorage.removeItem('kalender_2026_custom_data');
-      if (window.KALENDER_2026_DATA) {
-        this.allData = window.KALENDER_2026_DATA;
-      } else {
-        this.allData = this.generateFallbackData();
-      }
-      this.showToastNotification('Data telah di-reset ke standar 2026.');
+    if (confirm('Apakah Anda yakin ingin menghapus data kustom dan kembali ke data bawaan kalender?')) {
+      localStorage.removeItem('kalender_custom_data');
+      this.initData();
+      this.showToastNotification('Data telah di-reset ke standar bawaan.');
       this.closeDataManagerModal();
       this.renderMonthView();
     }
