@@ -158,6 +158,9 @@ class CalendarApp {
     if (this.elYearSelect) this.elYearSelect.value = String(this.currentYear);
     if (this.elMonthSelect) this.elMonthSelect.value = String(this.currentMonth);
     
+    // Inisialisasi Jam Dunia Real-Time
+    this.initWorldClocks();
+
     this.renderMonthView();
   }
 
@@ -413,6 +416,65 @@ class CalendarApp {
         this.closeDataManagerModal();
       }
     });
+  }
+
+  // ===========================================================================
+  // 4b. JAM DUNIA REAL-TIME (JAKARTA, TOKYO, SYDNEY, LONDON, NEW YORK)
+  // ===========================================================================
+  initWorldClocks() {
+    const CITIES = [
+      { id: 'jakarta', timeZone: 'Asia/Jakarta' },
+      { id: 'tokyo', timeZone: 'Asia/Tokyo' },
+      { id: 'sydney', timeZone: 'Australia/Sydney' },
+      { id: 'london', timeZone: 'Europe/London' },
+      { id: 'newyork', timeZone: 'America/New_York' }
+    ];
+
+    const updateClocks = () => {
+      const now = new Date();
+
+      CITIES.forEach(city => {
+        try {
+          const timeFormatter = new Intl.DateTimeFormat('en-GB', {
+            timeZone: city.timeZone,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+          });
+
+          const dateFormatter = new Intl.DateTimeFormat('id-ID', {
+            timeZone: city.timeZone,
+            weekday: 'short',
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          });
+
+          const timeStr = timeFormatter.format(now);
+          const dateStr = dateFormatter.format(now);
+
+          const elTime = document.getElementById(`clock-time-${city.id}`);
+          const elDate = document.getElementById(`clock-date-${city.id}`);
+          const elIcon = document.getElementById(`clock-icon-${city.id}`);
+
+          if (elTime) elTime.textContent = timeStr;
+          if (elDate) elDate.textContent = dateStr;
+
+          if (elIcon) {
+            const hour = parseInt(timeStr.split(':')[0], 10);
+            const isDaytime = hour >= 6 && hour < 18;
+            elIcon.textContent = isDaytime ? '☀️' : '🌙';
+            elIcon.title = isDaytime ? 'Siang hari' : 'Malam hari';
+          }
+        } catch (e) {
+          console.warn(`Gagal memperbarui jam untuk ${city.id}`, e);
+        }
+      });
+    };
+
+    updateClocks();
+    setInterval(updateClocks, 1000);
   }
 
   // ===========================================================================

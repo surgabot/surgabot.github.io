@@ -195,6 +195,156 @@
        ========================================================================= -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
 
+    <!-- =========================================================================
+         WORLD CLOCK SECTION (JAKARTA, TOKYO, SYDNEY, LONDON, NEW YORK)
+         ========================================================================= -->
+    <section class="no-print mb-6">
+      <div class="flex items-center justify-between mb-3 px-1">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-amber-500/10 dark:bg-amber-400/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              Jam Dunia Real-Time
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                LIVE
+              </span>
+            </h3>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">
+              Waktu presisi internasional: Jakarta (WIB), Tokyo (JST), Sydney (AEST), London (GMT), New York (EST)
+            </p>
+          </div>
+        </div>
+        <div class="text-[11px] text-slate-400 dark:text-slate-500 font-inter hidden sm:block">
+          Sinkronisasi Setiap Detik
+        </div>
+      </div>
+
+      <!-- 5 World Clocks Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        
+        <!-- 1. JAKARTA -->
+        <div id="clock-card-jakarta" class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="flex items-center gap-1.5">
+              <span class="text-sm" title="Indonesia">🇮🇩</span>
+              <span class="font-bold text-xs text-slate-900 dark:text-white">Jakarta</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900 font-inter">
+              WIB • +7
+            </span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <div id="clock-time-jakarta" class="text-xl sm:text-2xl font-extrabold font-inter text-slate-900 dark:text-emerald-400 tracking-tight">
+              --:--:--
+            </div>
+            <span id="clock-icon-jakarta" class="text-xs">☀️</span>
+          </div>
+          <div id="clock-date-jakarta" class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5 truncate">
+            --
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-400 opacity-90"></div>
+        </div>
+
+        <!-- 2. TOKYO -->
+        <div id="clock-card-tokyo" class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="flex items-center gap-1.5">
+              <span class="text-sm" title="Jepang">🇯🇵</span>
+              <span class="font-bold text-xs text-slate-900 dark:text-white">Tokyo</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-rose-50 dark:bg-rose-950/50 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-900 font-inter">
+              JST • +9
+            </span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <div id="clock-time-tokyo" class="text-xl sm:text-2xl font-extrabold font-inter text-slate-900 dark:text-rose-400 tracking-tight">
+              --:--:--
+            </div>
+            <span id="clock-icon-tokyo" class="text-xs">☀️</span>
+          </div>
+          <div id="clock-date-tokyo" class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5 truncate">
+            --
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-500 to-red-400 opacity-90"></div>
+        </div>
+
+        <!-- 3. SYDNEY -->
+        <div id="clock-card-sydney" class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="flex items-center gap-1.5">
+              <span class="text-sm" title="Australia">🇦🇺</span>
+              <span class="font-bold text-xs text-slate-900 dark:text-white">Sydney</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-900 font-inter">
+              AEST • +10/11
+            </span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <div id="clock-time-sydney" class="text-xl sm:text-2xl font-extrabold font-inter text-slate-900 dark:text-sky-400 tracking-tight">
+              --:--:--
+            </div>
+            <span id="clock-icon-sydney" class="text-xs">☀️</span>
+          </div>
+          <div id="clock-date-sydney" class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5 truncate">
+            --
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-500 to-cyan-400 opacity-90"></div>
+        </div>
+
+        <!-- 4. LONDON -->
+        <div id="clock-card-london" class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="flex items-center gap-1.5">
+              <span class="text-sm" title="Inggris">🇬🇧</span>
+              <span class="font-bold text-xs text-slate-900 dark:text-white">London</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900 font-inter">
+              GMT • +0/1
+            </span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <div id="clock-time-london" class="text-xl sm:text-2xl font-extrabold font-inter text-slate-900 dark:text-indigo-400 tracking-tight">
+              --:--:--
+            </div>
+            <span id="clock-icon-london" class="text-xs">🌙</span>
+          </div>
+          <div id="clock-date-london" class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5 truncate">
+            --
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-violet-400 opacity-90"></div>
+        </div>
+
+        <!-- 5. NEW YORK -->
+        <div id="clock-card-newyork" class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="flex items-center gap-1.5">
+              <span class="text-sm" title="Amerika Serikat">🇺🇸</span>
+              <span class="font-bold text-xs text-slate-900 dark:text-white">New York</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900 font-inter">
+              EST • -5/4
+            </span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <div id="clock-time-newyork" class="text-xl sm:text-2xl font-extrabold font-inter text-slate-900 dark:text-amber-400 tracking-tight">
+              --:--:--
+            </div>
+            <span id="clock-icon-newyork" class="text-xs">🌙</span>
+          </div>
+          <div id="clock-date-newyork" class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5 truncate">
+            --
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-400 opacity-90"></div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- Card Kalender Utama -->
     <div id="calendar-main-card" class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xl overflow-hidden transition-all duration-300">
       
