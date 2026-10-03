@@ -1,0 +1,273 @@
+/* ==========================================================================
+   KALENDER JAWA 2026 - CUSTOM STYLESHEET
+   ========================================================================== */
+
+/* Typography */
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-inter {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(100, 116, 139, 0.08);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.28);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.45);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+/* Pasaran Color Badges */
+.badge-legi {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.dark .badge-legi {
+  background-color: rgba(6, 78, 59, 0.35);
+  color: #6ee7b7;
+  border-color: #047857;
+}
+
+.badge-pahing {
+  background-color: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+.dark .badge-pahing {
+  background-color: rgba(30, 58, 138, 0.35);
+  color: #93c5fd;
+  border-color: #1d4ed8;
+}
+
+.badge-pon {
+  background-color: #faf5ff;
+  color: #6b21a8;
+  border: 1px solid #e9d5ff;
+}
+.dark .badge-pon {
+  background-color: rgba(88, 28, 135, 0.35);
+  color: #d8b4fe;
+  border-color: #7e22ce;
+}
+
+.badge-wage {
+  background-color: #fff7ed;
+  color: #9a3412;
+  border: 1px solid #fed7aa;
+}
+.dark .badge-wage {
+  background-color: rgba(124, 45, 18, 0.35);
+  color: #fdba74;
+  border-color: #c2410c;
+}
+
+.badge-kliwon {
+  background-color: #fff1f2;
+  color: #9f1239;
+  border: 1px solid #fecdd3;
+}
+.dark .badge-kliwon {
+  background-color: rgba(136, 19, 55, 0.35);
+  color: #fda4af;
+  border-color: #be123c;
+}
+
+/* Animations */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-card-switch {
+  animation: fadeInSlide 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pulseTargetRow {
+  0% {
+    background-color: rgba(251, 191, 36, 0.45);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.6);
+  }
+  50% {
+    background-color: rgba(251, 191, 36, 0.25);
+    box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.3);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+.row-highlight-search {
+  animation: pulseTargetRow 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+}
+
+/* Today Row Glow */
+.row-today {
+  position: relative;
+  background-color: rgba(254, 243, 199, 0.55) !important;
+  border-left: 4px solid #d97706 !important;
+}
+
+.dark .row-today {
+  background-color: rgba(180, 83, 9, 0.18) !important;
+  border-left: 4px solid #f59e0b !important;
+}
+
+/* Floating Tooltip */
+#global-floating-tooltip {
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 9999;
+}
+
+/* Sticky Header Backdrop */
+.table-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+/* Batik Pattern Background (Subtle) */
+.bg-batik-pattern {
+  background-image: radial-gradient(rgba(217, 119, 6, 0.04) 1.5px, transparent 1.5px),
+                    radial-gradient(rgba(217, 119, 6, 0.04) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+.dark .bg-batik-pattern {
+  background-image: radial-gradient(rgba(245, 158, 11, 0.04) 1.5px, transparent 1.5px),
+                    radial-gradient(rgba(245, 158, 11, 0.04) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+/* ==========================================================================
+   PRINT STYLESHEET
+   ========================================================================== */
+@media print {
+  /* Hide interactive, navigation, and theme elements */
+  nav,
+  header,
+  .no-print,
+  #controls-toolbar,
+  #quick-search-box,
+  #month-nav-group,
+  #theme-toggle-btn,
+  #print-btn,
+  #data-modal-btn,
+  #filter-pasaran-group,
+  #global-floating-tooltip,
+  .btn-print,
+  footer {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt !important;
+    margin: 0 !important;
+    padding: 0.5cm !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  #calendar-main-card {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  #table-container {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 15px !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  thead th {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+    border: 1px solid #d1d5db !important;
+    padding: 6px 8px !important;
+    font-size: 9.5pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  tbody tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  tbody td {
+    border: 1px solid #e5e7eb !important;
+    padding: 5px 8px !important;
+    font-size: 9pt !important;
+  }
+
+  /* Keep badge background colors legible when printing */
+  .badge-legi, .badge-pahing, .badge-pon, .badge-wage, .badge-kliwon {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    border: 1px solid #999 !important;
+    padding: 2px 6px !important;
+    font-weight: 600 !important;
+  }
+
+  .row-today {
+    background-color: #fef3c7 !important;
+    border-left: 3px solid #d97706 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
